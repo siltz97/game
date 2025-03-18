@@ -7,6 +7,12 @@ public class Peasant extends NPC {
     public Peasant(int money) {
         super(money);
     }
+
+    @Override
+    public void action() {
+
+    }
+
     @Override
     public void speak() {
         System.out.println("Nice day for fishing, ain't it?");

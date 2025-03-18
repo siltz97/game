@@ -2,9 +2,16 @@ package my.fbk.npc.AllNPC;
 
 import my.fbk.npc.AbstractClass.NPC;
 
+
 public class Thief extends NPC {
-    Thief(int money) {
+
+    public Thief(int money) {
         super(money);
+    }
+
+    @Override
+    public void action() {
+
     }
 
     @Override

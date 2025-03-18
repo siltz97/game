@@ -1,10 +1,21 @@
 package my.fbk.npc.AllNPC;
 
 import my.fbk.npc.AbstractClass.NPC;
+import my.fbk.npc.myPlayer.Player;
+
 
 public class Guard extends NPC {
-    Guard(int money) {
+    Player player;
+
+
+    public Guard(int money) {
         super(money);
+    }
+
+    @Override
+    public void action() {
+
+
     }
 
     @Override
