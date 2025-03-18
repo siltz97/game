@@ -1,6 +1,6 @@
 package my.fbk.npc.AllNPC;
 
-import my.fbk.npc.AbstractClass.NPC;
+import my.fbk.npc.AbstractClass.AbstractNPC;
 import my.fbk.npc.inventory.Inventory;
 import my.fbk.npc.inventory.ItemList;
 
@@ -8,11 +8,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Merchant extends NPC implements Inventory {
+public class Merchant extends AbstractNPC implements Inventory {
     private List<ItemList> inventory;
 
-    public Merchant(int money) {
-        super(money);
+    public Merchant(int money, int health) {
+        super(money,health);
+
         inventory = new ArrayList<>();
         inventory.addAll(Arrays.asList(ItemList.values()));
     }
@@ -43,11 +44,11 @@ public class Merchant extends NPC implements Inventory {
     }
 
     @Override
-    public void buyItem(ItemList item, Merchant merchant) {
+    public void buyItem(ItemList item, AbstractNPC abstractNpc) {
     }
 
     @Override
-    public void sellItem(ItemList item, Merchant merchant) {
+    public void sellItem(ItemList item, AbstractNPC abstractNpc) {
     }
 
     public void addItem(ItemList item) {
@@ -57,6 +58,7 @@ public class Merchant extends NPC implements Inventory {
     public void removeItem(ItemList item) {
         inventory.remove(item);
     }
+
     @Override
     public void showInventory() {
         System.out.println("\nMerchant Inventory:");

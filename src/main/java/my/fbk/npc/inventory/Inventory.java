@@ -1,6 +1,6 @@
 package my.fbk.npc.inventory;
 
-import my.fbk.npc.AllNPC.Merchant;
+import my.fbk.npc.AbstractClass.AbstractNPC;
 
 import java.util.List;
 
@@ -9,10 +9,11 @@ public interface Inventory {
 
     void closeInventory();
 
-    void buyItem(ItemList item, Merchant merchant);
+    void buyItem(ItemList item, AbstractNPC abstractNpc);
 
-    void sellItem(ItemList item, Merchant merchant);
+    void sellItem(ItemList item, AbstractNPC abstractNpc);
 
     List<ItemList> getInventory();
     void showInventory();
 }
+
