@@ -11,15 +11,11 @@ import my.fbk.npc.Speak.SpeakBehavior;
 @Setter
 public class Peasant extends AbstractNPC {
 
-    public Peasant(int money,int health,int reputation) {
-        super(money,health,reputation);
+    public Peasant(int money,int health,int reputation,int mana) {
+        super(money,health,reputation,mana);
 
     }
 
-    @Override
-    public void action() {
-
-    }
 
     @Override
     public void speak() {

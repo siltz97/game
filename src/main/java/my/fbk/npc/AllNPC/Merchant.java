@@ -18,17 +18,13 @@ import java.util.Arrays;
 public class Merchant extends AbstractNPC {
     NewInventory list = new NewInventory();
 
-    public Merchant(int money, int health,int reputation) {
-        super(money,health,reputation);
+    public Merchant(int money,int health,int reputation,int mana) {
+        super(money,health,reputation,mana);
 
 
         list.addAll(Arrays.asList(ItemList.values()));
     }
 
-    @Override
-    public void action() {
-
-    }
 
     @Override
     public void speak() {

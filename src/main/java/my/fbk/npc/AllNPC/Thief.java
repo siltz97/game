@@ -13,15 +13,10 @@ import my.fbk.npc.myPlayer.Player;
 @Setter
 public class Thief extends AbstractNPC {
 
-    public Thief(int money,int health,int reputation) {
-        super(money,health,reputation);
-    }
-
-    @Override
-    public void action() {
+    public Thief(int money,int health,int reputation,int mana) {
+        super(money, health, reputation, mana);
 
     }
-
     @Override
     public void speak() {
         think();

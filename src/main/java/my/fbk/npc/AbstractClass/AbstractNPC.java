@@ -11,19 +11,16 @@ import my.fbk.npc.Speak.SpeakBehavior;
 @Setter
 public abstract class AbstractNPC extends AbstractCharacter {
     protected SpeakBehavior behavior;
-    private int money;
-    private int health;
     private int reputation;
 
 
-    public AbstractNPC(int money, int health,int reputation) {
-        super(money,health);
+
+    public AbstractNPC(int money, int health,int reputation,int mana) {
+        super(money,health,mana);
         this.reputation = reputation;
         behavior = new NeutralSpeak();
 
     }
-    @Override
-    public abstract void action();
 
     @Override
     public abstract void speak();

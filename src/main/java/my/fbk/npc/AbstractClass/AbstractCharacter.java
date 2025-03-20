@@ -9,14 +9,15 @@ import lombok.Setter;
 public abstract class AbstractCharacter {
     private int money;
     private int health;
+    private int mana;
 
 
-    public AbstractCharacter(int money, int health) {
+    public AbstractCharacter(int money, int health,int mana) {
         this.money = money;
         this.health = health;
+        this.mana = mana;
     }
 
-    public abstract void action();
 
     public abstract void speak();
 

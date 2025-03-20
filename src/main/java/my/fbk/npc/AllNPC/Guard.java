@@ -11,17 +11,12 @@ import my.fbk.npc.myPlayer.Player;
 public class Guard extends AbstractNPC {
 
 
-    public Guard(int money,int health,int reputation) {
-        super(money,health,reputation);
+    public Guard(int money,int health,int reputation,int mana) {
+        super(money,health,reputation,mana);
 
 
     }
 
-    @Override
-    public void action() {
-
-
-    }
 
     @Override
     public void speak() {

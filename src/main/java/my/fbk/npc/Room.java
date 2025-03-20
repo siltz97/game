@@ -17,11 +17,11 @@ public class Room {
     final Scanner scan = new Scanner(System.in);
 
 
-    AbstractNPC guard = new Guard(rand.nextInt(20), 1000,30);
-    AbstractNPC peasant = new Peasant(rand.nextInt(10), 10,10);
-    AbstractNPC merchant = new Merchant(rand.nextInt(99999), 50,10);
-    AbstractNPC thief = new Thief(rand.nextInt(1), 100,100);
-    Player player = new Player(rand.nextInt(100), 300);
+    AbstractNPC guard = new Guard(rand.nextInt(20), 1000,30,100);
+    AbstractNPC peasant = new Peasant(rand.nextInt(10), 10,10,100);
+    AbstractNPC merchant = new Merchant(rand.nextInt(99999), 50,10,100);
+    AbstractNPC thief = new Thief(rand.nextInt(1), 100,100,100);
+    Player player = new Player(rand.nextInt(100), 300,100);
 
 
     public void Play() {
@@ -32,58 +32,35 @@ public class Room {
             switch (choice) {
 //peasant
                 case "peasant":
-                    System.out.print("Player: ");
-                    player.speak();
-                    System.out.print("Peasant: ");
-                    peasant.speak();
+                    System.out.print("Player: ");   player.speak();
+                    System.out.print("Peasant: ");  peasant.speak();
                     break;
 //guard
                 case "thief":
-                    System.out.print("Player: ");
-                    player.speak();
-                    System.out.print("Thief: ");
-                    thief.speak();
+                    System.out.print("Player: ");  player.speak();
+                    System.out.print("Thief: ");   thief.speak();
                     break;
 
                 case "guard":
                     BucketEffect.applyBucket(player, guard);
-                    System.out.print("Player: ");
-                    player.speak();
-                    System.out.print("Guard: ");
-                    guard.speak();
+                    System.out.print("Player: ");  player.speak();
+                    System.out.print("Guard: ");  guard.speak();
+
 
                     break;
 //merchant
                 case "merchant":
-                    System.out.print("Player: ");
-                    player.speak();
-                    System.out.print("Merchant: ");
-                    merchant.speak();
+                    System.out.print("Player: ");   player.speak();
+                    System.out.print("Merchant: ");  merchant.speak();
                     System.out.println("Merchant interaction: Type 'open' to open inventory, 'close' to close, 'back' to choose another character or 'buy'/'sell'");
                     /*inventory*/
                     while (true) {
                         String s = scan.nextLine().toLowerCase();
                         if (s.equals("open")) {
-                            System.out.println("Which inventory you want to open?");
-                            System.out.println("1: Player; 2:Merchant; 3:Both");
-                            String open = scan.nextLine();
-                            switch (open) {
-                                case "1":
-                                    player.openInventory();
-                                    player.showInventory();
-                                    break;
-                                case "2":
-                                    ((Merchant) merchant).openInventory();
-                                    ((Merchant) merchant).showInventory();
-                                    break;
-                                case "3":
                                     player.openInventory();
                                     player.showInventory();
                                     ((Merchant) merchant).openInventory();
                                     ((Merchant) merchant).showInventory();
-                                    break;
-                            }
-
                         } else if (s.equals("close")) {
                             player.closeInventory();
                             ((Merchant) merchant).closeInventory();

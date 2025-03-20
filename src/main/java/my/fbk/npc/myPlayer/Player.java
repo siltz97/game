@@ -15,8 +15,8 @@ public class Player extends AbstractPlayer  {
 
     private final Random rand = new Random();
 
-    public Player(int money, int health) {
-        super(money, health);
+    public Player(int money, int health,int mana) {
+        super(money, health, mana);
         ItemList[] itemArray = ItemList.values();
         for (int i = 0; i < 5; i++) {
             list.addItem(itemArray[rand.nextInt(itemArray.length)]);
