@@ -2,44 +2,35 @@ package my.fbk.npc.inventory;
 
 
 import lombok.Getter;
-
+import lombok.Setter;
+@SuppressWarnings("NonFinalFieldInEnum")
+@Getter
 public enum ItemList {
-    HEALTH_POTION("Restores health", 50, " healthpotion "),
-    MANA_FLASK("Restores mana", 60, " healthpotion "),
-    IRON_SWORD("A basic but reliable sword", 200, " healthpotion "),
-    WOODEN_SHIELD("A simple wooden shield", 150, " healthpotion "),
-    FIRE_SCROLL("A magic scroll that casts fire", 300, " healthpotion "),
-    LEATHER_BOOTS("Light boots for better movement", 100, " healthpotion "),
-    SILVER_RING("A ring with minor magical properties", 250, " healthpotion "),
-    MAGIC_WAND("A small wand for casting spells", 400, " healthpotion "),
-    TORCH("Lights up dark places", 20, " healthpotion "),
-    BUCKET_OF_INVISIBILITY("it's just a bucket. What did you expect?", 1, " healthpotion "),
-    DOVAKIN_VOICE("FUS RO DAH!!!", 9999, " healthpotion ");
+    HEALTH_POTION("Restores health", 50, 1,""),
+    MANA_FLASK("Restores mana", 60,1, ""),
+    IRON_SWORD("A basic but reliable sword", 200,1, ""),
+    WOODEN_SHIELD("A simple wooden shield", 150,1, ""),
+    FIRE_SCROLL("A magic scroll that casts fire", 300,1, ""),
+    LEATHER_BOOTS("Light boots for better movement", 100,1, ""),
+    SILVER_RING("A ring with minor magical properties", 250,1, ""),
+    MAGIC_WAND("A small wand for casting spells", 400,1, ""),
+    TORCH("Lights up dark places", 20,1, ""),
+    BUCKET_OF_INVISIBILITY("it's just a bucket. What did you expect?", 1,1, ""),
+    DOVAKIN_VOICE("FUS RO DAH!!!", 9999,1, "");
 
     private final String description;
     private final int price;
-    @Getter
+    @Setter
     private String name;
+    @Setter
+    private int durability;
 
-    public void setName(String name){
-        this.name = name;
-    }
-
-
-    ItemList(String description, int price, String name) {
+    ItemList(String description, int price,int durability, String name ) {
         this.description = description;
         this.price = price;
+        this.durability = durability;
         this.name = name;
 
     }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
 
 }
