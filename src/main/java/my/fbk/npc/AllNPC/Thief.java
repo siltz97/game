@@ -1,14 +1,20 @@
 package my.fbk.npc.AllNPC;
 
+import lombok.Getter;
+import lombok.Setter;
 import my.fbk.npc.AbstractClass.AbstractNPC;
+import my.fbk.npc.Speak.AggressiveSpeak;
+import my.fbk.npc.Speak.FriendlySpeak;
+import my.fbk.npc.Speak.NeutralSpeak;
+import my.fbk.npc.Speak.SpeakBehavior;
 import my.fbk.npc.myPlayer.Player;
 
-
+@Getter
+@Setter
 public class Thief extends AbstractNPC {
-    Player player;
 
-    public Thief(int money,int health) {
-        super(money,health);
+    public Thief(int money,int health,int reputation) {
+        super(money,health,reputation);
     }
 
     @Override
@@ -18,10 +24,8 @@ public class Thief extends AbstractNPC {
 
     @Override
     public void speak() {
-//        if (player.useItem())
-//            System.out.println("Get out!");
-//        else
-            System.out.println("(-_-)");
+        think();
+        behavior.speak(this);
 
     }
 }

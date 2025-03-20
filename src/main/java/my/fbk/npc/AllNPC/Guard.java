@@ -1,15 +1,19 @@
 package my.fbk.npc.AllNPC;
 
 import my.fbk.npc.AbstractClass.AbstractNPC;
+import my.fbk.npc.Speak.AggressiveSpeak;
+import my.fbk.npc.Speak.FriendlySpeak;
+import my.fbk.npc.Speak.NeutralSpeak;
+import my.fbk.npc.Speak.SpeakBehavior;
 import my.fbk.npc.myPlayer.Player;
 
 
 public class Guard extends AbstractNPC {
 
 
+    public Guard(int money,int health,int reputation) {
+        super(money,health,reputation);
 
-    public Guard(int money,int health) {
-        super(money,health);
 
     }
 
@@ -21,6 +25,7 @@ public class Guard extends AbstractNPC {
 
     @Override
     public void speak() {
-            System.out.println("For the peace in the Kingdom! For the Country!");
+        think();
+        behavior.speak(this);
     }
 }

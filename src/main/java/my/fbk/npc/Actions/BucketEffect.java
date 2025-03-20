@@ -7,11 +7,7 @@ import my.fbk.npc.myPlayer.Player;
 
 public class BucketEffect {
     public static void applyBucket(Player player, AbstractNPC npc) {
-        if (npc instanceof Guard) {
-            System.out.println("something else");
-        } else if (npc instanceof Thief) {
-            System.out.println("something else thief");
-        }
+
     }
 }
 

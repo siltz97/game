@@ -7,7 +7,6 @@ import my.fbk.npc.AllNPC.Merchant;
 import my.fbk.npc.AllNPC.Peasant;
 import my.fbk.npc.AllNPC.Thief;
 import my.fbk.npc.inventory.ItemList;
-import my.fbk.npc.inventory.NewInventory;
 import my.fbk.npc.myPlayer.Player;
 
 import java.util.Random;
@@ -18,10 +17,10 @@ public class Room {
     final Scanner scan = new Scanner(System.in);
 
 
-    AbstractNPC guard = new Guard(rand.nextInt(20), 1000);
-    AbstractNPC peasant = new Peasant(rand.nextInt(10), 10);
-    AbstractNPC merchant = new Merchant(rand.nextInt(99999), 50);
-    AbstractNPC thief = new Thief(rand.nextInt(1), 100);
+    AbstractNPC guard = new Guard(rand.nextInt(20), 1000,30);
+    AbstractNPC peasant = new Peasant(rand.nextInt(10), 10,10);
+    AbstractNPC merchant = new Merchant(rand.nextInt(99999), 50,10);
+    AbstractNPC thief = new Thief(rand.nextInt(1), 100,100);
     Player player = new Player(rand.nextInt(100), 300);
 
 
@@ -39,6 +38,13 @@ public class Room {
                     peasant.speak();
                     break;
 //guard
+                case "thief":
+                    System.out.print("Player: ");
+                    player.speak();
+                    System.out.print("Thief: ");
+                    thief.speak();
+                    break;
+
                 case "guard":
                     BucketEffect.applyBucket(player, guard);
                     System.out.print("Player: ");
@@ -54,7 +60,7 @@ public class Room {
                     System.out.print("Merchant: ");
                     merchant.speak();
                     System.out.println("Merchant interaction: Type 'open' to open inventory, 'close' to close, 'back' to choose another character or 'buy'/'sell'");
-/*inventory*/
+                    /*inventory*/
                     while (true) {
                         String s = scan.nextLine().toLowerCase();
                         if (s.equals("open")) {
@@ -93,9 +99,9 @@ public class Room {
                                     break;
                                 }
                                 try {
-                                    ItemList item = ItemList.valueOf(itemName); // Assuming ItemList has a method to get item by name
+                                    ItemList item = ItemList.valueOf(itemName);// Assuming ItemList has a method to get item by name
                                     if (player.getMoney() >= item.getPrice()) {
-                                        player.buyItem(item,merchant);
+                                        player.buyItem(item, merchant);
                                         player.setMoney(player.getMoney() - item.getPrice());
                                         merchant.setMoney(merchant.getMoney() + item.getPrice());
                                         player.seeMoney();
@@ -108,7 +114,7 @@ public class Room {
                                 }
                             }
                         }
-/*sell*/
+                        /*sell*/
                         else if (s.equals("sell")) {
                             try {
                                 player.showInventory();
@@ -119,15 +125,14 @@ public class Room {
                                 }
                                 ItemList item = ItemList.valueOf(itemName);
                                 if (merchant.getMoney() >= item.getPrice()) {
-                                    player.sellItem(item,merchant);
+                                    player.sellItem(item, merchant);
                                     player.setMoney(player.getMoney() + item.getPrice());
                                     merchant.setMoney(merchant.getMoney() - item.getPrice());
                                     player.seeMoney();
                                 } else {
                                     System.out.println("Not enough money.");
                                 }
-                            }
-                            catch (IllegalArgumentException e) {
+                            } catch (IllegalArgumentException e) {
                                 System.out.println("Invalid item. Retry");
                             }
                         } else if (s.equals("back")) {
@@ -136,12 +141,6 @@ public class Room {
                     }
                     break;
 //thief
-                case "thief":
-                    System.out.print("Player: ");
-                    player.speak();
-                    System.out.print("Thief: ");
-                    thief.speak();
-                    break;
                 case "exit":
                     System.out.println("Exiting game...");
                     scan.close();
