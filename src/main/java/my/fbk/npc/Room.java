@@ -1,11 +1,13 @@
 package my.fbk.npc;
 
 import my.fbk.npc.AbstractClass.AbstractNPC;
+import my.fbk.npc.Actions.BucketEffect;
 import my.fbk.npc.AllNPC.Guard;
 import my.fbk.npc.AllNPC.Merchant;
 import my.fbk.npc.AllNPC.Peasant;
 import my.fbk.npc.AllNPC.Thief;
 import my.fbk.npc.inventory.ItemList;
+import my.fbk.npc.inventory.NewInventory;
 import my.fbk.npc.myPlayer.Player;
 
 import java.util.Random;
@@ -15,6 +17,7 @@ public class Room {
     final Random rand = new Random();
     final Scanner scan = new Scanner(System.in);
 
+
     AbstractNPC guard = new Guard(rand.nextInt(20), 1000);
     AbstractNPC peasant = new Peasant(rand.nextInt(10), 10);
     AbstractNPC merchant = new Merchant(rand.nextInt(99999), 50);
@@ -22,7 +25,8 @@ public class Room {
     Player player = new Player(rand.nextInt(100), 300);
 
 
-    public void interact() {
+    public void Play() {
+
         System.out.println("Choose a character to interact with: peasant, guard, merchant,thief or type 'exit' to quit.");
         while (true) {
             String choice = scan.nextLine().toLowerCase();
@@ -36,6 +40,7 @@ public class Room {
                     break;
 //guard
                 case "guard":
+                    BucketEffect.applyBucket(player, guard);
                     System.out.print("Player: ");
                     player.speak();
                     System.out.print("Guard: ");
@@ -87,14 +92,13 @@ public class Room {
                                 if (itemName.equals("BACK")) {
                                     break;
                                 }
-/*sell*/
                                 try {
                                     ItemList item = ItemList.valueOf(itemName); // Assuming ItemList has a method to get item by name
                                     if (player.getMoney() >= item.getPrice()) {
-                                        player.buyItem(item, merchant);
+                                        player.buyItem(item,merchant);
                                         player.setMoney(player.getMoney() - item.getPrice());
                                         merchant.setMoney(merchant.getMoney() + item.getPrice());
-                                        System.out.println("Player has: " + player.getMoney() + "$");
+                                        player.seeMoney();
                                     } else {
                                         System.out.println("Not enough money.");
                                     }
@@ -104,7 +108,7 @@ public class Room {
                                 }
                             }
                         }
-
+/*sell*/
                         else if (s.equals("sell")) {
                             try {
                                 player.showInventory();
@@ -114,13 +118,13 @@ public class Room {
                                     continue;
                                 }
                                 ItemList item = ItemList.valueOf(itemName);
-                                if (item != null && merchant.getMoney() >= item.getPrice()) {
-                                    player.sellItem(item, merchant);
+                                if (merchant.getMoney() >= item.getPrice()) {
+                                    player.sellItem(item,merchant);
                                     player.setMoney(player.getMoney() + item.getPrice());
                                     merchant.setMoney(merchant.getMoney() - item.getPrice());
-                                    System.out.println("Now player has: " + player.getMoney() + " money");
+                                    player.seeMoney();
                                 } else {
-                                    System.out.println("Invalid item or non enough money.");
+                                    System.out.println("Not enough money.");
                                 }
                             }
                             catch (IllegalArgumentException e) {
@@ -151,7 +155,7 @@ public class Room {
 
     public static void main(String[] args) {
         Room r = new Room();
-        r.interact();
+        r.Play();
     }
 
 }

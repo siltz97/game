@@ -5,7 +5,7 @@ import my.fbk.npc.myPlayer.Player;
 
 
 public class Guard extends AbstractNPC {
-    Player player;
+
 
 
     public Guard(int money,int health) {
@@ -21,9 +21,6 @@ public class Guard extends AbstractNPC {
 
     @Override
     public void speak() {
-        if (player.hasEffect(null))
-            System.out.print("What happened!? Must have been the wind");
-        else
             System.out.println("For the peace in the Kingdom! For the Country!");
     }
 }

@@ -1,19 +1,25 @@
 package my.fbk.npc.inventory;
 
+import my.fbk.npc.AbstractClass.AbstractCharacter;
 import my.fbk.npc.AbstractClass.AbstractNPC;
+import my.fbk.npc.myPlayer.Player;
 
 import java.util.List;
 
 public interface Inventory {
-    void openInventory();
 
-    void closeInventory();
+    void addItem(ItemList item);
 
-    void buyItem(ItemList item, AbstractNPC abstractNpc);
+    void removeItem(ItemList item);
 
-    void sellItem(ItemList item, AbstractNPC abstractNpc);
+    void openInventory(AbstractCharacter character);
 
-    List<ItemList> getInventory();
+    void closeInventory(AbstractCharacter character);
+
+    void buyItem(ItemList item, AbstractNPC abstractNpc, Player player);
+
+    void sellItem(ItemList item, AbstractNPC abstractNpc, Player player);
+
     void showInventory();
 }
 

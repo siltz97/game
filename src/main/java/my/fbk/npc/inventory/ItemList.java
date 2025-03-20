@@ -12,7 +12,7 @@ public enum ItemList {
     MAGIC_WAND("A small wand for casting spells", 400),
     TORCH("Lights up dark places", 20),
     BUCKET_OF_INVISIBILITY("it's just a bucket. What did you expect?", 1),
-    DOVAHKIN_VOICE("FUS RO DAH!!!", 9999);
+    DOVAKIN_VOICE("FUS RO DAH!!!", 9999);
 
     private final String description;
     private final int price;
