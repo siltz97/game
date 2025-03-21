@@ -15,7 +15,7 @@ public enum ItemList {
     SILVER_RING("A ring with minor magical properties", 250,1, ""),
     MAGIC_WAND("A small wand for casting spells", 400,1, ""),
     TORCH("Lights up dark places", 20,1, ""),
-    BUCKET_OF_INVISIBILITY("it's just a bucket. What did you expect?", 1,1, ""),
+    BUCKET("it's just a bucket. What did you expect?", 1,1, ""),
     DOVAKIN_VOICE("FUS RO DAH!!!", 9999,1, "");
 
     private final String description;

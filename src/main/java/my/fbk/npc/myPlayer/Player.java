@@ -2,17 +2,18 @@ package my.fbk.npc.myPlayer;
 
 import my.fbk.npc.AbstractClass.AbstractNPC;
 import my.fbk.npc.AbstractClass.AbstractPlayer;
-import my.fbk.npc.AllNPC.Merchant;
+import my.fbk.npc.Actions.Effect;
 import my.fbk.npc.inventory.Inventory;
 import my.fbk.npc.inventory.NewInventory;
 import my.fbk.npc.inventory.ItemList;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Player extends AbstractPlayer  {
 
     private final NewInventory list = new NewInventory();
-
     private final Random rand = new Random();
 
     public Player(int money, int health,int mana) {
@@ -36,21 +37,22 @@ public class Player extends AbstractPlayer  {
         list.closeInventory(this);
     }
 
-    @Override
-    public void speak() {
-        System.out.println("Hi");
-    }
-
-
     public void showInventory() {
-      list.showInventory();
+        list.showInventory();
     }
 
     public Inventory getInventory() {
         return list;
     }
 
+    @Override
+    public void speak() {
+        System.out.println("Hi");
+    }
+
+
     public void seeMoney(){
+        //noinspection StringTemplateMigration
         System.out.println("Player has: " + getMoney() + "$");
 
     }

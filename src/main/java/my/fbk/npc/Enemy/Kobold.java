@@ -10,6 +10,6 @@ public class Kobold extends AbstractEnemy {
 
     @Override
     public int attack(int damage) {
-        return 0;
+        return damage;
     }
 }

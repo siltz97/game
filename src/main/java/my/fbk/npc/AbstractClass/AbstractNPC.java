@@ -2,15 +2,16 @@ package my.fbk.npc.AbstractClass;
 
 import lombok.Getter;
 import lombok.Setter;
-import my.fbk.npc.Speak.AggressiveSpeak;
-import my.fbk.npc.Speak.FriendlySpeak;
-import my.fbk.npc.Speak.NeutralSpeak;
-import my.fbk.npc.Speak.SpeakBehavior;
+import my.fbk.npc.Actions.Effect;
+import my.fbk.npc.Actions.InvisibilityEffect;
+import my.fbk.npc.Speak.*;
+
 
 @Getter
 @Setter
 public abstract class AbstractNPC extends AbstractCharacter {
     protected SpeakBehavior behavior;
+    protected Effect effect;
     private int reputation;
 
 
@@ -25,12 +26,16 @@ public abstract class AbstractNPC extends AbstractCharacter {
     @Override
     public abstract void speak();
     public void think(){
-        if(getReputation()>80){
-            setBehavior(new FriendlySpeak());
-        }else if(getReputation()>50 && getReputation()<80){
-            setBehavior(new NeutralSpeak());
-        }else if(getReputation()<50){
-            setBehavior(new AggressiveSpeak());
+        if(effect instanceof InvisibilityEffect){
+            setBehavior(new SilentSpeak());
+        }else {
+            if (getReputation() > 80) {
+                setBehavior(new FriendlySpeak());
+            } else if (getReputation() > 50 && getReputation() < 80) {
+                setBehavior(new NeutralSpeak());
+            } else if (getReputation() < 50) {
+                setBehavior(new AggressiveSpeak());
+            }
         }
     }
 

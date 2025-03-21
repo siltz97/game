@@ -10,6 +10,6 @@ public class Skeleton extends AbstractEnemy {
 
     @Override
     public int attack(int damage) {
-        return 0;
+        return damage;
     }
 }
