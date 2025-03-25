@@ -1,14 +1,10 @@
 package my.fbk.npc.myPlayer;
 
-import my.fbk.npc.AbstractClass.AbstractNPC;
-import my.fbk.npc.AbstractClass.AbstractPlayer;
-import my.fbk.npc.Actions.Effect;
+import my.fbk.npc.AllNPC.AbstractNPC;
 import my.fbk.npc.inventory.Inventory;
 import my.fbk.npc.inventory.NewInventory;
 import my.fbk.npc.inventory.ItemList;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public class Player extends AbstractPlayer  {

@@ -1,13 +1,24 @@
 package my.fbk.npc.Actions;
 
-import my.fbk.npc.AbstractClass.AbstractNPC;
-import my.fbk.npc.Speak.SilentSpeak;
+import lombok.Getter;
+import lombok.Setter;
+import my.fbk.npc.AllNPC.AbstractNPC;
 
-public class InvisibilityEffect implements Effect {
+@Getter
+@Setter
+public class InvisibilityEffect implements Effects {
 
     @Override
     public void applyEffect(AbstractNPC npc) {
-        npc.setBehavior(new SilentSpeak());
+        npc.setEffects(this);
+    }
 
+    @Override
+    public void removeEffect(AbstractNPC npc) {
+        npc.setEffects(null);
+    }
+    @Override
+    public boolean hasEffect(AbstractNPC npc) {
+        return npc.getEffects() != null;
     }
 }

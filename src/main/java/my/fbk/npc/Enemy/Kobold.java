@@ -1,7 +1,5 @@
 package my.fbk.npc.Enemy;
 
-import my.fbk.npc.AbstractClass.AbstractEnemy;
-
 public class Kobold extends AbstractEnemy {
 
     public Kobold(int experience, int health, int mana, int damage) {

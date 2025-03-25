@@ -1,7 +1,5 @@
 package my.fbk.npc.Enemy;
 
-import my.fbk.npc.AbstractClass.AbstractEnemy;
-
 public class Zombie extends AbstractEnemy {
 
     public Zombie(int experience, int health, int mana, int damage) {

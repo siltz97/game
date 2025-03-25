@@ -1,8 +1,9 @@
-package my.fbk.npc.AbstractClass;
+package my.fbk.npc.AllNPC;
 
 import lombok.Getter;
 import lombok.Setter;
-import my.fbk.npc.Actions.Effect;
+import my.fbk.npc.AbstractClass.AbstractCharacter;
+import my.fbk.npc.Actions.Effects;
 import my.fbk.npc.Actions.InvisibilityEffect;
 import my.fbk.npc.Speak.*;
 
@@ -11,7 +12,7 @@ import my.fbk.npc.Speak.*;
 @Setter
 public abstract class AbstractNPC extends AbstractCharacter {
     protected SpeakBehavior behavior;
-    protected Effect effect;
+    protected Effects effects;
     private int reputation;
 
 
@@ -26,7 +27,7 @@ public abstract class AbstractNPC extends AbstractCharacter {
     @Override
     public abstract void speak();
     public void think(){
-        if(effect instanceof InvisibilityEffect){
+        if(effects != null && effects instanceof InvisibilityEffect){
             setBehavior(new SilentSpeak());
         }else {
             if (getReputation() > 80) {

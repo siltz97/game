@@ -1,6 +1,6 @@
 package my.fbk.npc.Speak;
 
-import my.fbk.npc.AbstractClass.AbstractNPC;
+import my.fbk.npc.AllNPC.AbstractNPC;
 import my.fbk.npc.AllNPC.Guard;
 import my.fbk.npc.AllNPC.Merchant;
 import my.fbk.npc.AllNPC.Peasant;

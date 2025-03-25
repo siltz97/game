@@ -1,4 +1,6 @@
-package my.fbk.npc.AbstractClass;
+package my.fbk.npc.myPlayer;
+
+import my.fbk.npc.AbstractClass.AbstractCharacter;
 
 public class AbstractPlayer extends AbstractCharacter {
 

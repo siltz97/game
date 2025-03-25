@@ -1,4 +1,4 @@
-package my.fbk.npc.AbstractClass;
+package my.fbk.npc.Enemy;
 
 public abstract class AbstractEnemy {
     int experience;
