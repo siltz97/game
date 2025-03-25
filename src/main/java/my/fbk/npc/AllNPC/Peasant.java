@@ -18,4 +18,8 @@ public class Peasant extends AbstractNPC {
         think();
        behavior.speak(this);
     }
+    public String getName(){
+        return "peasant";
+
+    }
 }

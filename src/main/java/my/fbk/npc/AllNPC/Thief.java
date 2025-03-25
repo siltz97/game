@@ -17,4 +17,8 @@ public class Thief extends AbstractNPC {
         behavior.speak(this);
 
     }
+    public String getName(){
+        return "thief";
+
+    }
 }

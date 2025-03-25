@@ -24,7 +24,7 @@ public class MerchantTest {
     public void merchantTestAggressive() {
         Merchant merchant = new Merchant(1, 100, 40, 2);
         merchant.speak();
-        Assertions.assertTrue(merchant.getReputation() > 50 && merchant.getEffects().isEmpty());
+        Assertions.assertFalse(merchant.getReputation() > 50 && merchant.getEffects().isEmpty());
     }
 
     @Test

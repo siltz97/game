@@ -5,6 +5,7 @@ import lombok.Setter;
 import my.fbk.npc.AbstractClass.AbstractCharacter;
 import my.fbk.npc.BasicSpells.Effects;
 import my.fbk.npc.BasicSpells.InvisibilitySpell;
+import my.fbk.npc.BasicSpells.MindControlSpell;
 import my.fbk.npc.Speak.*;
 
 import java.util.ArrayList;
@@ -40,6 +41,8 @@ public abstract class AbstractNPC extends AbstractCharacter {
         for (Effects e : effects) {
             if (e != null && e instanceof InvisibilitySpell) {
                 setBehavior(new SilentSpeak());
+            }else if(e != null && e instanceof MindControlSpell) {
+                setBehavior(new MindControllSpeak());
             }
         }
     }
@@ -56,5 +59,7 @@ public abstract class AbstractNPC extends AbstractCharacter {
         effects.remove(effect);
     }
 
+
+    abstract public String getName();
 
 }

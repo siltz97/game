@@ -1,6 +1,10 @@
 package my.fbk.npc.AllNPC;
 
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class Guard extends AbstractNPC {
 
 
@@ -16,4 +20,9 @@ public class Guard extends AbstractNPC {
         think();
         behavior.speak(this);
     }
+    public String getName(){
+        return "guard";
+
+    }
+
 }

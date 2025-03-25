@@ -40,4 +40,8 @@ public class Merchant extends AbstractNPC {
     public void showInventory() {
         list.showInventory();
     }
+    public String getName(){
+        return "merchant";
+
+    }
 }
