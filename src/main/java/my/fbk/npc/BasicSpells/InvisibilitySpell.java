@@ -1,4 +1,4 @@
-package my.fbk.npc.Actions;
+package my.fbk.npc.BasicSpells;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -6,7 +6,7 @@ import my.fbk.npc.AllNPC.AbstractNPC;
 
 @Getter
 @Setter
-public class InvisibilityEffect implements Effects {
+public class InvisibilitySpell implements Effects {
 
     @Override
     public void applyEffect(AbstractNPC npc) {
@@ -15,10 +15,16 @@ public class InvisibilityEffect implements Effects {
 
     @Override
     public void removeEffect(AbstractNPC npc) {
-        npc.setEffects(null);
+        npc.setRemoveEffect(this);
     }
     @Override
     public boolean hasEffect(AbstractNPC npc) {
         return npc.getEffects() != null;
     }
+
+    @Override
+    public String getName() {
+        return "inv";
+    }
+
 }

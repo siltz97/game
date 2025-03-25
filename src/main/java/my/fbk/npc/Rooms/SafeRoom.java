@@ -1,21 +1,21 @@
 package my.fbk.npc.Rooms;
 
-import my.fbk.npc.Actions.Effects;
-import my.fbk.npc.Actions.InvisibilityEffect;
 import my.fbk.npc.AllNPC.*;
+import my.fbk.npc.BasicSpells.Effects;
+import my.fbk.npc.BasicSpells.InvisibilitySpell;
+import my.fbk.npc.BasicSpells.MindControlSpell;
+import my.fbk.npc.Speak.AggressiveSpeak;
 import my.fbk.npc.inventory.ItemList;
 import my.fbk.npc.myPlayer.Player;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 public class SafeRoom {
 
     final Random rand = new Random();
     final Scanner scan = new Scanner(System.in);
     List<AbstractNPC> allNPC = new ArrayList<>();
+    List<Effects> effects = new ArrayList<>();
 
     AbstractNPC guard = new Guard(rand.nextInt(20), 1000, 60, 100);
     AbstractNPC peasant = new Peasant(rand.nextInt(10), 10, 100, 100);
@@ -28,32 +28,43 @@ public class SafeRoom {
         allNPC.add(peasant);
         allNPC.add(merchant);
         allNPC.add(thief);
+        effects.add(new InvisibilitySpell());
+        effects.add(new MindControlSpell());
     }
 
 
     public void npcInteraction() {
 
-        Effects invisibilityEffects = new InvisibilityEffect();
+
         String input;
+        Optional<Effects> selectedEffectOpt2 = Optional.empty();
         while (true) {
             System.out.println("Do you want to use or remove effects? (y/n)");
             input = scan.nextLine();
+
             if (input.equalsIgnoreCase("y")) {
-                System.out.println("select the effect");
+                System.out.println("select the effect: 'inv' for invisibility ");
                 input = scan.nextLine();
-                if (input.equals("invisibility")) {
-                    System.out.println("Select action: use/remove");
-                    input = scan.nextLine();
-                    if (input.equals("use")) {
-                        allNPC.forEach(invisibilityEffects::applyEffect);
-                    } else if (input.equals("remove")) {
-                        allNPC.forEach(invisibilityEffects::removeEffect);
-                    } else {
-                        System.out.println("Invalid input,retry");
-                        continue;
+                String finalInput = input;
+                Optional<Effects> selectedEffectOpt = effects.stream()
+                        .filter(e -> e.getName().equals(finalInput))
+                        .findFirst();
+                selectedEffectOpt2 = selectedEffectOpt;
+                if (selectedEffectOpt.isEmpty()) {
+                    System.out.println("error");
+                } else {
+                    Effects selectedEffect = selectedEffectOpt.get();
+                    if (input.equals(selectedEffect.getName())) {
+                        System.out.println("Select action: use/remove");
+                        input = scan.nextLine();
+                        if (input.equals("use")) {
+                            allNPC.forEach(selectedEffect::applyEffect);
+                        } else if (input.equals("remove")) {
+                            allNPC.forEach(selectedEffect::removeEffect);
+                        }
                     }
                 }
-            }else
+            } else
                 System.out.println("no effect selected");
             while (true) {
                 System.out.println("Choose a character to interact with: peasant, guard, merchant,thief or type 'exit' to quit or 'back' to change effects or 'open' to see the inventory");
@@ -71,7 +82,6 @@ public class SafeRoom {
                         System.out.print("Player: ");
                         player.speak();
                         System.out.print("Peasant: ");
-//                        invisibilityEffects.applyEffect(peasant);
                         peasant.speak();
                         break;
 //thief
@@ -94,10 +104,10 @@ public class SafeRoom {
                         player.speak();
                         System.out.print("Merchant: ");
                         merchant.speak();
-                        if (invisibilityEffects.hasEffect(merchant) || merchant.getReputation() < 50) {
-                            break;
-                        }
 
+                        if (!selectedEffectOpt2.isEmpty() && merchant.hasEffect(selectedEffectOpt2.get()) || merchant.getReputation() < 50 ){
+                                break;
+                        }
                         System.out.println("Type 'open' to open inventory, 'close' to close, 'buy'/'sell' or 'back' to choose another character");
 //inventory
                         while (true) {
