@@ -15,8 +15,9 @@ public class MindControlSpell implements Effects {
 
         @Override
         public void removeEffect(AbstractNPC npc) {
-            npc.setEffects(null);
+            npc.setRemoveEffect(this);
         }
+
         @Override
         public boolean hasEffect(AbstractNPC npc) {
             return npc.getEffects() != null;

@@ -1,11 +1,11 @@
 package my.fbk.npc.Rooms;
 
+import lombok.Getter;
+import lombok.Setter;
 import my.fbk.npc.AllNPC.*;
 import my.fbk.npc.BasicSpells.Effects;
 import my.fbk.npc.BasicSpells.InvisibilitySpell;
 import my.fbk.npc.BasicSpells.MindControlSpell;
-import my.fbk.npc.Speak.AggressiveSpeak;
-import my.fbk.npc.Speak.MindControllSpeak;
 import my.fbk.npc.inventory.ItemList;
 import my.fbk.npc.myPlayer.Player;
 
@@ -15,6 +15,7 @@ public class SafeRoom {
 
     final Random rand = new Random();
     final Scanner scan = new Scanner(System.in);
+    @Getter @Setter
     List<AbstractNPC> allNPC = new ArrayList<>();
     List<Effects> effects = new ArrayList<>();
 
@@ -33,7 +34,6 @@ public class SafeRoom {
         effects.add(new MindControlSpell());
     }
 
-
     public void npcInteraction() {
 
 
@@ -42,25 +42,33 @@ public class SafeRoom {
         while (true) {
             System.out.println("Do you want to use or remove effects? (y/n)");
             input = scan.nextLine();
-            if (input.equalsIgnoreCase("y")) {
-                Optional<Effects> selectedEffectOpt = selectEffect();
+            if (input.equals("y")) {
+                System.out.println("Select the effect: 'inv' for invisibility and 'mind' for mind control ");
+                input = scan.nextLine();
+                Optional<Effects> selectedEffectOpt = selectEffect(input);
                 selectedEffectOpt2 = selectedEffectOpt;
                 if (selectedEffectOpt.isEmpty()) {
                     System.out.println("error");
-                } else {
+                } else{
                     Effects selectedEffect = selectedEffectOpt.get();
-                    if (selectedEffect.getName().equals("mind")) {
-                        if(selectedEffect.getName().equals("mind")) {
-                            System.out.println("Who is your target?");
+                    if(selectedEffect.getName().equals("mind")) {
+                        System.out.println("Who is your target?");
+                        input = scan.nextLine();
+                        Optional<AbstractNPC> target = getTarget(input);
+                        if (target.isPresent()) {
+                            System.out.println("Select action: use/remove");
                             input = scan.nextLine();
-                            targetSpell(new MindControlSpell(),input);
-                        }else if(selectedEffect.getName().equals("inv")) {
-                            aoeSpell(selectedEffect);
+                            targetSpell(selectedEffect,target.get(),input);
                         }
+                    } else if(selectedEffect.getName().equals("inv")) {
+                        System.out.println("Select action: use/remove");
+                        input = scan.nextLine();
+                        aoeSpell(selectedEffect,input);
                     }
                 }
             } else
                 System.out.println("no effect selected");
+
             while (true) {
                 System.out.println("Choose a character to interact with: peasant, guard, merchant,thief or type 'exit' to quit or 'back' to change effects or 'open' to see the inventory");
                 input = scan.nextLine().toLowerCase();
@@ -180,47 +188,38 @@ public class SafeRoom {
             }
         }
     }
-    public Optional<Effects> selectEffect() {
-        System.out.println("Select the effect: 'inv' for invisibility and 'mind' for mind control ");
-        String input = scan.nextLine();
+
+    public Optional<Effects> selectEffect(String input) {
         return  effects.stream()
                 .filter(e -> e.getName().equals(input))
                 .findFirst();
     }
+    public void targetSpell(Effects selectedEffect, AbstractNPC target, String input) {
 
-    public void targetSpell(Effects selectedEffect, String target) {
-        Optional<AbstractNPC> targetNPC = allNPC.stream()
-                .filter(npc -> npc.getName().equalsIgnoreCase(target))  // FIXED: Compare name, not object
-                .findFirst();
-
-        if (targetNPC.isPresent()) {
-            System.out.println("Select action: use/remove");
-            String input = scan.nextLine();
-
-            if (input.equalsIgnoreCase("use")) {
-                selectedEffect.applyEffect(targetNPC.get());
-            } else if (input.equalsIgnoreCase("remove")) {
-                selectedEffect.removeEffect(targetNPC.get());
-            } else {
-                System.out.println("Invalid input, retry.");
-            }
-        } else {
-            System.out.println("Target not found.");
-        }
+            applySpell(selectedEffect, List.of(target), input);
     }
-    public void aoeSpell(Effects selectedEffect) {
-        System.out.println("Select action: use/remove");
-        String input = scan.nextLine();
+    public void aoeSpell(Effects selectedEffect,String input) {
+        applySpell(selectedEffect, allNPC, input);
+    }
 
-        if (input.equalsIgnoreCase("use")) {
-            allNPC.forEach(selectedEffect::applyEffect);
-        } else if (input.equalsIgnoreCase("remove")) {
-            allNPC.forEach(selectedEffect::removeEffect);
+
+    public void applySpell(
+            Effects selectedEffect,
+            List<AbstractNPC> targets,
+            String input
+    ) {
+        if (input.equals("use")) {
+            targets.forEach(selectedEffect::applyEffect);
+        } else if (input.equals("remove")) {
+            targets.forEach(selectedEffect::removeEffect);
         } else {
             System.out.println("Invalid input, retry.");
         }
-
     }
-
+    public Optional<AbstractNPC> getTarget(String target) {
+        return   allNPC.stream()
+                .filter(npc -> npc.getName().equals(target))
+                .findFirst();
+    }
 
 }
