@@ -4,9 +4,14 @@ import my.fbk.npc.AllNPC.Merchant;
 import my.fbk.npc.BasicSpells.InvisibilitySpell;
 import my.fbk.npc.Speak.SilentSpeak;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.Scanner;
+
 public class MerchantTest {
+
+    final Scanner scan = new Scanner(System.in);
 
     @Test
     public void merchantTestPositive() {
@@ -34,12 +39,15 @@ public class MerchantTest {
         merchant.speak();
         Assertions.assertTrue(merchant.getBehavior() instanceof SilentSpeak);
     }
+
     @Test
+    @DisplayName("user can trade")
     public void merchantTestInventoryAccess() {
         Merchant merchant = new Merchant(1, 100, 100, 2);
-        if(merchant.getReputation() > 50 && merchant.getEffects().isEmpty()){
+        if (merchant.getReputation() > 50 && merchant.getEffects().isEmpty()) {
             merchant.showInventory();
         }
         Assertions.assertTrue(merchant.getReputation() > 50 && merchant.getEffects().isEmpty());
     }
+
 }
