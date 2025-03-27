@@ -2,22 +2,20 @@ package my.fbk.npc.Enemy;
 
 import lombok.Getter;
 import lombok.Setter;
+import my.fbk.npc.AbstractClass.AbstractCharacter;
 
 @Getter
 @Setter
-public abstract class AbstractEnemy {
+public abstract class AbstractEnemy extends AbstractCharacter {
     int experience;
-    int health;
-    int mana;
     int damage;
 
-
-    public AbstractEnemy(int experience, int health, int mana,int damage) {
+    public AbstractEnemy(int experience, int health, int mana, int damage) {
+        super(mana, health);
         this.experience = experience;
-        this.health = health;
-        this.mana = mana;
         this.damage = damage;
     }
+
     public abstract void attack();
 
 }
