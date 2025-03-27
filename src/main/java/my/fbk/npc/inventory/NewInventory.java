@@ -27,7 +27,9 @@ public class NewInventory implements Inventory {
 
     @Override
     public void buyItem(ItemList item, AbstractNPC abstractNpc, Player player) {
-        if(!(abstractNpc instanceof Merchant)) { return; }
+        if (!(abstractNpc instanceof Merchant)) {
+            return;
+        }
         Merchant merchant = (Merchant) abstractNpc;
         NewInventory merchantInventory = (NewInventory) merchant.getInventory();
         if (merchantInventory.contains(item)) {
@@ -41,7 +43,9 @@ public class NewInventory implements Inventory {
 
     @Override
     public void sellItem(ItemList item, AbstractNPC abstractNpc, Player player) {
-        if(!(abstractNpc instanceof Merchant)) { return; }
+        if (!(abstractNpc instanceof Merchant)) {
+            return;
+        }
         Merchant merchant = (Merchant) abstractNpc;
         NewInventory merchantInventory = (NewInventory) merchant.getInventory();
         if (inventory.contains(item)) {
@@ -52,24 +56,24 @@ public class NewInventory implements Inventory {
             System.out.println("You don't have this item.");
         }
     }
+
     @Override
     public void openInventory(AbstractCharacter character) {
-        if(character instanceof Merchant) {
+        if (character instanceof Merchant) {
             System.out.println("*Merchant opens Inventory*");
-        }else if(character instanceof Player) {
+        } else if (character instanceof Player) {
             System.out.println("*Player opens Inventory*");
         }
     }
 
     @Override
     public void closeInventory(AbstractCharacter character) {
-        if(character instanceof Merchant) {
+        if (character instanceof Merchant) {
             System.out.println("*Merchant closes Inventory*");
-        }else if(character instanceof Player) {
+        } else if (character instanceof Player) {
             System.out.println("*Player closes Inventory*");
         }
     }
-
 
     @Override
     public void showInventory() {
@@ -83,10 +87,25 @@ public class NewInventory implements Inventory {
         }
 
     }
+
+    @Override
+    public void useItem(ItemList item) {
+        if (inventory.contains(item)) {
+
+            item.setDurability((item.getDurability() - 1));
+            if (item.getDurability() == 0) {
+                inventory.remove(item);
+            }
+        }
+    }
+
     public void addAll(List<ItemList> list) {
         inventory.addAll(list);
     }
+
     public boolean contains(ItemList item) {
         return inventory.contains(item);
     }
+
+
 }

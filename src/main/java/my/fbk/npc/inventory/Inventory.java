@@ -19,5 +19,7 @@ public interface Inventory {
     void sellItem(ItemList item, AbstractNPC abstractNpc, Player player);
 
     void showInventory();
+
+    void useItem(ItemList item);
 }
 

@@ -1,78 +1,26 @@
 package my.fbk.npc.Rooms;
 
-import lombok.Getter;
-import lombok.Setter;
-import my.fbk.npc.AllNPC.*;
-import my.fbk.npc.BasicSpells.Effects;
-import my.fbk.npc.BasicSpells.InvisibilitySpell;
-import my.fbk.npc.BasicSpells.MindControlSpell;
+import my.fbk.npc.AllNPC.Merchant;
 import my.fbk.npc.inventory.ItemList;
-import my.fbk.npc.myPlayer.Player;
 
-import java.util.*;
+import java.util.Random;
+import java.util.Scanner;
 
 public class InteractRoom extends AbstractRoom {
 
     final Random rand = new Random();
     final Scanner scan = new Scanner(System.in);
-    @Getter @Setter
-    List<AbstractNPC> allNPC = new ArrayList<>();
-    List<Effects> effects = new ArrayList<>();
-
-    AbstractNPC guard = new Guard(rand.nextInt(20), 1000, 60, 100);
-    AbstractNPC peasant = new Peasant(rand.nextInt(10), 10, 100, 100);
-    AbstractNPC merchant = new Merchant(rand.nextInt(99999), 50, 100, 100);
-    AbstractNPC thief = new Thief(rand.nextInt(1), 100, 100, 100);
 
     public InteractRoom() {
-        allNPC.add(guard);
-        allNPC.add(peasant);
-        allNPC.add(merchant);
-        allNPC.add(thief);
-        effects.add(new InvisibilitySpell());
-        effects.add(new MindControlSpell());
+
     }
 
     public void npcInteraction() {
-
-
-        String input;
-        Optional<Effects> selectedEffectOpt2 = Optional.empty();
         while (true) {
-            System.out.println("Do you want to use or remove effects? (y/n)");
-            input = scan.nextLine();
-            if (input.equals("y")) {
-                System.out.println("Select the effect: 'inv' for invisibility and 'mind' for mind control ");
-                input = scan.nextLine();
-                Optional<Effects> selectedEffectOpt = selectEffect(input);
-                selectedEffectOpt2 = selectedEffectOpt;
-                if (selectedEffectOpt.isEmpty()) {
-                    System.out.println("error");
-                } else{
-                    Effects selectedEffect = selectedEffectOpt.get();
-                    if(selectedEffect.getName().equals("mind") && player.getMana()>=50) {
-                        player.setMana(player.getMana()-50);
-                        System.out.println("Who is your target?");
-                        input = scan.nextLine();
-                        Optional<AbstractNPC> target = getTarget(input);
-                        if (target.isPresent()) {
-                            System.out.println("Select action: use/remove");
-                            input = scan.nextLine();
-                            targetSpell(selectedEffect,target.get(),input);
-                        }
-                    } else if(selectedEffect.getName().equals("inv") && player.getMana()>=50) {
-                        player.setMana(player.getMana()-50);
-                        System.out.println("Select action: use/remove");
-                        input = scan.nextLine();
-                        aoeSpell(selectedEffect,input);
-                    }else
-                        System.out.println("player has not enough mana");
-                    System.out.println(player.getMana());
-                }
-            } else
-                System.out.println("no effect selected");
-
+            String input;
+            castSpell();
             while (true) {
+
                 System.out.println("Choose a character to interact with: peasant, guard, merchant,thief or type 'exit' to quit or 'back' to change effects or 'open' to see the inventory");
                 input = scan.nextLine().toLowerCase();
                 if (input.equals("back")) {
@@ -111,9 +59,9 @@ public class InteractRoom extends AbstractRoom {
                         System.out.print("Merchant: ");
                         merchant.speak();
 
-                        if (!selectedEffectOpt2.isEmpty() && merchant.hasEffect(selectedEffectOpt2.get()) || merchant.getReputation() < 50 ){
-                                break;
-                        }
+//                    if (!selectedEffectOpt2.isEmpty() && merchant.hasEffect(selectedEffectOpt2.get()) || merchant.getReputation() < 50) {
+//                        break;
+//                    }
                         System.out.println("Type 'open' to open inventory, 'close' to close, 'buy'/'sell' or 'back' to choose another character");
 //inventory
                         while (true) {
@@ -192,41 +140,10 @@ public class InteractRoom extends AbstractRoom {
         }
     }
 
-    public Optional<Effects> selectEffect(String input) {
-        return  effects.stream()
-                .filter(e -> e.getName().equals(input))
-                .findFirst();
-    }
-    public void targetSpell(Effects selectedEffect, AbstractNPC target, String input) {
-
-            applySpell(selectedEffect, List.of(target), input);
-    }
-    public void aoeSpell(Effects selectedEffect,String input) {
-        applySpell(selectedEffect, allNPC, input);
-    }
-
-
-    public void applySpell(
-            Effects selectedEffect,
-            List<AbstractNPC> targets,
-            String input
-    ) {
-        if (input.equals("use")) {
-            targets.forEach(selectedEffect::applyEffect);
-        } else if (input.equals("remove")) {
-            targets.forEach(selectedEffect::removeEffect);
-        } else {
-            System.out.println("Invalid input, retry.");
-        }
-    }
-    public Optional<AbstractNPC> getTarget(String target) {
-        return   allNPC.stream()
-                .filter(npc -> npc.getName().equals(target))
-                .findFirst();
-    }
 
     @Override
     public void moveNext() {
 
     }
 }
+

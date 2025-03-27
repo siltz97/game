@@ -3,6 +3,7 @@ package my.fbk.npc.Rooms;
 
 import my.fbk.npc.Enemy.AbstractEnemy;
 import my.fbk.npc.Enemy.Goblin;
+import my.fbk.npc.inventory.ItemList;
 import my.fbk.npc.myPlayer.Player;
 
 import java.util.Random;
@@ -39,6 +40,7 @@ public class BattleRoom extends AbstractRoom {
                     break;
                 }
             } else if (input.equals("useitem")) {
+                System.out.println("Select an item to use");
                 player.showInventory();
 
             }

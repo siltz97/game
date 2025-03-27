@@ -3,6 +3,9 @@ package my.fbk.npc.inventory;
 
 import lombok.Getter;
 import lombok.Setter;
+import my.fbk.npc.AbstractClass.AbstractCharacter;
+import my.fbk.npc.myPlayer.Player;
+
 @SuppressWarnings("NonFinalFieldInEnum")
 @Getter
 public enum ItemList {
@@ -16,7 +19,7 @@ public enum ItemList {
     MAGIC_WAND("A small wand for casting spells +20 MAGIC DMG", 400,1, ""),
     TORCH("Lights up dark places +5 DMG", 20,1, ""),
     BUCKET("it's just a bucket. What did you expect?", 1,1, ""),
-    DOVAKIN_VOICE("FUS RO DAH!!! 1000 DMG", 9999,1, "");
+    DOVAKIN_VOICE("FUS RO DAH!!! 1000 DMG", 9999,9999, "");
 
     private final String description;
     private final int price;
@@ -32,5 +35,7 @@ public enum ItemList {
         this.name = name;
 
     }
+
+
 
 }

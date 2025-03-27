@@ -11,7 +11,13 @@ import my.fbk.npc.myPlayer.Player;
 @Getter
 @Setter
 public class InvisibilitySpell implements Effects {
+    int spellCost = 50;
 
+
+    @Override
+    public int spellCost() {
+        return this.spellCost;
+    }
 
     @Override
     public void applyEffect(AbstractNPC npc) {
