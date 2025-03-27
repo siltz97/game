@@ -10,6 +10,19 @@ import java.util.List;
 @SuppressWarnings("NonFinalFieldInEnum")
 @Getter
 public enum ItemList {
+//    FIRE_SCROLL("A magic scroll that casts fire (300 DMG)", 300, 1, "") {
+//        @Override
+//        public void use(List<AbstractCharacter> character) {
+//            System.out.println("You cast a fire spell! Deals 300 damage.");
+//            // You can add logic to apply damage to an enemy
+//        }
+//    },
+//    DOVAKIN_VOICE("FUS RO DAH!!! 1000 DMG", 9999, 9999, "") {
+//        @Override
+//        public void use(List<AbstractCharacter> character) {
+//            System.out.println("You shout 'FUS RO DAH' and deal 1000 damage to all enemies!");
+//        }
+//    },
     HEALTH_POTION("Restores +100 health", 50, 1, "") {
         @Override
         public void use(List<AbstractCharacter> character) {
@@ -29,33 +42,27 @@ public enum ItemList {
                         System.out.println("You restored 100 HP! Current HP: " + c.getMana());
                     });
         }
+    },
+    IRON_SWORD("A basic but reliable sword. +40 DMG", 200, 1, "") {
+        @Override
+        public void use(List<AbstractCharacter> character) {
+            character.stream()
+                    .forEach(c -> {
+                        c.setDamage(c.getDamage() + 40);
+                        System.out.println("Equipped Iron Sword! + 40 New DMG:  " + c.getDamage());
+                    });
+        }
+    },
+    BUCKET("It's just a bucket. What did you expect?", 1, 1, "") {
+        @Override
+        public void use(List<AbstractCharacter> character) {
+            character.stream()
+                    .forEach(c -> {
+                        System.out.println("You put the bucket on your head... Cool.");
+                    });
+        }
     };
-//    IRON_SWORD("A basic but reliable sword. +40 DMG", 200, 1, "") {
-//        @Override
-//        public void use(List<AbstractCharacter> character) {
-//            character.setDamage(character.getDamage() + 40);
-//            System.out.println("Equipped Iron Sword! New DMG: " + character.getDamage());
-//        }
-//    },
-//    FIRE_SCROLL("A magic scroll that casts fire (300 DMG)", 300, 1, "") {
-//        @Override
-//        public void use(List<AbstractCharacter> character) {
-//            System.out.println("You cast a fire spell! Deals 300 damage.");
-//            // You can add logic to apply damage to an enemy
-//        }
-//    },
-//    DOVAKIN_VOICE("FUS RO DAH!!! 1000 DMG", 9999, 9999, "") {
-//        @Override
-//        public void use(List<AbstractCharacter> character) {
-//            System.out.println("You shout 'FUS RO DAH' and deal 1000 damage to all enemies!");
-//        }
-//    },
-//    BUCKET("It's just a bucket. What did you expect?", 1, 1, "") {
-//        @Override
-//        public void use(List<AbstractCharacter> character) {
-//            System.out.println("You put the bucket on your head... Cool.");
-//        }
-//    };
+
 
     private final String description;
     private final int price;

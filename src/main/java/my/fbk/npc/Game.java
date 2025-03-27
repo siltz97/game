@@ -13,9 +13,9 @@ public class Game {
         player = new Player(100, 100, 100, 20);
 
         Game game = new Game();
-        game.interactRoom.setPlayer(player);
-        game.interactRoom.npcInteraction();
-        //game.battleRoom.setPlayer(player);
-        //game.battleRoom.battle();
+        //game.interactRoom.setPlayer(player);
+        //game.interactRoom.npcInteraction();
+       game.battleRoom.setPlayer(player);
+       game.battleRoom.battle();
     }
 }

@@ -6,6 +6,7 @@ import my.fbk.npc.AllNPC.*;
 import my.fbk.npc.BasicSpells.Effects;
 import my.fbk.npc.BasicSpells.InvisibilitySpell;
 import my.fbk.npc.BasicSpells.MindControlSpell;
+import my.fbk.npc.Enemy.*;
 import my.fbk.npc.myPlayer.Player;
 
 import java.util.ArrayList;
@@ -22,11 +23,17 @@ abstract class AbstractRoom {
     Scanner scan = new Scanner(System.in);
     List<Effects> effects = new ArrayList<>();
     List<AbstractNPC> allNPC = new ArrayList<>();
+    List<AbstractEnemy> allEnemy = new ArrayList<>();
 
     AbstractNPC merchant = new Merchant(99999, 50, 100, 100,1);
     AbstractNPC guard = new Guard(99999, 50, 100, 100,1);
     AbstractNPC thief = new Thief(99999, 50, 100, 100,1);
     AbstractNPC peasant = new Peasant(99999, 50, 100, 100,1);
+    AbstractEnemy goblin = new Goblin(100, 50, 0, 10);
+    AbstractEnemy kobold = new Kobold(100, 50, 0, 10);
+    AbstractEnemy skeleton = new Skeleton(100, 50, 0, 10);
+    AbstractEnemy zombie = new Zombie(100, 50, 0, 10);
+
 
     public abstract void moveNext();
 
@@ -37,6 +44,10 @@ abstract class AbstractRoom {
         allNPC.add(guard);
         allNPC.add(thief);
         allNPC.add(peasant);
+        allEnemy.add(goblin);
+        allEnemy.add(kobold);
+        allEnemy.add(skeleton);
+        allEnemy.add(zombie);
     }
 
     public void castSpell() {

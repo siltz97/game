@@ -19,6 +19,6 @@ public interface Inventory {
 
     void showInventory();
 
-    void useItem(ItemList item, Player character);
+    void useItem(ItemList item, Player player);
 }
 

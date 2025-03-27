@@ -53,6 +53,9 @@ public class Player extends AbstractPlayer  {
     public void attack() {
         System.out.println("Player attacks");
     }
+    public void useItem(ItemList item) {
+        this.list.useItem(item,this);
+    }
 
     public void seeMoney(){
         //noinspection StringTemplateMigration
