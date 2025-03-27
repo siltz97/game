@@ -1,6 +1,5 @@
 package my.fbk.npc.inventory;
 
-import my.fbk.npc.AbstractClass.AbstractCharacter;
 import my.fbk.npc.AllNPC.AbstractNPC;
 import my.fbk.npc.myPlayer.Player;
 
@@ -10,9 +9,9 @@ public interface Inventory {
 
     void removeItem(ItemList item);
 
-    void openInventory(AbstractCharacter character);
+    void openInventory(my.fbk.npc.AbstractClass.AbstractCharacter character);
 
-    void closeInventory(AbstractCharacter character);
+    void closeInventory(my.fbk.npc.AbstractClass.AbstractCharacter character);
 
     void buyItem(ItemList item, AbstractNPC abstractNpc, Player player);
 
@@ -20,6 +19,6 @@ public interface Inventory {
 
     void showInventory();
 
-    void useItem(ItemList item);
+    void useItem(ItemList item, Player character);
 }
 

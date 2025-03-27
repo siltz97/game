@@ -2,7 +2,6 @@ package my.fbk.npc.inventory;
 
 import lombok.Getter;
 import lombok.Setter;
-import my.fbk.npc.AbstractClass.AbstractCharacter;
 import my.fbk.npc.AllNPC.AbstractNPC;
 import my.fbk.npc.AllNPC.Merchant;
 import my.fbk.npc.myPlayer.Player;
@@ -58,7 +57,7 @@ public class NewInventory implements Inventory {
     }
 
     @Override
-    public void openInventory(AbstractCharacter character) {
+    public void openInventory(my.fbk.npc.AbstractClass.AbstractCharacter character) {
         if (character instanceof Merchant) {
             System.out.println("*Merchant opens Inventory*");
         } else if (character instanceof Player) {
@@ -67,7 +66,7 @@ public class NewInventory implements Inventory {
     }
 
     @Override
-    public void closeInventory(AbstractCharacter character) {
+    public void closeInventory(my.fbk.npc.AbstractClass.AbstractCharacter character) {
         if (character instanceof Merchant) {
             System.out.println("*Merchant closes Inventory*");
         } else if (character instanceof Player) {
@@ -89,9 +88,9 @@ public class NewInventory implements Inventory {
     }
 
     @Override
-    public void useItem(ItemList item) {
+    public void useItem(ItemList item, Player character) {
         if (inventory.contains(item)) {
-
+            item.use(List.of(character));
             item.setDurability((item.getDurability() - 1));
             if (item.getDurability() == 0) {
                 inventory.remove(item);

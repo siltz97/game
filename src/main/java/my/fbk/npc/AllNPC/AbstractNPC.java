@@ -18,11 +18,10 @@ public abstract class AbstractNPC extends AbstractCharacter {
     protected SpeakBehavior behavior;
     List<Effects> effects = new ArrayList<>();
     private int reputation;
-    int money;
+    private int money;
 
-
-    public AbstractNPC(int money, int health, int reputation, int mana) {
-        super(health, mana);
+    public AbstractNPC(int money, int health, int reputation, int mana,int damage) {
+        super(health, mana,damage);
         this.money = money;
         this.reputation = reputation;
         behavior = new NeutralSpeak();

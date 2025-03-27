@@ -3,8 +3,6 @@ package my.fbk.npc.Rooms;
 
 import my.fbk.npc.Enemy.AbstractEnemy;
 import my.fbk.npc.Enemy.Goblin;
-import my.fbk.npc.inventory.ItemList;
-import my.fbk.npc.myPlayer.Player;
 
 import java.util.Random;
 import java.util.Scanner;

@@ -8,12 +8,10 @@ import my.fbk.npc.AbstractClass.AbstractCharacter;
 @Setter
 public abstract class AbstractEnemy extends AbstractCharacter {
     int experience;
-    int damage;
 
     public AbstractEnemy(int experience, int health, int mana, int damage) {
-        super(mana, health);
+        super(mana, health,damage);
         this.experience = experience;
-        this.damage = damage;
     }
 
     public abstract void attack();

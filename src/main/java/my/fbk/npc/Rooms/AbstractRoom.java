@@ -23,10 +23,10 @@ abstract class AbstractRoom {
     List<Effects> effects = new ArrayList<>();
     List<AbstractNPC> allNPC = new ArrayList<>();
 
-    AbstractNPC merchant = new Merchant(99999, 50, 100, 100);
-    AbstractNPC guard = new Guard(99999, 50, 100, 100);
-    AbstractNPC thief = new Thief(99999, 50, 100, 100);
-    AbstractNPC peasant = new Peasant(99999, 50, 100, 100);
+    AbstractNPC merchant = new Merchant(99999, 50, 100, 100,1);
+    AbstractNPC guard = new Guard(99999, 50, 100, 100,1);
+    AbstractNPC thief = new Thief(99999, 50, 100, 100,1);
+    AbstractNPC peasant = new Peasant(99999, 50, 100, 100,1);
 
     public abstract void moveNext();
 

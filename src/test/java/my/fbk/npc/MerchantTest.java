@@ -13,26 +13,26 @@ public class MerchantTest {
 
     @Test
     public void merchantTestPositive() {
-        Merchant merchant = new Merchant(1, 100, 100, 2);
+        Merchant merchant = new Merchant(1, 100, 100, 2,1);
         merchant.speak();
     }
 
     @Test
     public void merchantTestNeutral() {
-        Merchant merchant = new Merchant(1, 100, 61, 2);
+        Merchant merchant = new Merchant(1, 100, 61, 2,1);
         merchant.speak();
     }
 
     @Test
     public void merchantTestAggressive() {
-        Merchant merchant = new Merchant(1, 100, 40, 2);
+        Merchant merchant = new Merchant(1, 100, 40, 2,1);
         merchant.speak();
         Assertions.assertFalse(merchant.getReputation() > 50 && merchant.getEffects().isEmpty());
     }
 
     @Test
     public void merchantTestSilent() {
-        Merchant merchant = new Merchant(1, 100, 100, 2);
+        Merchant merchant = new Merchant(1, 100, 100, 2,1);
         merchant.setEffects(new InvisibilitySpell());
         merchant.speak();
         Assertions.assertTrue(merchant.getBehavior() instanceof SilentSpeak);
@@ -41,7 +41,7 @@ public class MerchantTest {
     @Test
     @DisplayName("user can trade")
     public void merchantTestInventoryAccess() {
-        Merchant merchant = new Merchant(1, 100, 100, 2);
+        Merchant merchant = new Merchant(1, 100, 100, 2,1);
         if (merchant.getReputation() > 50 && merchant.getEffects().isEmpty()) {
             merchant.showInventory();
         }

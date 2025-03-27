@@ -13,8 +13,8 @@ import java.util.Arrays;
 public class Merchant extends AbstractNPC {
     NewInventory list = new NewInventory();
 
-    public Merchant(int money, int health, int reputation, int mana) {
-        super(money, health, reputation, mana);
+    public Merchant(int money, int health, int reputation, int mana,int damage) {
+        super(money, health, reputation, mana, damage);
         list.addAll(Arrays.asList(ItemList.values()));
     }
 

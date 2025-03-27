@@ -7,6 +7,7 @@ import my.fbk.npc.BasicSpells.InvisibilitySpell;
 import my.fbk.npc.Rooms.InteractRoom;
 import my.fbk.npc.Speak.SilentSpeak;
 
+import my.fbk.npc.myPlayer.Player;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,22 +20,22 @@ public class PeasantTest {
 
     @Test
     public void peasantTestPositive() {
-        Peasant peasant = new Peasant(1,100,100,2);
+        Peasant peasant = new Peasant(1,100,100,2,1);
         peasant.speak();
     }
     @Test
     public void peasantTestNeutral() {
-        Peasant peasant = new Peasant(1,100,61,2);
+        Peasant peasant = new Peasant(1,100,61,2,1);
         peasant.speak();
     }
     @Test
     public void peasantTestAggressive() {
-        Peasant peasant = new Peasant(1,100,40,2);
+        Peasant peasant = new Peasant(1,100,40,2,1);
         peasant.speak();
     }
     @Test
     public void peasantTestSilent() {
-        Peasant peasant = new Peasant(1,100,100,2);
+        Peasant peasant = new Peasant(1,100,100,2,1);
         peasant.setEffects(new InvisibilitySpell());
         peasant.speak();
         Assertions.assertTrue(peasant.getBehavior() instanceof SilentSpeak);
@@ -42,7 +43,9 @@ public class PeasantTest {
     @Test
     @DisplayName("Mind Control Test")
     public void peasantEffectTestUseMindControl() {
+        Player player = new Player(10,10,100,100);
         InteractRoom interactRoom = new InteractRoom();
+        interactRoom.setPlayer(player);
         Optional<AbstractNPC> peasantOpt = interactRoom.getAllNPC().stream().filter(e -> e instanceof Peasant).findFirst();
         Assertions.assertTrue(peasantOpt.isPresent(), "peasant not found");
         AbstractNPC peasant = peasantOpt.get();
