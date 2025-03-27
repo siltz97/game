@@ -1,16 +1,21 @@
 package my.fbk.npc.BasicSpells;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import my.fbk.npc.AllNPC.AbstractNPC;
+import my.fbk.npc.Rooms.InteractRoom;
+import my.fbk.npc.myPlayer.Player;
+
 
 @Getter
 @Setter
 public class InvisibilitySpell implements Effects {
 
+
     @Override
     public void applyEffect(AbstractNPC npc) {
-        npc.setEffects(this);
+            npc.setEffects(this);
     }
 
     @Override

@@ -8,19 +8,17 @@ import lombok.Setter;
 public class Guard extends AbstractNPC {
 
 
-    public Guard(int money,int health,int reputation,int mana) {
-        super(money,health,reputation,mana);
-
-
+    public Guard(int money, int health, int reputation, int mana) {
+        super(money, health, reputation, mana);
     }
-
 
     @Override
     public void speak() {
         think();
         behavior.speak(this);
     }
-    public String getName(){
+
+    public String getName() {
         return "guard";
 
     }

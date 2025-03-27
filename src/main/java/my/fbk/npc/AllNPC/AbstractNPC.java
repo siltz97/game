@@ -24,7 +24,6 @@ public abstract class AbstractNPC extends AbstractCharacter {
         super(money, health, mana);
         this.reputation = reputation;
         behavior = new NeutralSpeak();
-
     }
 
     @Override

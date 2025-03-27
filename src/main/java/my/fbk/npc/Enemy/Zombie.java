@@ -7,7 +7,5 @@ public class Zombie extends AbstractEnemy {
     }
 
     @Override
-    public int attack(int damage) {
-        return damage;
-    }
+    public void attack() {}
 }

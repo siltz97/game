@@ -7,11 +7,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.Scanner;
+
 
 public class MerchantTest {
-
-    final Scanner scan = new Scanner(System.in);
 
     @Test
     public void merchantTestPositive() {

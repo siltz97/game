@@ -2,7 +2,7 @@ package my.fbk.npc.myPlayer;
 
 import my.fbk.npc.AbstractClass.AbstractCharacter;
 
-public class AbstractPlayer extends AbstractCharacter {
+public abstract class AbstractPlayer extends AbstractCharacter {
 
 
     public AbstractPlayer(int money, int health,int mana) {
@@ -11,6 +11,7 @@ public class AbstractPlayer extends AbstractCharacter {
 
     @Override
     public void speak() {
-
     }
+    abstract public void attack();
+
 }

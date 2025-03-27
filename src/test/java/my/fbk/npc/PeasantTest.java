@@ -1,13 +1,14 @@
 package my.fbk.npc;
 
 import my.fbk.npc.AllNPC.AbstractNPC;
-import my.fbk.npc.AllNPC.Merchant;
 import my.fbk.npc.AllNPC.Peasant;
 import my.fbk.npc.BasicSpells.Effects;
 import my.fbk.npc.BasicSpells.InvisibilitySpell;
-import my.fbk.npc.Rooms.SafeRoom;
+import my.fbk.npc.Rooms.InteractRoom;
 import my.fbk.npc.Speak.SilentSpeak;
+
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
@@ -39,42 +40,38 @@ public class PeasantTest {
         Assertions.assertTrue(peasant.getBehavior() instanceof SilentSpeak);
     }
     @Test
+    @DisplayName("Mind Control Test")
     public void peasantEffectTestUseMindControl() {
-        SafeRoom safeRoom = new SafeRoom();
-        Optional<AbstractNPC> peasantOpt = safeRoom.getAllNPC().stream().filter(e -> e instanceof Peasant).findFirst();
+        InteractRoom interactRoom = new InteractRoom();
+        Optional<AbstractNPC> peasantOpt = interactRoom.getAllNPC().stream().filter(e -> e instanceof Peasant).findFirst();
         Assertions.assertTrue(peasantOpt.isPresent(), "peasant not found");
         AbstractNPC peasant = peasantOpt.get();
 
         String effect = "mind";
-
-        Optional<Effects> effects = safeRoom.selectEffect(effect);
+//effects
+        Optional<Effects> effects = interactRoom.selectEffect(effect);
         Assertions.assertTrue(effects.isPresent(), "Effect not found!");
-
+//target
         Effects selectedEffect = effects.get();
-        Optional<AbstractNPC> target = safeRoom.getTarget(peasant.getName());
+        Optional<AbstractNPC> target = interactRoom.getTarget(peasant.getName());
         Assertions.assertTrue(target.isPresent(), "Target not found!");
-
+//target spell
         String input = "use";
-        safeRoom.targetSpell(selectedEffect, target.get(), input);
-
-        //output test
+        interactRoom.targetSpell(selectedEffect, target.get(), input);
+//output test
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         PrintStream originalOut = System.out;
         System.setOut(new PrintStream(outputStream));
-
-        // Call speak(), which prints to System.out
+// Call speak(), which prints to System.out
         peasant.speak();
-
-        // Restore original System.out
+// Restore original System.out
         System.setOut(originalOut);
-
-        // Get the printed output and trim any extra spaces or new lines
+// Get the printed output and trim any extra spaces or new lines
         String printedOutput = outputStream.toString().trim();
-
-        // Expected response
+// Expected response
         String expectedResponse = "What do you want my lord?";
-
-        // Assert that the printed output matches the expected response
+        System.out.println(expectedResponse);
+// Assert that the printed output matches the expected response
         Assertions.assertEquals(expectedResponse, printedOutput, "Peasant's response does not match!");
     }
 
