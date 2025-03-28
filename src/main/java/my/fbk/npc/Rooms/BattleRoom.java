@@ -3,22 +3,22 @@ package my.fbk.npc.Rooms;
 
 import my.fbk.npc.Enemy.AbstractEnemy;
 import my.fbk.npc.Enemy.Goblin;
+import my.fbk.npc.Game;
 import my.fbk.npc.inventory.ItemList;
 
-import java.util.Random;
+
 import java.util.Scanner;
 
 public class BattleRoom extends AbstractRoom {
 
     AbstractEnemy goblin = new Goblin(100, 50, 0, 10);
-    Random rand = new Random();
     Scanner scan = new Scanner(System.in);
     String input;
 
-
-    @Override
-    public void moveNext() {
+    public BattleRoom(Game game) {
+        super(game);
     }
+
 
     public void battle() {
         System.out.println("You entered the battle room and you see an enemy. what do you do?");
@@ -47,8 +47,9 @@ public class BattleRoom extends AbstractRoom {
                 ItemList item = ItemList.valueOf(input.toUpperCase());
                 player.useItem(item);
 
+            }else if(input.equals("next")){
+                game.moveNext();
             }
-
 
         }
     }

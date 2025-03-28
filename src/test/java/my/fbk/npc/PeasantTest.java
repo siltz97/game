@@ -4,7 +4,7 @@ import my.fbk.npc.AllNPC.AbstractNPC;
 import my.fbk.npc.AllNPC.Peasant;
 import my.fbk.npc.BasicSpells.Effects;
 import my.fbk.npc.BasicSpells.InvisibilitySpell;
-import my.fbk.npc.Rooms.InteractRoom;
+import my.fbk.npc.Rooms.SafeRoom;
 import my.fbk.npc.Speak.SilentSpeak;
 
 import my.fbk.npc.myPlayer.Player;
@@ -44,23 +44,23 @@ public class PeasantTest {
     @DisplayName("Mind Control Test")
     public void peasantEffectTestUseMindControl() {
         Player player = new Player(10,10,100,100);
-        InteractRoom interactRoom = new InteractRoom();
-        interactRoom.setPlayer(player);
-        Optional<AbstractNPC> peasantOpt = interactRoom.getAllNPC().stream().filter(e -> e instanceof Peasant).findFirst();
+        SafeRoom safeRoom = new SafeRoom(new Game());
+        safeRoom.setPlayer(player);
+        Optional<AbstractNPC> peasantOpt = safeRoom.getAllNPC().stream().filter(e -> e instanceof Peasant).findFirst();
         Assertions.assertTrue(peasantOpt.isPresent(), "peasant not found");
         AbstractNPC peasant = peasantOpt.get();
 
         String effect = "mind";
 //effects
-        Optional<Effects> effects = interactRoom.selectEffect(effect);
+        Optional<Effects> effects = safeRoom.selectEffect(effect);
         Assertions.assertTrue(effects.isPresent(), "Effect not found!");
 //target
         Effects selectedEffect = effects.get();
-        Optional<AbstractNPC> target = interactRoom.getTarget(peasant.getName());
+        Optional<AbstractNPC> target = safeRoom.getTarget(peasant.getName());
         Assertions.assertTrue(target.isPresent(), "Target not found!");
 //target spell
         String input = "use";
-        interactRoom.targetSpell(selectedEffect, target.get(), input);
+        safeRoom.targetSpell(selectedEffect, target.get(), input);
 //output test
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         PrintStream originalOut = System.out;

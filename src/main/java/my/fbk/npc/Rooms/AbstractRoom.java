@@ -1,5 +1,6 @@
 package my.fbk.npc.Rooms;
 
+import ch.qos.logback.core.joran.sanity.Pair;
 import lombok.Getter;
 import lombok.Setter;
 import my.fbk.npc.AllNPC.*;
@@ -7,23 +8,25 @@ import my.fbk.npc.BasicSpells.Effects;
 import my.fbk.npc.BasicSpells.InvisibilitySpell;
 import my.fbk.npc.BasicSpells.MindControlSpell;
 import my.fbk.npc.Enemy.*;
+import my.fbk.npc.Game;
 import my.fbk.npc.myPlayer.Player;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Scanner;
+import java.util.*;
 
 @Getter
 @Setter
-abstract class AbstractRoom {
-    @Getter
-    @Setter
+public abstract class AbstractRoom {
+    @Getter @Setter
     Player player = null;
+    Random rand = new Random();
     Scanner scan = new Scanner(System.in);
     List<Effects> effects = new ArrayList<>();
     List<AbstractNPC> allNPC = new ArrayList<>();
     List<AbstractEnemy> allEnemy = new ArrayList<>();
+    private AbstractRoom currentRoom;
+    Game game;
+
+
 
     AbstractNPC merchant = new Merchant(99999, 50, 100, 100,1);
     AbstractNPC guard = new Guard(99999, 50, 100, 100,1);
@@ -35,9 +38,7 @@ abstract class AbstractRoom {
     AbstractEnemy zombie = new Zombie(100, 50, 0, 10);
 
 
-    public abstract void moveNext();
-
-    public AbstractRoom() {
+    public AbstractRoom(Game game) {
         effects.add(new MindControlSpell());
         effects.add(new InvisibilitySpell());
         allNPC.add(merchant);
@@ -48,11 +49,12 @@ abstract class AbstractRoom {
         allEnemy.add(kobold);
         allEnemy.add(skeleton);
         allEnemy.add(zombie);
+        this.game = game;
     }
 
     public void castSpell() {
         String input;
-        Optional<Effects> selectedEffectOpt2 = Optional.empty();
+       // Optional<Effects> selectedEffectOpt2 = Optional.empty();
 
         System.out.println("Do you want to use or remove effects? (y/n)");
         input = scan.nextLine();
@@ -60,7 +62,7 @@ abstract class AbstractRoom {
             System.out.println("Select the effect: 'inv' for invisibility and 'mind' for mind control ");
             input = scan.nextLine();
             Optional<Effects> selectedEffectOpt = selectEffect(input);
-            selectedEffectOpt2 = selectedEffectOpt;
+            //selectedEffectOpt2 = selectedEffectOpt;
             if (selectedEffectOpt.isEmpty()) {
                 System.out.println("error");
             } else {
@@ -124,5 +126,6 @@ abstract class AbstractRoom {
                 .filter(npc -> npc.getName().equals(target))
                 .findFirst();
     }
+
 
 }
