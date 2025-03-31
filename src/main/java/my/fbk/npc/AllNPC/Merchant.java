@@ -44,6 +44,5 @@ public class Merchant extends AbstractNPC {
 
     public String getName() {
         return "merchant";
-
     }
 }

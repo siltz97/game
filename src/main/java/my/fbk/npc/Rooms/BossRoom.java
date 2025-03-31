@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
+@SuppressWarnings("StringTemplateMigration")
 public class BossRoom extends AbstractRoom {
     Scanner scan = new Scanner(System.in);
     Random rand = new Random();
