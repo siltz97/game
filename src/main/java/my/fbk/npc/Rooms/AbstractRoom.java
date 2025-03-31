@@ -1,6 +1,5 @@
 package my.fbk.npc.Rooms;
 
-import ch.qos.logback.core.joran.sanity.Pair;
 import lombok.Getter;
 import lombok.Setter;
 import my.fbk.npc.AllNPC.*;
@@ -16,7 +15,8 @@ import java.util.*;
 @Getter
 @Setter
 public abstract class AbstractRoom {
-    @Getter @Setter
+    @Getter
+    @Setter
     Player player = null;
     Random rand = new Random();
     Scanner scan = new Scanner(System.in);
@@ -25,20 +25,20 @@ public abstract class AbstractRoom {
     List<AbstractEnemy> allEnemy = new ArrayList<>();
     private AbstractRoom currentRoom;
     Game game;
+    String input;
 
 
-
-    AbstractNPC merchant = new Merchant(99999, 50, 100, 100,1);
-    AbstractNPC guard = new Guard(99999, 50, 100, 100,1);
-    AbstractNPC thief = new Thief(99999, 50, 100, 100,1);
-    AbstractNPC peasant = new Peasant(99999, 50, 100, 100,1);
+    AbstractNPC merchant = new Merchant(99999, 50, 100, 100, 1);
+    AbstractNPC guard = new Guard(99999, 50, 100, 100, 1);
+    AbstractNPC thief = new Thief(99999, 50, 100, 100, 1);
+    AbstractNPC peasant = new Peasant(99999, 50, 100, 100, 1);
     AbstractEnemy goblin = new Goblin(100, 50, 0, 10);
     AbstractEnemy kobold = new Kobold(100, 50, 0, 10);
     AbstractEnemy skeleton = new Skeleton(100, 50, 0, 10);
     AbstractEnemy zombie = new Zombie(100, 50, 0, 10);
 
-
     public AbstractRoom(Game game) {
+        this.game = game;
         effects.add(new MindControlSpell());
         effects.add(new InvisibilitySpell());
         allNPC.add(merchant);
@@ -49,43 +49,41 @@ public abstract class AbstractRoom {
         allEnemy.add(kobold);
         allEnemy.add(skeleton);
         allEnemy.add(zombie);
-        this.game = game;
     }
 
+    Optional<Effects> selectedEffectOpt2 = Optional.empty();
+
     public void castSpell() {
-        String input;
-       // Optional<Effects> selectedEffectOpt2 = Optional.empty();
 
         System.out.println("Do you want to use or remove effects? (y/n)");
-        input = scan.nextLine();
+        action();
         if (input.equals("y")) {
             System.out.println("Select the effect: 'inv' for invisibility and 'mind' for mind control ");
-            input = scan.nextLine();
+            action();
             Optional<Effects> selectedEffectOpt = selectEffect(input);
-            //selectedEffectOpt2 = selectedEffectOpt;
+            selectedEffectOpt2 = selectedEffectOpt;
             if (selectedEffectOpt.isEmpty()) {
                 System.out.println("error");
             } else {
                 Effects selectedEffect = selectedEffectOpt.get();
                 if (selectedEffect.getName().equals("mind")) {
                     System.out.println("Who is your target?");
-                    input = scan.nextLine();
+                    action();
                     Optional<AbstractNPC> target = getTarget(input);
                     if (target.isPresent()) {
                         System.out.println("Select action: use/remove");
-                        input = scan.nextLine();
+                        action();
                         targetSpell(selectedEffect, target.get(), input);
                     }
                 } else if (selectedEffect.getName().equals("inv")) {
                     System.out.println("Select action: use/remove");
-                    input = scan.nextLine();
+                    action();
                     aoeSpell(selectedEffect, input);
                 } else
                     System.out.println("player has not enough mana");
                 System.out.println(player.getMana() + "MP");
             }
-        } else
-            System.out.println("no effect selected");
+        }
 
     }
 
@@ -110,6 +108,7 @@ public abstract class AbstractRoom {
             List<AbstractNPC> targets,
             String input
     ) {
+
         if (player.getMana() >= selectedEffect.spellCost()) {
             if (input.equals("use")) {
                 targets.forEach(selectedEffect::applyEffect);
@@ -125,6 +124,10 @@ public abstract class AbstractRoom {
         return allNPC.stream()
                 .filter(npc -> npc.getName().equals(target))
                 .findFirst();
+    }
+
+    public void action() {
+        input = scan.nextLine();
     }
 
 

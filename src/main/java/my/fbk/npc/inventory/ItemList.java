@@ -39,7 +39,7 @@ public enum ItemList {
             character.stream()
                     .forEach(c -> {
                         c.setMana(c.getMana() + 100);
-                        System.out.println("You restored 100 HP! Current HP: " + c.getMana());
+                        System.out.println("You restored 100 MP! Current MP: " + c.getMana());
                     });
         }
     },
@@ -49,7 +49,7 @@ public enum ItemList {
             character.stream()
                     .forEach(c -> {
                         c.setDamage(c.getDamage() + 40);
-                        System.out.println("Equipped Iron Sword! + 40 New DMG:  " + c.getDamage());
+                        System.out.println("Equipped Iron Sword! + 40 DMG:  " + c.getDamage());
                     });
         }
     },

@@ -16,34 +16,29 @@ public class Game {
 
     public Game() {
         player = new Player(100, 100, 100, 20);
-        currentRoom = safeRoom;
         safeRoom = new SafeRoom(this);
         battleRoom = new BattleRoom(this);
+        currentRoom = safeRoom;
     }
 
     public void main(String[] args) {
-
-
         Game game = new Game();
         game.moveNext();
-//        game.safeRoom.setPlayer(player);
-//        game.safeRoom.npcInteraction();
-//        game.battleRoom.setPlayer(player);
-//        game.battleRoom.battle();
     }
 
     public void moveNext() {
         int choice = rand.nextInt(2);
         if (choice == 0) {
-            currentRoom = battleRoom;
+            currentRoom =new BattleRoom(this);
             battleRoom.setPlayer(player);
+            System.out.println("Moved to: " + currentRoom.getClass().getSimpleName());
             battleRoom.battle();
         } else {
-            currentRoom = safeRoom;
+            currentRoom = new SafeRoom(this);
             safeRoom.setPlayer(player);
+            System.out.println("Moved to: " + currentRoom.getClass().getSimpleName());
             safeRoom.npcInteraction();
         }
-        System.out.println("Moved to: " + currentRoom.getClass().getSimpleName());
 
     }
 

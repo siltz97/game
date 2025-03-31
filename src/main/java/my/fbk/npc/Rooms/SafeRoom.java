@@ -6,31 +6,40 @@ import my.fbk.npc.inventory.ItemList;
 
 import java.util.Scanner;
 
+@SuppressWarnings("StringOperationCanBeSimplified")
 public class SafeRoom extends AbstractRoom {
 
+   Scanner scan = new Scanner(System.in);
 
-    final Scanner scan = new Scanner(System.in);
 
     public SafeRoom(Game game) {
         super(game);
     }
 
-
     public void npcInteraction() {
+        System.out.println("You are now in a safe room. Take a rest and interact with some npc if you want");
         while (true) {
-            String input;
             castSpell();
             while (true) {
-
-                System.out.println("Choose a character to interact with: peasant, guard, merchant,thief or type 'exit' to quit or 'back' to change effects or 'open' to see the inventory");
-                input = scan.nextLine().toLowerCase();
-                if (input.equals("back")) {
+                System.out.println("Choose a character to interact with: peasant, guard, merchant,thief ; type 'exit' to quit ; 'back' to change effects ; 'open' to see the inventory or 'next' to move forward");
+                action();
+                if (input.toLowerCase().equals("back")) {
                     break;
                 }
                 switch (input) {
                     case "open":
                         player.showInventory();
                         System.out.println(player.getMoney() + "$");
+                        System.out.println("Do you want to use an item? yes/no");
+                        action();
+                        if (input.toLowerCase().equals("yes")) {
+                            System.out.println("Select an item");
+                            action();
+                            ItemList item = ItemList.valueOf(input.toUpperCase());
+                            player.useItem(item);
+                        } else if (input.equals("no")) {
+                            break;
+                        }
                         break;
 //peasant
                     case "peasant":
@@ -60,16 +69,17 @@ public class SafeRoom extends AbstractRoom {
                         System.out.print("Merchant: ");
                         merchant.speak();
 
-//                    if (!selectedEffectOpt2.isEmpty() && merchant.hasEffect(selectedEffectOpt2.get()) || merchant.getReputation() < 50) {
-//                        break;
-//                    }
+                        if (!selectedEffectOpt2.isEmpty() && merchant.hasEffect(selectedEffectOpt2.get()) || merchant.getReputation() < 50) {
+                            break;
+                        }
                         System.out.println("Type 'open' to open inventory, 'close' to close, 'buy'/'sell' or 'back' to choose another character");
 //inventory
                         while (true) {
-                            input = scan.nextLine().toLowerCase();
-                            if (input.equals("open")) {
+                            action();
+                            if (input.toLowerCase().equals("open")) {
                                 player.openInventory();
                                 player.showInventory();
+                                System.out.println();
                                 ((Merchant) merchant).openInventory();
                                 ((Merchant) merchant).showInventory();
                             } else if (input.equals("close")) {
@@ -81,12 +91,12 @@ public class SafeRoom extends AbstractRoom {
                                     ((Merchant) merchant).showInventory();
                                     System.out.println("Player's money: " + player.getMoney());
                                     System.out.println("Enter item name to buy or 'back' to exit");
-                                    input = scan.nextLine().toUpperCase();
-                                    if (input.equals("BACK")) {
+                                    action();
+                                    if (input.toUpperCase().equals("BACK")) {
                                         break;
                                     }
                                     try {
-                                        ItemList item = ItemList.valueOf(input);// Assuming ItemList has a method to get item by name
+                                        ItemList item = ItemList.valueOf(input.toUpperCase());// Assuming ItemList has a method to get item by name
                                         if (player.getMoney() >= item.getPrice()) {
                                             player.buyItem(item, merchant);
                                             player.setMoney(player.getMoney() - item.getPrice());
@@ -106,11 +116,11 @@ public class SafeRoom extends AbstractRoom {
                                 try {
                                     player.showInventory();
                                     System.out.println("Enter item name to sell:");
-                                    input = scan.nextLine().toUpperCase();
-                                    if (input.equals("BACK")) {
+                                    action();
+                                    if (input.toUpperCase().equals("BACK")) {
                                         continue;
                                     }
-                                    ItemList item = ItemList.valueOf(input);
+                                    ItemList item = ItemList.valueOf(input.toUpperCase());
                                     if (merchant.getMoney() >= item.getPrice()) {
                                         player.sellItem(item, merchant);
                                         player.setMoney(player.getMoney() + item.getPrice());
@@ -137,8 +147,6 @@ public class SafeRoom extends AbstractRoom {
                         scan.close();
                         return; // Exit the program
 
-
-
                     default:
                         System.out.println("Invalid choice. Try again.");
 
@@ -147,6 +155,8 @@ public class SafeRoom extends AbstractRoom {
         }
     }
 
-
+    public void action() {
+        input = scan.nextLine();
+    }
 }
 
