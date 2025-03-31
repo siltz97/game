@@ -2,6 +2,10 @@ package my.fbk.npc.Rooms;
 
 import my.fbk.npc.Enemy.*;
 import my.fbk.npc.Game;
+import my.fbk.npc.factories.GoblinFactory;
+import my.fbk.npc.factories.KoboldFactory;
+import my.fbk.npc.factories.SkeletonFactory;
+import my.fbk.npc.factories.ZombieFactory;
 import my.fbk.npc.inventory.ItemList;
 
 import java.util.List;
@@ -56,20 +60,14 @@ public class BossRoom extends AbstractRoom {
     }
 
     public void generateEnemy() {
-        int experience = rand.nextInt(250) + 60;
-        int health = rand.nextInt(150) + 150;
-        int mana = rand.nextInt(60) + 30;
-        int damage = rand.nextInt(40) + 20;
-        int gold = rand.nextInt(100) + 60;
-
         List<AbstractEnemy> enemyTypes = List.of(
-                new Goblin(0, 0, 0, 0,0),
-                new Skeleton(0, 0, 0, 0,0),
-                new Kobold(0, 0, 0, 0,0),
-                new Zombie(0, 0, 0, 0,0)
+                GoblinFactory.makeBoss(),
+                KoboldFactory.makeBoss(),
+                SkeletonFactory.makeBoss(),
+                ZombieFactory.makeBoss()
         );
-        AbstractEnemy template = enemyTypes.get(rand.nextInt(enemyTypes.size()));
-        enemy = template.createNew(experience, health, mana, damage,gold);
+        AbstractEnemy enemy = enemyTypes.get(rand.nextInt(enemyTypes.size()));
+
         System.out.println("you see a giant " + enemy.getName().toUpperCase() + " Get ready to fight!");
 
     }
