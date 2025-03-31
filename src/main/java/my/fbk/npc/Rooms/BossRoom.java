@@ -8,20 +8,18 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
-@SuppressWarnings("StringTemplateMigration")
-public class BattleRoom extends AbstractRoom {
-
+public class BossRoom extends AbstractRoom {
     Scanner scan = new Scanner(System.in);
     Random rand = new Random();
     String input;
     AbstractEnemy enemy;
 
-    public BattleRoom(Game game) {
+    public BossRoom(Game game) {
         super(game);
     }
 
     public void battle() {
-        System.out.println("You entered the BATTLE ROOM");
+        System.out.println("You entered the BOSS ROOM");
         generateEnemy();
 
         while (true) {
@@ -53,10 +51,10 @@ public class BattleRoom extends AbstractRoom {
     }
 
     public void generateEnemy() {
-        int experience = rand.nextInt(50) + 10;
-        int health = rand.nextInt(100) + 50;
-        int mana = rand.nextInt(30) + 10;
-        int damage = rand.nextInt(20) + 5;
+        int experience = rand.nextInt(250) + 60;
+        int health = rand.nextInt(150) + 150;
+        int mana = rand.nextInt(60) + 30;
+        int damage = rand.nextInt(40) + 20;
 
         List<AbstractEnemy> enemyTypes = List.of(
                 new Goblin(0, 0, 0, 0),
@@ -66,7 +64,7 @@ public class BattleRoom extends AbstractRoom {
         );
         AbstractEnemy template = enemyTypes.get(rand.nextInt(enemyTypes.size()));
         enemy = template.createNew(experience, health, mana, damage);
-        System.out.println("you see a " + enemy.getName().toUpperCase() + " Get ready to fight!");
+        System.out.println("you see a giant " + enemy.getName().toUpperCase() + " Get ready to fight!");
 
     }
 
@@ -85,5 +83,5 @@ public class BattleRoom extends AbstractRoom {
         player.setHealth(player.getHealth() - enemy.getDamage());
         System.out.println("Player has " + player.getHealth() + " health");
     }
-
 }
+

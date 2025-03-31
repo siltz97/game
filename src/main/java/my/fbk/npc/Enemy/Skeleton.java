@@ -8,4 +8,13 @@ public class Skeleton extends AbstractEnemy {
 
     @Override
     public void attack() {}
+
+    @Override
+    public Skeleton createNew(int experience, int health, int mana, int damage) {
+        return new Skeleton(experience, health, mana, damage);
+    }
+    @Override
+    public String getName() {
+        return "skeleton";
+    }
 }

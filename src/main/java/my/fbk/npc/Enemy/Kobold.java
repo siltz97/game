@@ -8,4 +8,13 @@ public class Kobold extends AbstractEnemy {
 
     @Override
     public void attack() {}
+
+    @Override
+    public Kobold createNew(int experience, int health, int mana, int damage) {
+        return new Kobold(experience, health, mana, damage);
+    }
+    @Override
+    public String getName() {
+        return "kobold";
+    }
 }
