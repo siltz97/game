@@ -22,6 +22,8 @@ public class BossRoom extends AbstractRoom {
     public void battle() {
         System.out.println("You entered the BOSS ROOM");
         generateEnemy();
+        System.out.println("Your stats: "+player.getHealth()+" HP "+player.getMana()+" MP "+player.getDamage()+" DMG");
+        System.out.println("Enemy stats: "+enemy.getHealth()+" HP "+enemy.getMana()+" MP "+enemy.getDamage()+" DMG");
 
         while (true) {
             System.out.println("What do you want to do? attack/useitem or 'next' to go to another room");
@@ -31,8 +33,10 @@ public class BossRoom extends AbstractRoom {
                 enemyAttack();
                 if (player.getHealth() <= 0) {
                     System.out.println("Player died,game over");
-                    break;
+                    return;
                 } else if (enemy.getHealth() <= 0) {
+                    player.setMoney(player.getMoney() + enemy.getGold());
+                    System.out.println("Player earned: " + enemy.getGold() + "$  and now has: " + player.getMoney()+"$");
                     System.out.println("enemy died,you can go on");
                     game.moveNext();
                 }
@@ -56,15 +60,16 @@ public class BossRoom extends AbstractRoom {
         int health = rand.nextInt(150) + 150;
         int mana = rand.nextInt(60) + 30;
         int damage = rand.nextInt(40) + 20;
+        int gold = rand.nextInt(100) + 60;
 
         List<AbstractEnemy> enemyTypes = List.of(
-                new Goblin(0, 0, 0, 0),
-                new Skeleton(0, 0, 0, 0),
-                new Kobold(0, 0, 0, 0),
-                new Zombie(0, 0, 0, 0)
+                new Goblin(0, 0, 0, 0,0),
+                new Skeleton(0, 0, 0, 0,0),
+                new Kobold(0, 0, 0, 0,0),
+                new Zombie(0, 0, 0, 0,0)
         );
         AbstractEnemy template = enemyTypes.get(rand.nextInt(enemyTypes.size()));
-        enemy = template.createNew(experience, health, mana, damage);
+        enemy = template.createNew(experience, health, mana, damage,gold);
         System.out.println("you see a giant " + enemy.getName().toUpperCase() + " Get ready to fight!");
 
     }

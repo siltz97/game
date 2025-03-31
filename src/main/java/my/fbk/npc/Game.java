@@ -1,13 +1,15 @@
 package my.fbk.npc;
 
-import my.fbk.npc.Enemy.AbstractEnemy;
+import my.fbk.npc.AllNPC.Guard;
+import my.fbk.npc.AllNPC.Merchant;
+import my.fbk.npc.AllNPC.Peasant;
+import my.fbk.npc.AllNPC.Thief;
 import my.fbk.npc.Rooms.AbstractRoom;
 import my.fbk.npc.Rooms.BattleRoom;
 import my.fbk.npc.Rooms.BossRoom;
 import my.fbk.npc.Rooms.SafeRoom;
 import my.fbk.npc.myPlayer.Player;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -33,18 +35,24 @@ public class Game {
     }
 
     public void moveNext() {
-        int choice = rand.nextInt(3);
+        int choice = rand.nextInt(5);
         if (choice == 0) {
-            currentRoom =new BattleRoom(this);
+            currentRoom = new BattleRoom(this);
             battleRoom.setPlayer(player);
             System.out.println("Moved to: " + currentRoom.getClass().getSimpleName());
             battleRoom.battle();
-        } else if(choice == 1) {
+        } else if (choice == 1 || choice == 3 || choice == 4) {
             currentRoom = new SafeRoom(this);
             safeRoom.setPlayer(player);
+            safeRoom.setAllNPC(List.of(
+                    new Peasant(1, 1, 1, 1, 1),
+                    new Guard(1, 1, 1, 1, 1),
+                    new Thief(1, 1, 1, 1, 1),
+                    new Merchant(99999, 1, 1, 1, 1))
+            );
             System.out.println("Moved to: " + currentRoom.getClass().getSimpleName());
             safeRoom.npcInteraction();
-        }else{
+        } else if (choice == 2) {
             currentRoom = new BossRoom(this);
             bossRoom.setPlayer(player);
             System.out.println("Moved to: " + currentRoom.getClass().getSimpleName());

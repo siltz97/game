@@ -15,40 +15,21 @@ import java.util.*;
 @Getter
 @Setter
 public abstract class AbstractRoom {
-    @Getter
-    @Setter
+
     Player player = null;
     Random rand = new Random();
     Scanner scan = new Scanner(System.in);
     List<Effects> effects = new ArrayList<>();
     List<AbstractNPC> allNPC = new ArrayList<>();
-    List<AbstractEnemy> allEnemy = new ArrayList<>();
     private AbstractRoom currentRoom;
     Game game;
     String input;
-
-
-    AbstractNPC merchant = new Merchant(99999, 50, 100, 100, 1);
-    AbstractNPC guard = new Guard(99999, 50, 100, 100, 1);
-    AbstractNPC thief = new Thief(99999, 50, 100, 100, 1);
-    AbstractNPC peasant = new Peasant(99999, 50, 100, 100, 1);
-    AbstractEnemy goblin = new Goblin(100, 50, 0, 10);
-    AbstractEnemy kobold = new Kobold(100, 50, 0, 10);
-    AbstractEnemy skeleton = new Skeleton(100, 50, 0, 10);
-    AbstractEnemy zombie = new Zombie(100, 50, 0, 10);
+    AbstractEnemy enemy;
 
     public AbstractRoom(Game game) {
         this.game = game;
         effects.add(new MindControlSpell());
         effects.add(new InvisibilitySpell());
-        allNPC.add(merchant);
-        allNPC.add(guard);
-        allNPC.add(thief);
-        allNPC.add(peasant);
-        allEnemy.add(goblin);
-        allEnemy.add(kobold);
-        allEnemy.add(skeleton);
-        allEnemy.add(zombie);
     }
 
     Optional<Effects> selectedEffectOpt2 = Optional.empty();

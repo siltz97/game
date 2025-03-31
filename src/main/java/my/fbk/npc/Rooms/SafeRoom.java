@@ -1,9 +1,13 @@
 package my.fbk.npc.Rooms;
 
-import my.fbk.npc.AllNPC.Merchant;
+import my.fbk.npc.AllNPC.*;
+import my.fbk.npc.BasicSpells.InvisibilitySpell;
 import my.fbk.npc.Game;
 import my.fbk.npc.inventory.ItemList;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
 @SuppressWarnings("StringOperationCanBeSimplified")
@@ -14,11 +18,13 @@ public class SafeRoom extends AbstractRoom {
 
     public SafeRoom(Game game) {
         super(game);
+        allNPC = new ArrayList<>();
     }
 
     public void npcInteraction() {
-        System.out.println("You are now in a SAFE ROOM. Take a rest and interact with some npc if you want. Type spell/speak");
+        System.out.println("You are now in a SAFE ROOM. Take a rest and interact with some npc if you want.");
         while (true) {
+            System.out.println(" Type 'use spell'/'speak'");
             action();
             if (input.equals("use spell")) {
                 castSpell();
@@ -30,6 +36,12 @@ public class SafeRoom extends AbstractRoom {
                     if (input.toLowerCase().equals("back")) {
                         break;
                     }
+                    Optional<AbstractNPC> npc = allNPC.stream().filter(n -> n.getName().equals(input)).findFirst();
+                    if(npc.isEmpty()){
+                        System.out.println("error");
+                        continue;
+                    }
+                    AbstractNPC speaker = npc.get();
                     switch (input) {
                         case "open":
                             player.showInventory();
@@ -50,24 +62,25 @@ public class SafeRoom extends AbstractRoom {
                             System.out.print("Player: ");
                             player.speak();
                             System.out.print("Peasant: ");
-                            peasant.speak();
+                            speaker.speak();
                             break;
 //thief
                         case "thief":
                             System.out.print("Player: ");
                             player.speak();
                             System.out.print("Thief: ");
-                            thief.speak();
+                            speaker.speak();
                             break;
 //guard
                         case "guard":
                             System.out.print("Player: ");
                             player.speak();
                             System.out.print("Guard: ");
-                            guard.speak();
+                            speaker.speak();
                             break;
 //merchant
                         case "merchant":
+                            Merchant merchant = (Merchant) speaker;
                             System.out.print("Player: ");
                             player.speak();
                             System.out.print("Merchant: ");
@@ -84,15 +97,15 @@ public class SafeRoom extends AbstractRoom {
                                     player.openInventory();
                                     player.showInventory();
                                     System.out.println();
-                                    ((Merchant) merchant).openInventory();
-                                    ((Merchant) merchant).showInventory();
+                                    merchant.openInventory();
+                                    merchant.showInventory();
                                 } else if (input.equals("close")) {
                                     player.closeInventory();
-                                    ((Merchant) merchant).closeInventory();
+                                    merchant.closeInventory();
 //buy
                                 } else if (input.equals("buy")) {
                                     while (true) {
-                                        ((Merchant) merchant).showInventory();
+                                        merchant.showInventory();
                                         System.out.println("Player's money: " + player.getMoney());
                                         System.out.println("Enter item name to buy or 'back' to exit");
                                         action();

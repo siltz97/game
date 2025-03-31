@@ -11,7 +11,6 @@ import java.util.Random;
 @Getter
 @Setter
 public class Player extends AbstractPlayer  {
-    private int damage;
     private final NewInventory list = new NewInventory();
     private final Random rand = new Random();
 
