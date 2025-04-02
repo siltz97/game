@@ -3,6 +3,7 @@ package my.fbk.npc;
 import my.fbk.npc.AllNPC.Merchant;
 import my.fbk.npc.BasicSpells.InvisibilitySpell;
 import my.fbk.npc.Speak.SilentSpeak;
+import my.fbk.npc.myPlayer.Player;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -46,6 +47,12 @@ public class MerchantTest {
             merchant.showInventory();
         }
         Assertions.assertTrue(merchant.getReputation() > 50 && merchant.getEffects().isEmpty());
+    }
+    @Test
+    public void merchantTestInventoryAccessBuy() {
+        Merchant merchant = new Merchant(99999, 100, 100, 2,1);
+        merchant.showInventory();
+        Assertions.assertTrue(merchant.getInventory().getSize()>=0,"good");
     }
 
 }

@@ -8,7 +8,7 @@ public class SkeletonFactory {
 
     private static Random rand = new Random();
 
-    public static Skeleton makeWarior() {
+    public static Skeleton makeWarrior() {
         return new Skeleton(75, 100, 0, 80, rand.nextInt(100)+20);
     }
 
@@ -23,7 +23,7 @@ public class SkeletonFactory {
     public static Skeleton random() {
         int r = rand.nextInt(2);
         if (r == 0)
-            return makeWarior();
+            return makeWarrior();
         else
             return makeMage();
     }

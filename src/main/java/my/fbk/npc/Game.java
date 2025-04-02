@@ -11,7 +11,6 @@ import my.fbk.npc.Rooms.SafeRoom;
 import my.fbk.npc.myPlayer.Player;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.Random;
 
 public class Game {
@@ -36,13 +35,13 @@ public class Game {
     }
 
     public void moveNext() {
-        int choice = rand.nextInt(3);
-        if (choice == 0) {
+        int choice = rand.nextInt(5);
+        if (choice == 0 || choice == 3) {
             currentRoom = new BattleRoom(this);
             battleRoom.setPlayer(player);
             System.out.println("Moved to: " + currentRoom.getClass().getSimpleName());
             battleRoom.battle();
-        } else if (choice == 1) {
+        } else if (choice == 1 || choice == 4) {
             currentRoom = new SafeRoom(this);
             safeRoom.setPlayer(player);
             safeRoom.setAllNPC(Arrays.asList(

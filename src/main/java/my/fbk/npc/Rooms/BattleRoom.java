@@ -31,26 +31,31 @@ public class BattleRoom extends AbstractRoom {
         System.out.println("Enemy stats: "+enemy.getHealth()+" HP "+enemy.getMana()+" MP "+enemy.getDamage()+" DMG");
 
         while (true) {
+            if (player.getHealth() <= 0) {
+                System.out.println("Player died,game over");
+                return;
+            } else if (enemy.getHealth() <= 0) {
+                player.setMoney(player.getMoney() + enemy.getGold());
+                System.out.println("Player earned: " + enemy.getGold() + "$  and now has: " + player.getMoney()+"$");
+                System.out.println("enemy died,you can go on");
+                action();
+                game.moveNext();
+            }
             System.out.println("What do you want to do? attack/useitem or 'next' to go to another room");
+
             action();
             if (input.equals("attack")) {
                 playerAttack();
                 enemyAttack();
-                if (player.getHealth() <= 0) {
-                    System.out.println("Player died,game over");
-                    return;
-                } else if (enemy.getHealth() <= 0) {
-                    player.setMoney(player.getMoney() + enemy.getGold());
-                    System.out.println("Player earned: " + enemy.getGold() + "$  and now has: " + player.getMoney()+"$");
-                    System.out.println("enemy died,you can go on");
-                    game.moveNext();
-                }
             } else if (input.equals("useitem")) {
                 System.out.println("Select an item to use");
                 player.showInventory();
                 action();
                 ItemList item = ItemList.valueOf(input.toUpperCase());
-                player.useItem(item);
+                if(item.equals(ItemList.FIRE_SCROLL)){
+                    item.use(List.of(enemy));
+                }else
+                    player.useItem(item);
 
 
             } else if (input.equals("next")) {
@@ -59,7 +64,6 @@ public class BattleRoom extends AbstractRoom {
 
         }
     }
-
     public void generateEnemy() {
 
         List<AbstractEnemy> enemyTypes = List.of(
@@ -68,7 +72,7 @@ public class BattleRoom extends AbstractRoom {
                 SkeletonFactory.random(),
                 ZombieFactory.random()
         );
-        AbstractEnemy enemy = enemyTypes.get(rand.nextInt(enemyTypes.size()));
+        enemy = enemyTypes.get(rand.nextInt(enemyTypes.size()));
         System.out.println("you see a " + enemy.getName().toUpperCase() + " Get ready to fight!");
 
     }

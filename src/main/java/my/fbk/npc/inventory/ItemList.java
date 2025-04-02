@@ -10,14 +10,17 @@ import java.util.List;
 @SuppressWarnings("NonFinalFieldInEnum")
 @Getter
 public enum ItemList {
-//    FIRE_SCROLL("A magic scroll that casts fire (300 DMG)", 300, 1, "") {
-//        @Override
-//        public void use(List<AbstractCharacter> character) {
-//            System.out.println("You cast a fire spell! Deals 300 damage.");
-//            // You can add logic to apply damage to an enemy
-//        }
-//    },
-//    DOVAKIN_VOICE("FUS RO DAH!!! 1000 DMG", 9999, 9999, "") {
+    FIRE_SCROLL("A magic scroll that casts fire (300 DMG)", 300, 1, "") {
+        @Override
+        public void use(List<AbstractCharacter> character) {
+            character.stream()
+                    .forEach(c -> {
+                        c.setHealth(c.getHealth() - 300);
+                        System.out.println("Enemy recieved 300 damage: " + c.getHealth());
+                    });
+        }
+    },
+    //    DOVAKIN_VOICE("FUS RO DAH!!! 1000 DMG", 9999, 9999, "") {
 //        @Override
 //        public void use(List<AbstractCharacter> character) {
 //            System.out.println("You shout 'FUS RO DAH' and deal 1000 damage to all enemies!");

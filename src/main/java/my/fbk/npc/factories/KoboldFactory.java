@@ -8,7 +8,7 @@ public class KoboldFactory {
 
     private static Random rand = new Random();
 
-    public static Kobold makeWarior() {
+    public static Kobold makeWarrior() {
         return new Kobold(75, 100, 0, 80, rand.nextInt(100)+20);
     }
 
@@ -23,7 +23,7 @@ public class KoboldFactory {
     public static Kobold random() {
         int r = rand.nextInt(2);
         if (r == 0)
-            return makeWarior();
+            return makeWarrior();
         else
             return makeMage();
     }

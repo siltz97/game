@@ -23,11 +23,12 @@ public class SafeRoom extends AbstractRoom {
     public void npcInteraction() {
         System.out.println("You are now in a SAFE ROOM. Take a rest and interact with some npc if you want.");
         while (true) {
-            System.out.println(" Type 'use spell'/'speak'");
+            System.out.println(" Type 'use spell' to apply some effects on npc or 'speak' to interact with npc");
             action();
             if (input.equals("use spell")) {
                 castSpell();
             } else if (input.equals("speak")) {
+                System.out.println("");
             }
             while (true) {
                 System.out.println("Choose a character to interact with: peasant, guard, merchant,thief ; type 'exit' to quit ; 'back' to change effects ; 'open' to see the inventory or 'next' to move forward");
@@ -37,15 +38,11 @@ public class SafeRoom extends AbstractRoom {
                 } else if (input.toLowerCase().equals("next")) {
                     game.moveNext();
                     break;
-                }
-                Optional<AbstractNPC> npc = allNPC.stream().filter(n -> n.getName().equals(input)).findFirst();
-                if (npc.isEmpty()) {
-                    System.out.println("error");
-                    continue;
-                }
-                AbstractNPC speaker = npc.get();
-                switch (input) {
-                    case "open":
+                }else if (input.equals("exit")) {
+                        System.out.println("Exiting game...");
+                        scan.close();
+                        return;
+                }else if(input.equals("open")){
                         player.showInventory();
                         System.out.println(player.getMoney() + "$");
                         System.out.println("Do you want to use an item? yes/no");
@@ -59,6 +56,14 @@ public class SafeRoom extends AbstractRoom {
                             break;
                         }
                         break;
+                }
+                Optional<AbstractNPC> npc = allNPC.stream().filter(n -> n.getName().equals(input)).findFirst();
+                if (npc.isEmpty()) {
+                    System.out.println("error");
+                    continue;
+                }
+                AbstractNPC speaker = npc.get();
+                switch (input) {
 //peasant
                     case "peasant":
                         System.out.print("Player: ");
@@ -156,12 +161,6 @@ public class SafeRoom extends AbstractRoom {
                             }
                         }
                         break;
-
-                    case "exit":
-                        System.out.println("Exiting game...");
-                        scan.close();
-                        return; // Exit the program
-
                     default:
                         System.out.println("Invalid choice. Try again.");
 

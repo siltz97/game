@@ -8,7 +8,7 @@ public class ZombieFactory {
 
     private static Random rand = new Random();
 
-    public static Zombie makeWarior() {
+    public static Zombie makeWarrior() {
         return new Zombie(75, 100, 0, 80, rand.nextInt(100)+20);
     }
 
@@ -23,7 +23,7 @@ public class ZombieFactory {
     public static Zombie random() {
         int r = rand.nextInt(2);
         if (r == 0)
-            return makeWarior();
+            return makeWarrior();
         else
             return makeMage();
     }

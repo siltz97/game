@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import my.fbk.npc.AbstractClass.AbstractCharacter;
 import my.fbk.npc.BasicSpells.Effects;
+import my.fbk.npc.inventory.Inventory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,8 +23,7 @@ public abstract class AbstractEnemy extends AbstractCharacter {
     }
 
     public abstract void attack();
-    public abstract AbstractEnemy createNew(int experience, int health, int mana, int damage,int gold);
     public abstract String getName();
-
+    public void setInventory(Inventory inventory) {}
 
 }

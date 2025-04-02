@@ -4,14 +4,13 @@ import lombok.Getter;
 import lombok.Setter;
 import my.fbk.npc.inventory.Inventory;
 import my.fbk.npc.inventory.ItemList;
-import my.fbk.npc.inventory.NewInventory;
+import my.fbk.npc.inventory.InventoryInteraction;
 
 import java.util.Arrays;
 
 @Getter
 @Setter
 public class Merchant extends AbstractNPC {
-    NewInventory list = new NewInventory();
 
     public Merchant(int money, int health, int reputation, int mana,int damage) {
         super(money, health, reputation, mana, damage);

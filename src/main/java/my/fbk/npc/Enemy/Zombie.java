@@ -10,10 +10,6 @@ public class Zombie extends AbstractEnemy {
     public void attack() {}
 
     @Override
-    public Zombie createNew(int experience, int health, int mana, int damage,int gold) {
-        return new Zombie(experience, health, mana, damage,gold);
-    }
-    @Override
     public String getName() {
         return "zombie";
     }

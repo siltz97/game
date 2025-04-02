@@ -66,10 +66,8 @@ public class BossRoom extends AbstractRoom {
                 SkeletonFactory.makeBoss(),
                 ZombieFactory.makeBoss()
         );
-        AbstractEnemy enemy = enemyTypes.get(rand.nextInt(enemyTypes.size()));
-
+        enemy = enemyTypes.get(rand.nextInt(enemyTypes.size()));
         System.out.println("you see a giant " + enemy.getName().toUpperCase() + " Get ready to fight!");
-
     }
 
     public void action() {

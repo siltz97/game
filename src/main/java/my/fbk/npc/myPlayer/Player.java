@@ -4,20 +4,19 @@ import lombok.Getter;
 import lombok.Setter;
 import my.fbk.npc.AllNPC.AbstractNPC;
 import my.fbk.npc.inventory.Inventory;
-import my.fbk.npc.inventory.NewInventory;
+import my.fbk.npc.inventory.InventoryInteraction;
 import my.fbk.npc.inventory.ItemList;
 
 import java.util.Random;
 @Getter
 @Setter
 public class Player extends AbstractPlayer  {
-    private final NewInventory list = new NewInventory();
     private final Random rand = new Random();
 
     public Player(int money, int health, int mana, int damage) {
         super(money, health, mana,damage);
         ItemList[] itemArray = ItemList.values();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 3; i++) {
             list.addItem(itemArray[rand.nextInt(itemArray.length)]);
         }
 

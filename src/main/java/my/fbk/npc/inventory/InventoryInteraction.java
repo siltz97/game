@@ -2,6 +2,7 @@ package my.fbk.npc.inventory;
 
 import lombok.Getter;
 import lombok.Setter;
+import my.fbk.npc.AbstractClass.AbstractCharacter;
 import my.fbk.npc.AllNPC.AbstractNPC;
 import my.fbk.npc.AllNPC.Merchant;
 import my.fbk.npc.myPlayer.Player;
@@ -11,7 +12,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class NewInventory implements Inventory {
+public class InventoryInteraction implements Inventory {
     private List<ItemList> inventory = new ArrayList<>();
 
     @Override
@@ -30,7 +31,7 @@ public class NewInventory implements Inventory {
             return;
         }
         Merchant merchant = (Merchant) abstractNpc;
-        NewInventory merchantInventory = (NewInventory) merchant.getInventory();
+        InventoryInteraction merchantInventory = (InventoryInteraction) merchant.getInventory();
         if (merchantInventory.contains(item)) {
             inventory.add(item);
             merchantInventory.removeItem(item);
@@ -46,7 +47,7 @@ public class NewInventory implements Inventory {
             return;
         }
         Merchant merchant = (Merchant) abstractNpc;
-        NewInventory merchantInventory = (NewInventory) merchant.getInventory();
+        InventoryInteraction merchantInventory = (InventoryInteraction) merchant.getInventory();
         if (inventory.contains(item)) {
             inventory.remove(item);
             merchantInventory.addItem(item);
@@ -57,7 +58,7 @@ public class NewInventory implements Inventory {
     }
 
     @Override
-    public void openInventory(my.fbk.npc.AbstractClass.AbstractCharacter character) {
+    public void openInventory(AbstractCharacter character) {
         if (character instanceof Merchant) {
             System.out.println("*Merchant opens Inventory*");
         } else if (character instanceof Player) {
@@ -66,7 +67,7 @@ public class NewInventory implements Inventory {
     }
 
     @Override
-    public void closeInventory(my.fbk.npc.AbstractClass.AbstractCharacter character) {
+    public void closeInventory(AbstractCharacter character) {
         if (character instanceof Merchant) {
             System.out.println("*Merchant closes Inventory*");
         } else if (character instanceof Player) {
@@ -88,7 +89,7 @@ public class NewInventory implements Inventory {
     }
 
     @Override
-    public void useItem(ItemList item, Player character) {
+    public void useItem(ItemList item,AbstractCharacter character) {
         if (inventory.contains(item)) {
             item.use(List.of(character));
             item.setDurability((item.getDurability() - 1));
@@ -104,6 +105,10 @@ public class NewInventory implements Inventory {
 
     public boolean contains(ItemList item) {
         return inventory.contains(item);
+    }
+    @Override
+    public int getSize(){
+        return inventory.size();
     }
 
 
