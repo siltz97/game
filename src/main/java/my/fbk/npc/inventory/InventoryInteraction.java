@@ -16,12 +16,12 @@ public class InventoryInteraction implements Inventory {
     private List<ItemList> inventory = new ArrayList<>();
 
     @Override
-    public void addItem(ItemList item) {
+    public void addItemToInventory(ItemList item) {
         inventory.add(item);
     }
 
     @Override
-    public void removeItem(ItemList item) {
+    public void removeItemFromInventory(ItemList item) {
         inventory.remove(item);
     }
 
@@ -34,7 +34,7 @@ public class InventoryInteraction implements Inventory {
         InventoryInteraction merchantInventory = (InventoryInteraction) merchant.getInventory();
         if (merchantInventory.contains(item)) {
             inventory.add(item);
-            merchantInventory.removeItem(item);
+            merchantInventory.removeItemFromInventory(item);
             System.out.println("Player bought: " + item);
         } else {
             System.out.println("Item not available in Merchant's inventory.");
@@ -50,30 +50,13 @@ public class InventoryInteraction implements Inventory {
         InventoryInteraction merchantInventory = (InventoryInteraction) merchant.getInventory();
         if (inventory.contains(item)) {
             inventory.remove(item);
-            merchantInventory.addItem(item);
+            merchantInventory.addItemToInventory(item);
             System.out.println("You sold: " + item);
         } else {
             System.out.println("You don't have this item.");
         }
     }
 
-    @Override
-    public void openInventory(AbstractCharacter character) {
-        if (character instanceof Merchant) {
-            System.out.println("*Merchant opens Inventory*");
-        } else if (character instanceof Player) {
-            System.out.println("*Player opens Inventory*");
-        }
-    }
-
-    @Override
-    public void closeInventory(AbstractCharacter character) {
-        if (character instanceof Merchant) {
-            System.out.println("*Merchant closes Inventory*");
-        } else if (character instanceof Player) {
-            System.out.println("*Player closes Inventory*");
-        }
-    }
 
     @Override
     public void showInventory() {
@@ -99,7 +82,7 @@ public class InventoryInteraction implements Inventory {
         }
     }
 
-    public void addAll(List<ItemList> list) {
+    public void addAllItemsToInventory(List<ItemList> list) {
         inventory.addAll(list);
     }
 
@@ -107,7 +90,7 @@ public class InventoryInteraction implements Inventory {
         return inventory.contains(item);
     }
     @Override
-    public int getSize(){
+    public int getInventorySize(){
         return inventory.size();
     }
 

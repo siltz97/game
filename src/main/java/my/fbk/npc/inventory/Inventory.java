@@ -6,13 +6,9 @@ import my.fbk.npc.myPlayer.Player;
 
 public interface Inventory {
 
-    void addItem(ItemList item);
+    void addItemToInventory(ItemList item);
 
-    void removeItem(ItemList item);
-
-    void openInventory(AbstractCharacter character);
-
-    void closeInventory(AbstractCharacter character);
+    void removeItemFromInventory(ItemList item);
 
     void buyItem(ItemList item, AbstractNPC abstractNpc, Player player);
 
@@ -22,6 +18,6 @@ public interface Inventory {
 
     void useItem(ItemList item,AbstractCharacter character);
 
-    int getSize();
+    int getInventorySize();
 }
 

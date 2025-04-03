@@ -37,10 +37,10 @@ public abstract class AbstractRoom {
     public void castSpell() {
 
         System.out.println("Do you want to use or remove effects? (y/n)");
-        action();
+        userInput();
         if (input.equals("y")) {
             System.out.println("Select the effect: 'inv' for invisibility and 'mind' for mind control ");
-            action();
+            userInput();
             Optional<Effects> selectedEffectOpt = selectEffect(input);
             selectedEffectOpt2 = selectedEffectOpt;
             if (selectedEffectOpt.isEmpty()) {
@@ -49,16 +49,16 @@ public abstract class AbstractRoom {
                 Effects selectedEffect = selectedEffectOpt.get();
                 if (selectedEffect.getName().equals("mind")) {
                     System.out.println("Who is your target?");
-                    action();
+                    userInput();
                     Optional<AbstractNPC> target = getTarget(input);
                     if (target.isPresent()) {
                         System.out.println("Select action: use/remove");
-                        action();
+                        userInput();
                         targetSpell(selectedEffect, target.get(), input);
                     }
                 } else if (selectedEffect.getName().equals("inv")) {
                     System.out.println("Select action: use/remove");
-                    action();
+                    userInput();
                     aoeSpell(selectedEffect, input);
                 } else
                     System.out.println("player has not enough mana");
@@ -107,7 +107,7 @@ public abstract class AbstractRoom {
                 .findFirst();
     }
 
-    public void action() {
+    public void userInput() {
         input = scan.nextLine();
     }
 

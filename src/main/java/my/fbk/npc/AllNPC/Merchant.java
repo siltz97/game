@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import my.fbk.npc.inventory.Inventory;
 import my.fbk.npc.inventory.ItemList;
-import my.fbk.npc.inventory.InventoryInteraction;
 
 import java.util.Arrays;
 
@@ -14,7 +13,7 @@ public class Merchant extends AbstractNPC {
 
     public Merchant(int money, int health, int reputation, int mana,int damage) {
         super(money, health, reputation, mana, damage);
-        list.addAll(Arrays.asList(ItemList.values()));
+        list.addAllItemsToInventory(Arrays.asList(ItemList.values()));
     }
 
 
@@ -27,14 +26,6 @@ public class Merchant extends AbstractNPC {
 
     public Inventory getInventory() {
         return list;
-    }
-
-    public void openInventory() {
-        list.openInventory(this);
-    }
-
-    public void closeInventory() {
-        list.closeInventory(this);
     }
 
     public void showInventory() {

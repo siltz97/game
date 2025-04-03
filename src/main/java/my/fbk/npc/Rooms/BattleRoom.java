@@ -38,19 +38,19 @@ public class BattleRoom extends AbstractRoom {
                 player.setMoney(player.getMoney() + enemy.getGold());
                 System.out.println("Player earned: " + enemy.getGold() + "$  and now has: " + player.getMoney()+"$");
                 System.out.println("enemy died,you can go on");
-                action();
+                userInput();
                 game.moveNext();
             }
             System.out.println("What do you want to do? attack/useitem or 'next' to go to another room");
 
-            action();
+            userInput();
             if (input.equals("attack")) {
                 playerAttack();
                 enemyAttack();
             } else if (input.equals("useitem")) {
                 System.out.println("Select an item to use");
                 player.showInventory();
-                action();
+                userInput();
                 ItemList item = ItemList.valueOf(input.toUpperCase());
                 if(item.equals(ItemList.FIRE_SCROLL)){
                     item.use(List.of(enemy));
@@ -65,19 +65,19 @@ public class BattleRoom extends AbstractRoom {
         }
     }
     public void generateEnemy() {
-
+        //the enemies are uselessly generated even if it is used only one of them
         List<AbstractEnemy> enemyTypes = List.of(
-                GoblinFactory.random(),
-                KoboldFactory.random(),
-                SkeletonFactory.random(),
-                ZombieFactory.random()
+                GoblinFactory.makeRandomEnemy(),
+                KoboldFactory.makeRandomEnemy(),
+                SkeletonFactory.makeRandomEnemy(),
+                ZombieFactory.MakeRandomEnemy()
         );
         enemy = enemyTypes.get(rand.nextInt(enemyTypes.size()));
         System.out.println("you see a " + enemy.getName().toUpperCase() + " Get ready to fight!");
 
     }
 
-    public void action() {
+    public void userInput() {
         input = scan.nextLine();
     }
 

@@ -31,7 +31,7 @@ public class BossRoom extends AbstractRoom {
 
         while (true) {
             System.out.println("What do you want to do? attack/useitem or 'next' to go to another room");
-            action();
+            userInput();
             if (input.equals("attack")) {
                 playerAttack();
                 enemyAttack();
@@ -47,7 +47,7 @@ public class BossRoom extends AbstractRoom {
             } else if (input.equals("useitem")) {
                 System.out.println("Select an item to use");
                 player.showInventory();
-                action();
+                userInput();
                 ItemList item = ItemList.valueOf(input.toUpperCase());
                 player.useItem(item);
 
@@ -62,15 +62,15 @@ public class BossRoom extends AbstractRoom {
     public void generateEnemy() {
         List<AbstractEnemy> enemyTypes = List.of(
                 GoblinFactory.makeBoss(),
-                KoboldFactory.makeBoss(),
-                SkeletonFactory.makeBoss(),
-                ZombieFactory.makeBoss()
+                KoboldFactory.makeKoboldBoss(),
+                SkeletonFactory.makeSkeletonBoss(),
+                ZombieFactory.makeZombieBoss()
         );
         enemy = enemyTypes.get(rand.nextInt(enemyTypes.size()));
         System.out.println("you see a giant " + enemy.getName().toUpperCase() + " Get ready to fight!");
     }
 
-    public void action() {
+    public void userInput() {
         input = scan.nextLine();
     }
 

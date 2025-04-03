@@ -3,7 +3,6 @@ package my.fbk.npc;
 import my.fbk.npc.AllNPC.Merchant;
 import my.fbk.npc.BasicSpells.InvisibilitySpell;
 import my.fbk.npc.Speak.SilentSpeak;
-import my.fbk.npc.myPlayer.Player;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -41,7 +40,7 @@ public class MerchantTest {
 
     @Test
     @DisplayName("user can trade")
-    public void merchantTestInventoryAccess() {
+    public void merchantTestInventoryAccessConditions() {
         Merchant merchant = new Merchant(1, 100, 100, 2,1);
         if (merchant.getReputation() > 50 && merchant.getEffects().isEmpty()) {
             merchant.showInventory();
@@ -49,10 +48,10 @@ public class MerchantTest {
         Assertions.assertTrue(merchant.getReputation() > 50 && merchant.getEffects().isEmpty());
     }
     @Test
-    public void merchantTestInventoryAccessBuy() {
+    public void merchantTestInventoryHasItems() {
         Merchant merchant = new Merchant(99999, 100, 100, 2,1);
         merchant.showInventory();
-        Assertions.assertTrue(merchant.getInventory().getSize()>=0,"good");
+        Assertions.assertTrue(merchant.getInventory().getInventorySize()>=0,"good");
     }
 
 }

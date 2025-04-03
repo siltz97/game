@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import my.fbk.npc.AllNPC.AbstractNPC;
 import my.fbk.npc.inventory.Inventory;
-import my.fbk.npc.inventory.InventoryInteraction;
 import my.fbk.npc.inventory.ItemList;
 
 import java.util.Random;
@@ -17,7 +16,7 @@ public class Player extends AbstractPlayer  {
         super(money, health, mana,damage);
         ItemList[] itemArray = ItemList.values();
         for (int i = 0; i < 3; i++) {
-            list.addItem(itemArray[rand.nextInt(itemArray.length)]);
+            list.addItemToInventory(itemArray[rand.nextInt(itemArray.length)]);
         }
 
     }
@@ -26,12 +25,6 @@ public class Player extends AbstractPlayer  {
     }
     public void sellItem(ItemList item,AbstractNPC abstractNpc){
         list.sellItem(item, abstractNpc,this);
-    }
-    public void openInventory() {
-        list.openInventory(this);
-    }
-    public void closeInventory() {
-        list.closeInventory(this);
     }
 
     public void showInventory() {

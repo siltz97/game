@@ -10,31 +10,30 @@ import java.util.Random;
 
 /* Produces goblins. */
 public class GoblinFactory {
-    ItemList item;
     static List<ItemList> list = new ArrayList<>();
 
-    private static Random rand = new Random();
+    private static final Random rand = new Random();
 
     public static Goblin makeWarrior() {
-        Goblin goblin = new Goblin(75, 100, 0, 80, 11);
-        goblin.setInventory(createInventory());
-        return goblin;
+        Goblin goblinWarrior = new Goblin(75, 100, 0, 80, 11);
+        goblinWarrior.setInventory(createInventory());
+        return goblinWarrior;
 
     }
 
     public static Goblin makeMage() {
-        Goblin goblin = new Goblin(75, 80, 100, 5, 11);
-        goblin.setInventory(createInventory());
-        return goblin;
+        Goblin goblinMage = new Goblin(75, 80, 100, 5, 11);
+        goblinMage.setInventory(createInventory());
+        return goblinMage;
     }
 
     public static Goblin makeBoss() {
-        Goblin goblin = new Goblin(200, 150, 100, 100, 11);
-        goblin.setInventory(createInventory());
-        return goblin;
+        Goblin goblinBoss = new Goblin(200, 150, 100, 100, 11);
+        goblinBoss.setInventory(createInventory());
+        return goblinBoss;
     }
 
-    public static Goblin random() {
+    public static Goblin makeRandomEnemy() {
         int r = rand.nextInt(2);
         if (r == 0)
             return makeWarrior();
