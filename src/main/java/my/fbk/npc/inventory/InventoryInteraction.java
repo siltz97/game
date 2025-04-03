@@ -13,7 +13,7 @@ import java.util.List;
 @Getter
 @Setter
 public class InventoryInteraction implements Inventory {
-    private List<ItemList> inventory = new ArrayList<>();
+    public List<ItemList> inventory = new ArrayList<>();
 
     @Override
     public void addItemToInventory(ItemList item) {

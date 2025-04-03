@@ -16,23 +16,19 @@ public class Player extends AbstractPlayer  {
         super(money, health, mana,damage);
         ItemList[] itemArray = ItemList.values();
         for (int i = 0; i < 3; i++) {
-            list.addItemToInventory(itemArray[rand.nextInt(itemArray.length)]);
+            inventory.addItemToInventory(itemArray[rand.nextInt(itemArray.length)]);
         }
 
     }
     public void buyItem(ItemList item, AbstractNPC abstractNpc) {
-        list.buyItem(item, abstractNpc,this);
+        inventory.buyItem(item, abstractNpc,this);
     }
     public void sellItem(ItemList item,AbstractNPC abstractNpc){
-        list.sellItem(item, abstractNpc,this);
+        inventory.sellItem(item, abstractNpc,this);
     }
 
     public void showInventory() {
-        list.showInventory();
-    }
-
-    public Inventory getInventory() {
-        return list;
+        inventory.showInventory();
     }
 
     @Override
@@ -45,7 +41,7 @@ public class Player extends AbstractPlayer  {
         System.out.println("Player attacks");
     }
     public void useItem(ItemList item) {
-        this.list.useItem(item,this);
+        this.inventory.useItem(item,this);
     }
 
     public void seeMoney(){
@@ -53,6 +49,7 @@ public class Player extends AbstractPlayer  {
         System.out.println("Player has: " + getMoney() + "$");
 
     }
+
 
 
 }

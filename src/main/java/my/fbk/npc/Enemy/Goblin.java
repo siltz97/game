@@ -3,6 +3,10 @@ package my.fbk.npc.Enemy;
 
 import lombok.Getter;
 import lombok.Setter;
+import my.fbk.npc.inventory.Inventory;
+import my.fbk.npc.inventory.ItemList;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -22,6 +26,5 @@ public class Goblin extends AbstractEnemy {
     public String getName() {
         return "goblin";
     }
-
 
 }

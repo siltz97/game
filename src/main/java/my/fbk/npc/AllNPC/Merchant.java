@@ -13,9 +13,8 @@ public class Merchant extends AbstractNPC {
 
     public Merchant(int money, int health, int reputation, int mana,int damage) {
         super(money, health, reputation, mana, damage);
-        list.addAllItemsToInventory(Arrays.asList(ItemList.values()));
+        inventory.addAllItemsToInventory(Arrays.asList(ItemList.values()));
     }
-
 
     @Override
     public void speak() {
@@ -23,13 +22,8 @@ public class Merchant extends AbstractNPC {
         behavior.speak(this);
     }
 
-
-    public Inventory getInventory() {
-        return list;
-    }
-
     public void showInventory() {
-        list.showInventory();
+        inventory.showInventory();
     }
 
     public String getName() {

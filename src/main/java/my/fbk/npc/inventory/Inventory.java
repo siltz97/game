@@ -4,6 +4,8 @@ import my.fbk.npc.AbstractClass.AbstractCharacter;
 import my.fbk.npc.AllNPC.AbstractNPC;
 import my.fbk.npc.myPlayer.Player;
 
+import java.util.List;
+
 public interface Inventory {
 
     void addItemToInventory(ItemList item);
@@ -19,5 +21,7 @@ public interface Inventory {
     void useItem(ItemList item,AbstractCharacter character);
 
     int getInventorySize();
+
+    void addAllItemsToInventory(List<ItemList> list);
 }
 

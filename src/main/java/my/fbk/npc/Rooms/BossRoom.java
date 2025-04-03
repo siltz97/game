@@ -3,9 +3,9 @@ package my.fbk.npc.Rooms;
 import my.fbk.npc.Enemy.*;
 import my.fbk.npc.Game;
 import my.fbk.npc.factories.GoblinFactory;
-import my.fbk.npc.factories.KoboldFactory;
-import my.fbk.npc.factories.SkeletonFactory;
-import my.fbk.npc.factories.ZombieFactory;
+//import my.fbk.npc.factories.KoboldFactory;
+//import my.fbk.npc.factories.SkeletonFactory;
+//import my.fbk.npc.factories.ZombieFactory;
 import my.fbk.npc.inventory.ItemList;
 
 import java.util.List;
@@ -61,10 +61,10 @@ public class BossRoom extends AbstractRoom {
 
     public void generateEnemy() {
         List<AbstractEnemy> enemyTypes = List.of(
-                GoblinFactory.makeBoss(),
-                KoboldFactory.makeKoboldBoss(),
-                SkeletonFactory.makeSkeletonBoss(),
-                ZombieFactory.makeZombieBoss()
+                GoblinFactory.makeGoblinBoss()
+//                KoboldFactory.makeKoboldBoss(),
+//                SkeletonFactory.makeSkeletonBoss(),
+//                ZombieFactory.makeZombieBoss()
         );
         enemy = enemyTypes.get(rand.nextInt(enemyTypes.size()));
         System.out.println("you see a giant " + enemy.getName().toUpperCase() + " Get ready to fight!");
