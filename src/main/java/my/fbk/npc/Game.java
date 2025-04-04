@@ -36,26 +36,19 @@ public class Game {
 
     public void moveNext() {
         int choice = rand.nextInt(5);
-        if (choice == 0 || choice == 3) {
+        if (choice == 0 || choice == 1) {
             currentRoom = new BattleRoom(this);
             battleRoom.setPlayer(player);
-            System.out.println("Moved to: " + currentRoom.getClass().getSimpleName());
+
             battleRoom.battle();
-        } else if (choice == 1 || choice == 4) {
+        } else if (choice == 2 || choice == 3) {
             currentRoom = new SafeRoom(this);
             safeRoom.setPlayer(player);
-            safeRoom.setAllNPC(Arrays.asList(
-                    new Peasant(rand.nextInt(20), 30, 100, 0, 5),
-                    new Guard(rand.nextInt(100), 300, 100, 10, 50),
-                    new Thief(rand.nextInt(50), 150, 100, 10, 40),
-                    new Merchant(99999, 60, 100, 0, 10))
-            );
-            System.out.println("Moved to: " + currentRoom.getClass().getSimpleName());
             safeRoom.npcInteraction();
         } else {
             currentRoom = new BossRoom(this);
             bossRoom.setPlayer(player);
-            System.out.println("Moved to: " + currentRoom.getClass().getSimpleName());
+
             bossRoom.battle();
         }
 

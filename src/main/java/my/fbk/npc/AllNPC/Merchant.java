@@ -13,7 +13,6 @@ public class Merchant extends AbstractNPC {
 
     public Merchant(int money, int health, int reputation, int mana,int damage) {
         super(money, health, reputation, mana, damage);
-        inventory.addAllItemsToInventory(Arrays.asList(ItemList.values()));
     }
 
     @Override

@@ -3,9 +3,11 @@ package my.fbk.npc.Rooms;
 import my.fbk.npc.AllNPC.AbstractNPC;
 import my.fbk.npc.AllNPC.Merchant;
 import my.fbk.npc.Game;
+import my.fbk.npc.NPCFactory.CreateNPC;
 import my.fbk.npc.inventory.ItemList;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
@@ -57,6 +59,7 @@ public class SafeRoom extends AbstractRoom {
                         }
                         break;
                 }
+                generateNPC();
                 Optional<AbstractNPC> npc = allNPC.stream().filter(n -> n.getName().equals(input)).findFirst();
                 if (npc.isEmpty()) {
                     System.out.println("error");
@@ -163,6 +166,15 @@ public class SafeRoom extends AbstractRoom {
             }
 
         }
+    }
+    public void generateNPC(){
+        List<AbstractNPC> npcTypes = List.of(
+                CreateNPC.makeGuard(),
+                CreateNPC.makePeasant(),
+                CreateNPC.makeThief(),
+                CreateNPC.makeMerchant()
+        );
+        setAllNPC(npcTypes);
     }
 
     public void userInput() {
