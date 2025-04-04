@@ -30,26 +30,41 @@ public class BossRoom extends AbstractRoom {
         System.out.println("Enemy stats: "+enemy.getHealth()+" HP "+enemy.getMana()+" MP "+enemy.getDamage()+" DMG");
 
         while (true) {
+            if (player.getHealth() <= 0) {
+                System.out.println("Player died,game over");
+                return;
+            } else if (enemy.getHealth() <= 0) {
+                player.setMoney(player.getMoney() + enemy.getGold());
+                System.out.println("Player earned: " + enemy.getGold() + "$  and now has: " + player.getMoney()+"$");
+                System.out.print("enemy loot is: ");
+                enemy.getInventory().showInventory();
+                player.getInventory().takeLoot(player,enemy);
+                player.setExperience(enemy.getExperience() + player.getExperience());
+                if(player.getExperience() >=100) {
+                    player.LevelUp();
+                }
+                System.out.println("enemy died,you can go on");
+                userInput();
+                game.moveNext();
+            }
             System.out.println("What do you want to do? attack/useitem or 'next' to go to another room");
+
             userInput();
             if (input.equals("attack")) {
                 playerAttack();
                 enemyAttack();
-                if (player.getHealth() <= 0) {
-                    System.out.println("Player died,game over");
-                    return;
-                } else if (enemy.getHealth() <= 0) {
-                    player.setMoney(player.getMoney() + enemy.getGold());
-                    System.out.println("Player earned: " + enemy.getGold() + "$  and now has: " + player.getMoney()+"$");
-                    System.out.println("enemy died,you can go on");
-                    game.moveNext();
-                }
             } else if (input.equals("useitem")) {
-                System.out.println("Select an item to use");
+                System.out.println("Select an item to use or 'back'");
                 player.showInventory();
                 userInput();
+                if(input.equals("back")) {
+                    continue;
+                }
                 ItemList item = ItemList.valueOf(input.toUpperCase());
-                player.useItem(item);
+                if(item.equals(ItemList.FIRE_SCROLL)){
+                    item.use(List.of(enemy));
+                }else
+                    player.useItem(item);
 
 
             } else if (input.equals("next")) {
@@ -61,10 +76,10 @@ public class BossRoom extends AbstractRoom {
 
     public void generateEnemy() {
         List<AbstractEnemy> enemyTypes = List.of(
-                GoblinFactory.makeGoblinBoss(),
-                KoboldFactory.makeKoboldBoss(),
-                SkeletonFactory.makeSkeletonBoss(),
-                ZombieFactory.makeZombieBoss()
+                GoblinFactory.makeGoblinBoss(player.getLevel()),
+                KoboldFactory.makeKoboldBoss(player.getLevel()),
+                SkeletonFactory.makeSkeletonBoss(player.getLevel()),
+                ZombieFactory.makeZombieBoss(player.getLevel())
         );
         enemy = enemyTypes.get(rand.nextInt(enemyTypes.size()));
         System.out.println("you see a giant " + enemy.getName().toUpperCase() + " Get ready to fight!");

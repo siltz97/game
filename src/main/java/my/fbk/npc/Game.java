@@ -1,19 +1,15 @@
 package my.fbk.npc;
 
-import my.fbk.npc.AllNPC.Guard;
-import my.fbk.npc.AllNPC.Merchant;
-import my.fbk.npc.AllNPC.Peasant;
-import my.fbk.npc.AllNPC.Thief;
 import my.fbk.npc.Rooms.AbstractRoom;
 import my.fbk.npc.Rooms.BattleRoom;
 import my.fbk.npc.Rooms.BossRoom;
 import my.fbk.npc.Rooms.SafeRoom;
 import my.fbk.npc.myPlayer.Player;
 
-import java.util.Arrays;
 import java.util.Random;
 
 public class Game {
+    int choice = 0;
     Player player;
     Random rand = new Random();
     AbstractRoom currentRoom;
@@ -22,7 +18,7 @@ public class Game {
     BossRoom bossRoom;
 
     public Game() {
-        player = new Player(100, 100, 100, 20);
+        player = new Player(100, 120, 100, 25, 0, 1);
         currentRoom = safeRoom;
         safeRoom = new SafeRoom(this);
         battleRoom = new BattleRoom(this);
@@ -35,22 +31,24 @@ public class Game {
     }
 
     public void moveNext() {
-        int choice = rand.nextInt(5);
-        if (choice == 0 || choice == 1) {
+        if (choice % 10 != 0 && choice != 0 && choice % 11 != 0 && choice % 5 != 0) {
+            choice++;
             currentRoom = new BattleRoom(this);
             battleRoom.setPlayer(player);
-
             battleRoom.battle();
-        } else if (choice == 2 || choice == 3) {
+
+        } else if (choice == 0 || choice % 5 == 0 && choice % 10 != 0 && choice % 11 == 0) {
+            choice++;
             currentRoom = new SafeRoom(this);
             safeRoom.setPlayer(player);
             safeRoom.npcInteraction();
-        } else {
+        } else if (choice % 10 == 0) {
+            choice++;
             currentRoom = new BossRoom(this);
             bossRoom.setPlayer(player);
-
             bossRoom.battle();
         }
+
 
     }
 

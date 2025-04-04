@@ -10,17 +10,7 @@ import java.util.List;
 @SuppressWarnings("NonFinalFieldInEnum")
 @Getter
 public enum ItemList {
-    FIRE_SCROLL("A magic scroll that casts fire (300 DMG)", 300, 1, "") {
-        @Override
-        public void use(List<AbstractCharacter> character) {
-            character.stream()
-                    .forEach(c -> {
-                        c.setHealth(c.getHealth() - 300);
-                        System.out.println("Enemy recieved 300 damage: " + c.getHealth());
-                    });
-        }
-    },
-    //    DOVAKIN_VOICE("FUS RO DAH!!! 1000 DMG", 9999, 9999, "") {
+//        DOVAKIN_VOICE("FUS RO DAH!!! 1000 DMG", 9999, 9999, "") {
 //        @Override
 //        public void use(List<AbstractCharacter> character) {
 //            System.out.println("You shout 'FUS RO DAH' and deal 1000 damage to all enemies!");
@@ -33,6 +23,16 @@ public enum ItemList {
                     .forEach(c -> {
                         c.setHealth(c.getHealth() + 100);
                         System.out.println("You restored 100 HP! Current HP: " + c.getHealth());
+                    });
+        }
+    },
+    FIRE_SCROLL("A magic scroll that casts fire (300 DMG)", 300, 1, "") {
+        @Override
+        public void use(List<AbstractCharacter> character) {
+            character.stream()
+                    .forEach(c -> {
+                        c.setHealth(c.getHealth() - 300);
+                        System.out.println("Enemy recieved 300 damage: " + c.getHealth());
                     });
         }
     },
@@ -51,8 +51,8 @@ public enum ItemList {
         public void use(List<AbstractCharacter> character) {
             character.stream()
                     .forEach(c -> {
-                        c.setDamage(c.getDamage() + 40);
-                        System.out.println("Equipped Iron Sword! + 40 DMG:  " + c.getDamage());
+                        c.setDamage(c.getDamage() + 20);
+                        System.out.println("Equipped Iron Sword! + 20 DMG:  " + c.getDamage());
                     });
         }
     },

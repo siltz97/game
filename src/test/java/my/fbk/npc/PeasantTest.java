@@ -43,9 +43,10 @@ public class PeasantTest {
     @Test
     @DisplayName("Mind Control Test")
     public void peasantEffectTestUseMindControl() {
-        Player player = new Player(10,10,100,100);
+        Player player = new Player(10,10,100,100,10,10);
         SafeRoom safeRoom = new SafeRoom(new Game());
         safeRoom.setPlayer(player);
+        safeRoom.generateNPC();
         Optional<AbstractNPC> peasantOpt = safeRoom.getAllNPC().stream().filter(e -> e instanceof Peasant).findFirst();
         Assertions.assertTrue(peasantOpt.isPresent(), "peasant not found");
         AbstractNPC peasant = peasantOpt.get();

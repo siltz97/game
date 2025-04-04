@@ -5,6 +5,7 @@ import lombok.Setter;
 import my.fbk.npc.AbstractClass.AbstractCharacter;
 import my.fbk.npc.AllNPC.AbstractNPC;
 import my.fbk.npc.AllNPC.Merchant;
+import my.fbk.npc.Enemy.AbstractEnemy;
 import my.fbk.npc.myPlayer.Player;
 
 import java.util.ArrayList;
@@ -76,7 +77,7 @@ public class InventoryInteraction implements Inventory {
         if (inventory.contains(item)) {
             item.use(List.of(character));
             item.setDurability((item.getDurability() - 1));
-            if (item.getDurability() == 0) {
+            if (item.getDurability() <= 0) {
                 inventory.remove(item);
             }
         }
@@ -92,6 +93,12 @@ public class InventoryInteraction implements Inventory {
     @Override
     public int getInventorySize(){
         return inventory.size();
+    }
+
+    public void takeLoot(Player player, AbstractEnemy enemy) {
+        InventoryInteraction enemyInventory = (InventoryInteraction) enemy.getInventory();
+        enemyInventory.getInventory().stream().forEach(item -> player.getInventory().addItemToInventory(item));
+        enemyInventory.inventory.clear();
     }
 
 

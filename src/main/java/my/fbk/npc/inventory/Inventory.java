@@ -2,6 +2,7 @@ package my.fbk.npc.inventory;
 
 import my.fbk.npc.AbstractClass.AbstractCharacter;
 import my.fbk.npc.AllNPC.AbstractNPC;
+import my.fbk.npc.Enemy.AbstractEnemy;
 import my.fbk.npc.myPlayer.Player;
 
 import java.util.List;
@@ -23,5 +24,7 @@ public interface Inventory {
     int getInventorySize();
 
     void addAllItemsToInventory(List<ItemList> list);
+
+    void takeLoot(Player player, AbstractEnemy enemy);
 }
 

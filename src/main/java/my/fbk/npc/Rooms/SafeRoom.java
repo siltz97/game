@@ -25,11 +25,11 @@ public class SafeRoom extends AbstractRoom {
     public void npcInteraction() {
         System.out.println("You are now in a SAFE ROOM. Take a rest and interact with some npc if you want.");
         while (true) {
-            System.out.println(" Type 'use spell' to apply some effects on npc or 'speak' to interact with npc");
+            System.out.println(" Type 'use spell' to apply some effects on npc or 's' to interact with npc");
             userInput();
             if (input.equals("use spell")) {
                 castSpell();
-            } else if (input.equals("speak")) {
+            } else if (input.equals("s")) {
                 System.out.println("");
             }
             while (true) {

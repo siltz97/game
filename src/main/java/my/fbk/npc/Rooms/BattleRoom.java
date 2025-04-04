@@ -3,13 +3,9 @@ package my.fbk.npc.Rooms;
 import my.fbk.npc.Enemy.*;
 import my.fbk.npc.Game;
 import my.fbk.npc.factories.GoblinFactory;
-//import my.fbk.npc.factories.KoboldFactory;
-//import my.fbk.npc.factories.SkeletonFactory;
-//import my.fbk.npc.factories.ZombieFactory;
 import my.fbk.npc.factories.KoboldFactory;
 import my.fbk.npc.factories.SkeletonFactory;
 import my.fbk.npc.factories.ZombieFactory;
-import my.fbk.npc.inventory.Inventory;
 import my.fbk.npc.inventory.ItemList;
 
 import java.util.List;
@@ -34,6 +30,7 @@ public class BattleRoom extends AbstractRoom {
         System.out.println("Your stats: "+player.getHealth()+" HP "+player.getMana()+" MP "+player.getDamage()+" DMG");
         System.out.println("Enemy stats: "+enemy.getHealth()+" HP "+enemy.getMana()+" MP "+enemy.getDamage()+" DMG");
 
+
         while (true) {
             if (player.getHealth() <= 0) {
                 System.out.println("Player died,game over");
@@ -41,6 +38,14 @@ public class BattleRoom extends AbstractRoom {
             } else if (enemy.getHealth() <= 0) {
                 player.setMoney(player.getMoney() + enemy.getGold());
                 System.out.println("Player earned: " + enemy.getGold() + "$  and now has: " + player.getMoney()+"$");
+                System.out.print("enemy loot is: ");
+                enemy.getInventory().showInventory();
+                player.getInventory().takeLoot(player,enemy);
+                player.setExperience(enemy.getExperience() + player.getExperience());
+                System.out.println("Player experience is: " + player.getExperience());
+                if(player.getExperience() >=100) {
+                    player.LevelUp();
+                }
                 System.out.println("enemy died,you can go on");
                 userInput();
                 game.moveNext();
@@ -52,15 +57,21 @@ public class BattleRoom extends AbstractRoom {
                 playerAttack();
                 enemyAttack();
             } else if (input.equals("useitem")) {
-                System.out.println("Select an item to use");
+                System.out.println("Select an item to use or 'back'");
                 player.showInventory();
                 userInput();
-                ItemList item = ItemList.valueOf(input.toUpperCase());
-                if(item.equals(ItemList.FIRE_SCROLL)){
-                    item.use(List.of(enemy));
-                }else
-                    player.useItem(item);
-
+                if(input.equals("back")) {
+                    continue;
+                }
+                try {
+                    ItemList item = ItemList.valueOf(input.toUpperCase());
+                    if (item.equals(ItemList.FIRE_SCROLL)) {
+                        item.use(List.of(enemy));
+                    } else
+                        player.useItem(item);
+                }catch (IllegalArgumentException e) {
+                    System.out.println("not a name,retry");
+                }
 
             } else if (input.equals("next")) {
                 game.moveNext();
@@ -71,10 +82,10 @@ public class BattleRoom extends AbstractRoom {
     public void generateEnemy() {
         //the enemies are uselessly generated even if it is used only one of them
         List<AbstractEnemy> enemyTypes = List.of(
-                GoblinFactory.makeRandomEnemy(),
-                KoboldFactory.makeRandomEnemy(),
-                SkeletonFactory.makeRandomEnemy(),
-                ZombieFactory.MakeRandomEnemy()
+                GoblinFactory.makeRandomEnemy(player.getLevel()),
+                KoboldFactory.makeRandomEnemy(player.getLevel()),
+                SkeletonFactory.makeRandomEnemy(player.getLevel()),
+                ZombieFactory.MakeRandomEnemy(player.getLevel())
         );
         enemy = enemyTypes.get(rand.nextInt(enemyTypes.size()));
         System.out.println("you see a " + enemy.getName().toUpperCase() + " Get ready to fight!");
@@ -96,8 +107,6 @@ public class BattleRoom extends AbstractRoom {
         player.setHealth(player.getHealth() - enemy.getDamage());
         System.out.println("Player has " + player.getHealth() + " health");
     }
-    public void takeLoot(){
 
-    }
 
 }
