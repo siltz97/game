@@ -6,6 +6,9 @@ import my.fbk.npc.factories.GoblinFactory;
 //import my.fbk.npc.factories.KoboldFactory;
 //import my.fbk.npc.factories.SkeletonFactory;
 //import my.fbk.npc.factories.ZombieFactory;
+import my.fbk.npc.factories.KoboldFactory;
+import my.fbk.npc.factories.SkeletonFactory;
+import my.fbk.npc.factories.ZombieFactory;
 import my.fbk.npc.inventory.Inventory;
 import my.fbk.npc.inventory.ItemList;
 
@@ -68,10 +71,10 @@ public class BattleRoom extends AbstractRoom {
     public void generateEnemy() {
         //the enemies are uselessly generated even if it is used only one of them
         List<AbstractEnemy> enemyTypes = List.of(
-                GoblinFactory.makeRandomEnemy()
-//                KoboldFactory.makeRandomEnemy(),
-//                SkeletonFactory.makeRandomEnemy(),
-//                ZombieFactory.MakeRandomEnemy()
+                GoblinFactory.makeRandomEnemy(),
+                KoboldFactory.makeRandomEnemy(),
+                SkeletonFactory.makeRandomEnemy(),
+                ZombieFactory.MakeRandomEnemy()
         );
         enemy = enemyTypes.get(rand.nextInt(enemyTypes.size()));
         System.out.println("you see a " + enemy.getName().toUpperCase() + " Get ready to fight!");
