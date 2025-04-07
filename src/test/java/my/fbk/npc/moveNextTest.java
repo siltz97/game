@@ -4,23 +4,18 @@ import my.fbk.npc.Rooms.AbstractRoom;
 import my.fbk.npc.Rooms.BattleRoom;
 import my.fbk.npc.Rooms.BossRoom;
 import my.fbk.npc.Rooms.SafeRoom;
-import my.fbk.npc.myPlayer.Player;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 public class moveNextTest {
     int choice = 0;
-    BossRoom bossRoom;
-    SafeRoom safeRoom;
-    BattleRoom battleRoom;
     AbstractRoom currentRoom = null;
-    Player player = new Player(1, 1, 1, 1, 1, 1);
 
     @Test
     @DisplayName("BattleRoomSelect")
     public void moveNextBattleRoomTest() {
-        //choice is always 1 ahead of the current room
+        //'choice' is always 1 ahead from current room
         while (choice < 13) {
             if (choice % 10 == 0 && choice != 0) {
                 choice++;
@@ -31,7 +26,6 @@ public class moveNextTest {
             } else {
                 choice++;
                 currentRoom = new BattleRoom(new Game());
-                ;
             }
         }
         System.out.println(choice);
@@ -42,7 +36,7 @@ public class moveNextTest {
     @Test
     @DisplayName("SafeRoomSelect")
     public void moveNextSafeRoomTest() {
-        //choice is always 1 ahead of the current room
+        //'choice' is always 1 ahead from current room
         while (choice < 12) {
             if (choice % 10 == 0 && choice != 0) {
                 choice++;
@@ -63,7 +57,7 @@ public class moveNextTest {
     @Test
     @DisplayName("BossRoomSelect")
     public void moveNextBossRoomTest() {
-        //choice is always 1 ahead of the current room
+        //'choice' is always 1 ahead from current room
         while (choice < 11) {
             if (choice % 10 == 0 && choice != 0) {
                 choice++;

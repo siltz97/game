@@ -2,6 +2,7 @@ package my.fbk.npc.myPlayer;
 
 import lombok.Getter;
 import lombok.Setter;
+import my.fbk.npc.AbstractClass.AbstractCharacter;
 import my.fbk.npc.AllNPC.AbstractNPC;
 import my.fbk.npc.inventory.Inventory;
 import my.fbk.npc.inventory.ItemList;
@@ -11,6 +12,7 @@ import java.util.Random;
 @Setter
 public class Player extends AbstractPlayer  {
     private final Random rand = new Random();
+    AbstractCharacter character;
     int basicHealth = 120;
     int basicMana = 100;
     int basicDamage = 25;
@@ -39,8 +41,8 @@ public class Player extends AbstractPlayer  {
     public void showInventory() {
         inventory.showInventory();
     }
-    public void useItem(ItemList item) {
-        this.inventory.useItem(item,this);
+    public void useItem(ItemList item,AbstractCharacter character) {
+        this.inventory.useItem(item, character);
     }
 
     public void seeMoney(){

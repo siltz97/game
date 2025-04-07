@@ -35,16 +35,17 @@ public class SafeRoom extends AbstractRoom {
             while (true) {
                 System.out.println("Choose a character to interact with: peasant, guard, merchant,thief ; type 'exit' to quit ; 'back' to change effects ; 'open' to see the inventory or 'next' to move forward");
                 userInput();
-                if (input.toLowerCase().equals("back")) {
-                    break;
-                } else if (input.toLowerCase().equals("next")) {
-                    game.moveNext();
-                    break;
-                }else if (input.equals("exit")) {
+                try {
+                    if (input.toLowerCase().equals("back")) {
+                        break;
+                    } else if (input.toLowerCase().equals("next")) {
+                        game.moveNext();
+                        break;
+                    } else if (input.equals("exit")) {
                         System.out.println("Exiting game...");
                         scan.close();
                         return;
-                }else if(input.equals("open")){
+                    } else if (input.equals("open")) {
                         player.showInventory();
                         System.out.println(player.getMoney() + "$");
                         System.out.println("Do you want to use an item? yes/no");
@@ -53,11 +54,14 @@ public class SafeRoom extends AbstractRoom {
                             System.out.println("Select an item");
                             userInput();
                             ItemList item = ItemList.valueOf(input.toUpperCase());
-                            player.useItem(item);
+                            player.useItem(item, player);
                         } else if (input.equals("no")) {
                             break;
                         }
                         break;
+                    }
+                }catch (IllegalArgumentException e){
+                    System.out.println("wrong input, retry");
                 }
                 generateNPC();
                 Optional<AbstractNPC> npc = allNPC.stream().filter(n -> n.getName().equals(input)).findFirst();

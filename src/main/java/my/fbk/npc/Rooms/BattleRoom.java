@@ -8,6 +8,7 @@ import my.fbk.npc.factories.GoblinFactory;
 import my.fbk.npc.factories.KoboldFactory;
 import my.fbk.npc.factories.SkeletonFactory;
 import my.fbk.npc.factories.ZombieFactory;
+import my.fbk.npc.inventory.Inventory;
 import my.fbk.npc.inventory.ItemList;
 
 import java.util.List;
@@ -49,47 +50,52 @@ public class BattleRoom extends AbstractRoom {
                 if (player.getExperience() >= 100) {
                     player.LevelUp();
                 }
-                System.out.println("enemy died,you can go on");
+                System.out.println("enemy died, press any key to go on");
                 userInput();
                 game.moveNext();
             }
             System.out.println("What do you want to do? attack/useitem/usespell or 'next' to go to another room");
 
             userInput();
-            if (input.equals("attack")) {
-                playerAttack();
-                enemyAttack();
-            } else if (input.equals("useitem")) {
-                System.out.println("Select an item to use or 'back'");
-                player.showInventory();
-                userInput();
-                if (input.equals("back")) {
-                    continue;
-                }
-                try {
-                    ItemList item = ItemList.valueOf(input.toUpperCase());
-                    if (item.equals(ItemList.FIRE_SCROLL)) {
-                        item.use(List.of(enemy));
-                    } else
-                        player.useItem(item);
-                } catch (IllegalArgumentException e) {
-                    System.out.println("not a name,retry");
-                }
+            try {
+                if (input.equals("attack")) {
+                    playerAttack();
+                    enemyAttack();
+                } else if (input.equals("useitem")) {
+                    System.out.println("Select an item to use or 'back'");
+                    player.showInventory();
+                    userInput();
+                    if (input.equals("back")) {
+                        continue;
+                    }
+                    try {
+                        ItemList item = ItemList.valueOf(input.toUpperCase());
+                        player.getInventory().equals(item);
+                        if (item.equals(ItemList.FIRE_SCROLL)) {
+                            player.useItem(item,enemy);
+                        } else
+                            player.useItem(item,player);
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("not a name,retry");
+                    }
 
-            } else if (input.equals("next")) {
-                game.moveNext();
+                } else if (input.equals("next")) {
+                    game.moveNext();
 
-            } else if (input.equals("usespell")) {
-                System.out.println("Player's mana is: " + player.getMana());
-                System.out.println("Select a spell to use: 'fire' for fireball(30MP) ore 'heal' for healing(50MP)");
-                userInput();
-                if (input.equals("fire")) {
-                    FireBall fire = new FireBall(player, enemy);
-                    fire.cast();
-                } else if (input.equals("heal")) {
-                    HolyHealing heal = new HolyHealing(player, enemy);
-                    heal.cast();
+                } else if (input.equals("usespell")) {
+                    System.out.println("Player's mana is: " + player.getMana());
+                    System.out.println("Select a spell to use: 'fire' for fireball(30MP) ore 'heal' for healing(50MP)");
+                    userInput();
+                    if (input.equals("fire")) {
+                        FireBall fire = new FireBall(player, enemy);
+                        fire.cast();
+                    } else if (input.equals("heal")) {
+                        HolyHealing heal = new HolyHealing(player, enemy);
+                        heal.cast();
+                    }
                 }
+            }catch (IllegalArgumentException e) {
+                System.out.println("wrong input, retry");
             }
         }
     }

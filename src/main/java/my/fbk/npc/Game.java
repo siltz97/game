@@ -35,16 +35,19 @@ public class Game {
             choice++;
             currentRoom = new BossRoom(this);
             bossRoom.setPlayer(player);
+            System.out.println("You are in the room number: " + (choice - 1));
             bossRoom.battle();
         } else if (choice == 0 || choice % 5 == 0 || choice % 10 == 1 && choice != 1) {
             choice++;
             currentRoom = new SafeRoom(this);
             safeRoom.setPlayer(player);
+            System.out.println("You are in the room number: " + (choice - 1));
             safeRoom.npcInteraction();
         } else  {
             choice++;
             currentRoom = new BattleRoom(this);
             battleRoom.setPlayer(player);
+            System.out.println("You are in the room number: " + (choice - 1));
             battleRoom.battle();
         }
 

@@ -52,37 +52,45 @@ public class BossRoom extends AbstractRoom {
             System.out.println("What do you want to do? attack/useitem or 'next' to go to another room");
 
             userInput();
-            if (input.equals("attack")) {
-                playerAttack();
-                enemyAttack();
-            } else if (input.equals("usespell")) {
-                System.out.println("Player's mana is: " + player.getMana());
-                System.out.println("Select a spell to use: 'fire' for fireball(30MP) ore 'heal' for healing(50MP)");
-                userInput();
-                if (input.equals("fire")) {
-                    FireBall fire = new FireBall(player, enemy);
-                    fire.cast();
-                } else if (input.equals("heal")) {
-                    HolyHealing heal = new HolyHealing(player, enemy);
-                    heal.cast();
+            try {
+                if (input.equals("attack")) {
+                    playerAttack();
+                    enemyAttack();
+                } else if (input.equals("usespell")) {
+
+                    System.out.println("Player's mana is: " + player.getMana());
+                    System.out.println("Select a spell to use: 'fire' for fireball(30MP) ore 'heal' for healing(50MP)");
+                    userInput();
+                    if (input.equals("fire")) {
+                        FireBall fire = new FireBall(player, enemy);
+                        fire.cast();
+                    } else if (input.equals("heal")) {
+                        HolyHealing heal = new HolyHealing(player, enemy);
+                        heal.cast();
+                    }
+
+                } else if (input.equals("useitem")) {
+                    System.out.println("Select an item to use or 'back'");
+                    player.showInventory();
+                    userInput();
+                    if (input.equals("back")) {
+                        continue;
+                    }
+                    try {
+                        ItemList item = ItemList.valueOf(input.toUpperCase());
+                        if (item.equals(ItemList.FIRE_SCROLL)) {
+                           player.useItem(item,enemy);
+                        } else
+                            player.useItem(item,player);
+                    }catch (IllegalArgumentException e){
+                        System.out.println("wrong input, retry");
+                    }
+
+                } else if (input.equals("next")) {
+                    game.moveNext();
                 }
-
-            } else if (input.equals("useitem")) {
-                System.out.println("Select an item to use or 'back'");
-                player.showInventory();
-                userInput();
-                if (input.equals("back")) {
-                    continue;
-                }
-                ItemList item = ItemList.valueOf(input.toUpperCase());
-                if (item.equals(ItemList.FIRE_SCROLL)) {
-                    item.use(List.of(enemy));
-                } else
-                    player.useItem(item);
-
-
-            } else if (input.equals("next")) {
-                game.moveNext();
+            }catch (IllegalArgumentException e) {
+                System.out.println("wrong input, retry");
             }
 
         }
