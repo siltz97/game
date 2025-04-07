@@ -18,7 +18,9 @@ public class HolyHealing implements PlayerSpellsInterface{
         if(player.getMana()>=50){
             player.setMana(player.getMana()-50);
             player.setHealth(player.getHealth()+50);
-            System.out.println("You restored 50 health: "+player.getHealth());
-        }
+            System.out.println("You restored 50 HP: "+player.getHealth());
+            System.out.println("Your MP is now: " + player.getMana());
+        }else
+            System.out.println("❌ You don't have enough MP");
     }
 }

@@ -18,10 +18,10 @@ public class FireBall implements PlayerSpellsInterface {
             System.out.println("🔥 You cast Fireball!");
             enemy.setHealth(enemy.getHealth() - 50);
             player.setMana(player.getMana() - 30);
-            System.out.println("Enemy now has " + enemy.getHealth() + " health");
-            System.out.println("Your mana is now " + player.getMana());
+            System.out.println("Enemy now has " + enemy.getHealth() + " HP");
+            System.out.println("Your MP is now " + player.getMana());
         } else {
-            System.out.println("❌ Not enough mana to cast Fireball!");
+            System.out.println("❌ You don't have enough MP!");
         }
     }
 }

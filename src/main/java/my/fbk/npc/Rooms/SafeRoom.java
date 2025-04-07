@@ -25,9 +25,9 @@ public class SafeRoom extends AbstractRoom {
     public void npcInteraction() {
         System.out.println("You are now in a SAFE ROOM. Take a rest and interact with some npc if you want.");
         while (true) {
-            System.out.println(" Type 'use spell' to apply some effects on npc or 's' to interact with npc");
+            System.out.println(" Type 'sp' to apply some effects on npc or 's' to interact with npc");
             userInput();
-            if (input.equals("use spell")) {
+            if (input.equals("sp")) {
                 castSpell();
             } else if (input.equals("s")) {
                 System.out.println("");
@@ -60,7 +60,7 @@ public class SafeRoom extends AbstractRoom {
                         }
                         break;
                     }
-                }catch (IllegalArgumentException e){
+                } catch (IllegalArgumentException e) {
                     System.out.println("wrong input, retry");
                 }
                 generateNPC();
@@ -139,28 +139,31 @@ public class SafeRoom extends AbstractRoom {
                             }
 //sell
                             else if (input.equals("sell")) {
-                                try {
-                                    player.showInventory();
-                                    System.out.println("Enter item name to sell:");
-                                    userInput();
-                                    if (input.toUpperCase().equals("BACK")) {
-                                        continue;
+                                while (true) {
+                                    try {
+                                        player.showInventory();
+                                        System.out.println("Enter item name to sell:");
+                                        userInput();
+                                        if (input.toUpperCase().equals("BACK")) {
+                                            continue;
+                                        }
+                                        ItemList item = ItemList.valueOf(input.toUpperCase());
+                                        if (merchant.getMoney() >= item.getPrice()) {
+                                            player.sellItem(item, merchant);
+                                            player.setMoney(player.getMoney() + item.getPrice());
+                                            merchant.setMoney(merchant.getMoney() - item.getPrice());
+                                            player.seeMoney();
+                                        } else {
+                                            System.out.println("Not enough money.");
+                                        }
+                                    } catch (IllegalArgumentException e) {
+                                        System.out.println("Invalid item. Retry");
                                     }
-                                    ItemList item = ItemList.valueOf(input.toUpperCase());
-                                    if (merchant.getMoney() >= item.getPrice()) {
-                                        player.sellItem(item, merchant);
-                                        player.setMoney(player.getMoney() + item.getPrice());
-                                        merchant.setMoney(merchant.getMoney() - item.getPrice());
-                                        player.seeMoney();
-                                    } else {
-                                        System.out.println("Not enough money.");
-                                    }
-                                } catch (IllegalArgumentException e) {
-                                    System.out.println("Invalid item. Retry");
                                 }
                             } else if (input.equals("back")) {
                                 break; // Go back to character selection
                             }
+
                         }
                         break;
                     default:
@@ -171,7 +174,8 @@ public class SafeRoom extends AbstractRoom {
 
         }
     }
-    public void generateNPC(){
+
+    public void generateNPC() {
         List<AbstractNPC> npcTypes = List.of(
                 CreateNPC.makeGuard(),
                 CreateNPC.makePeasant(),

@@ -54,44 +54,50 @@ public class BattleRoom extends AbstractRoom {
                 userInput();
                 game.moveNext();
             }
-            System.out.println("What do you want to do? attack/useitem/usespell or 'next' to go to another room");
+            System.out.println("What do you want to do? 'a' to attack/'i' to use item /'s' to use spell or 'next' to go to another room");
 
             userInput();
             try {
-                if (input.equals("attack")) {
+                if (input.equals("a")) {
                     playerAttack();
                     enemyAttack();
-                } else if (input.equals("useitem")) {
-                    System.out.println("Select an item to use or 'back'");
-                    player.showInventory();
-                    userInput();
-                    if (input.equals("back")) {
-                        continue;
-                    }
-                    try {
-                        ItemList item = ItemList.valueOf(input.toUpperCase());
-                        player.getInventory().equals(item);
-                        if (item.equals(ItemList.FIRE_SCROLL)) {
-                            player.useItem(item,enemy);
-                        } else
-                            player.useItem(item,player);
-                    } catch (IllegalArgumentException e) {
-                        System.out.println("not a name,retry");
+                } else if (input.equals("i")) {
+                    while(true) {
+                        System.out.println("Select an item to use or 'back'");
+                        player.showInventory();
+                        userInput();
+                        if (input.equals("back")) {
+                            break;
+                        }
+                        try {
+                            ItemList item = ItemList.valueOf(input.toUpperCase());
+                            player.getInventory().equals(item);
+                            if (item.equals(ItemList.FIRE_SCROLL)) {
+                                player.useItem(item, enemy);
+                            } else
+                                player.useItem(item, player);
+                        } catch (IllegalArgumentException e) {
+                            System.out.println("not a name,retry");
+                        }
                     }
 
                 } else if (input.equals("next")) {
                     game.moveNext();
 
-                } else if (input.equals("usespell")) {
-                    System.out.println("Player's mana is: " + player.getMana());
-                    System.out.println("Select a spell to use: 'fire' for fireball(30MP) ore 'heal' for healing(50MP)");
-                    userInput();
-                    if (input.equals("fire")) {
-                        FireBall fire = new FireBall(player, enemy);
-                        fire.cast();
-                    } else if (input.equals("heal")) {
-                        HolyHealing heal = new HolyHealing(player, enemy);
-                        heal.cast();
+                } else if (input.equals("s")) {
+                    while(true) {
+                        System.out.println("Player's MP is: " + player.getMana());
+                        System.out.println("Select a spell to use: 'fire' for fireball(30MP) or 'heal' for healing(50MP) or 'back'");
+                        userInput();
+                        if (input.equals("fire")) {
+                            FireBall fire = new FireBall(player, enemy);
+                            fire.cast();
+                        } else if (input.equals("heal")) {
+                            HolyHealing heal = new HolyHealing(player, enemy);
+                            heal.cast();
+                        }else if(input.equals("back")) {
+                            break;
+                        }
                     }
                 }
             }catch (IllegalArgumentException e) {
@@ -120,13 +126,13 @@ public class BattleRoom extends AbstractRoom {
     public void playerAttack() {
         player.attack();
         enemy.setHealth(enemy.getHealth() - player.getDamage());
-        System.out.println(enemy.getName() + " has " + enemy.getHealth() + " health");
+        System.out.println(enemy.getName() + " has " + enemy.getHealth() + " HP");
     }
 
     public void enemyAttack() {
         enemy.attack();
         player.setHealth(player.getHealth() - enemy.getDamage());
-        System.out.println("Player has " + player.getHealth() + " health");
+        System.out.println("Player has " + player.getHealth() + " HP");
     }
 
 

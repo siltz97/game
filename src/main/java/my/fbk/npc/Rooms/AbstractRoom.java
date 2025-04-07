@@ -61,7 +61,7 @@ public abstract class AbstractRoom {
                     userInput();
                     aoeSpell(selectedEffect, input);
                 } else
-                    System.out.println("player has not enough mana");
+                    System.out.println("player has not enough MP");
                 System.out.println(player.getMana() + "MP");
             }
         }

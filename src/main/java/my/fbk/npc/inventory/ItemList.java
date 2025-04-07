@@ -36,7 +36,7 @@ public enum ItemList {
                     });
         }
     },
-    MANA_FLASK("Restores +100 mana", 60, 1, "") {
+    MANA_FLASK("Restores +100 MP", 60, 1, "") {
         @Override
         public void use(List<AbstractCharacter> character) {
             character.stream()
