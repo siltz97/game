@@ -31,22 +31,21 @@ public class Game {
     }
 
     public void moveNext() {
-        if (choice % 10 != 0 && choice != 0 && choice % 11 != 0 && choice % 5 != 0) {
-            choice++;
-            currentRoom = new BattleRoom(this);
-            battleRoom.setPlayer(player);
-            battleRoom.battle();
-
-        } else if (choice == 0 || choice % 5 == 0 && choice % 10 != 0 && choice % 11 == 0) {
-            choice++;
-            currentRoom = new SafeRoom(this);
-            safeRoom.setPlayer(player);
-            safeRoom.npcInteraction();
-        } else if (choice % 10 == 0) {
+        if (choice % 10 == 0 && choice != 0) {
             choice++;
             currentRoom = new BossRoom(this);
             bossRoom.setPlayer(player);
             bossRoom.battle();
+        } else if (choice == 0 || choice % 5 == 0 || choice % 10 == 1 && choice != 1) {
+            choice++;
+            currentRoom = new SafeRoom(this);
+            safeRoom.setPlayer(player);
+            safeRoom.npcInteraction();
+        } else  {
+            choice++;
+            currentRoom = new BattleRoom(this);
+            battleRoom.setPlayer(player);
+            battleRoom.battle();
         }
 
 

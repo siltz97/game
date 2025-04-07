@@ -1,5 +1,7 @@
 package my.fbk.npc.Rooms;
 
+import my.fbk.npc.BattleSpells.FireBall;
+import my.fbk.npc.BattleSpells.HolyHealing;
 import my.fbk.npc.Enemy.*;
 import my.fbk.npc.Game;
 import my.fbk.npc.factories.GoblinFactory;
@@ -26,8 +28,8 @@ public class BossRoom extends AbstractRoom {
     public void battle() {
         System.out.println("You entered the BOSS ROOM");
         generateEnemy();
-        System.out.println("Your stats: "+player.getHealth()+" HP "+player.getMana()+" MP "+player.getDamage()+" DMG");
-        System.out.println("Enemy stats: "+enemy.getHealth()+" HP "+enemy.getMana()+" MP "+enemy.getDamage()+" DMG");
+        System.out.println("Your stats: " + player.getHealth() + " HP " + player.getMana() + " MP " + player.getDamage() + " DMG");
+        System.out.println("Enemy stats: " + enemy.getHealth() + " HP " + enemy.getMana() + " MP " + enemy.getDamage() + " DMG");
 
         while (true) {
             if (player.getHealth() <= 0) {
@@ -35,12 +37,12 @@ public class BossRoom extends AbstractRoom {
                 return;
             } else if (enemy.getHealth() <= 0) {
                 player.setMoney(player.getMoney() + enemy.getGold());
-                System.out.println("Player earned: " + enemy.getGold() + "$  and now has: " + player.getMoney()+"$");
+                System.out.println("Player earned: " + enemy.getGold() + "$  and now has: " + player.getMoney() + "$");
                 System.out.print("enemy loot is: ");
                 enemy.getInventory().showInventory();
-                player.getInventory().takeLoot(player,enemy);
+                player.getInventory().takeLoot(player, enemy);
                 player.setExperience(enemy.getExperience() + player.getExperience());
-                if(player.getExperience() >=100) {
+                if (player.getExperience() >= 100) {
                     player.LevelUp();
                 }
                 System.out.println("enemy died,you can go on");
@@ -53,17 +55,29 @@ public class BossRoom extends AbstractRoom {
             if (input.equals("attack")) {
                 playerAttack();
                 enemyAttack();
+            } else if (input.equals("usespell")) {
+                System.out.println("Player's mana is: " + player.getMana());
+                System.out.println("Select a spell to use: 'fire' for fireball(30MP) ore 'heal' for healing(50MP)");
+                userInput();
+                if (input.equals("fire")) {
+                    FireBall fire = new FireBall(player, enemy);
+                    fire.cast();
+                } else if (input.equals("heal")) {
+                    HolyHealing heal = new HolyHealing(player, enemy);
+                    heal.cast();
+                }
+
             } else if (input.equals("useitem")) {
                 System.out.println("Select an item to use or 'back'");
                 player.showInventory();
                 userInput();
-                if(input.equals("back")) {
+                if (input.equals("back")) {
                     continue;
                 }
                 ItemList item = ItemList.valueOf(input.toUpperCase());
-                if(item.equals(ItemList.FIRE_SCROLL)){
+                if (item.equals(ItemList.FIRE_SCROLL)) {
                     item.use(List.of(enemy));
-                }else
+                } else
                     player.useItem(item);
 
 
