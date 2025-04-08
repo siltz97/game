@@ -1,9 +1,9 @@
 package my.fbk.npc.Rooms;
 
-import my.fbk.npc.AllNPC.AbstractNPC;
+import my.fbk.npc.AbstractClass.AbstractCharacter;
 import my.fbk.npc.AllNPC.Merchant;
 import my.fbk.npc.Game;
-import my.fbk.npc.NPCFactory.CreateNPC;
+import my.fbk.npc.factories.NPCFactory;
 import my.fbk.npc.inventory.ItemList;
 
 import java.util.ArrayList;
@@ -19,7 +19,7 @@ public class SafeRoom extends AbstractRoom {
 
     public SafeRoom(Game game) {
         super(game);
-        allNPC = new ArrayList<>();
+        allCharacters = new ArrayList<>();
     }
 
     public void npcInteraction() {
@@ -64,12 +64,12 @@ public class SafeRoom extends AbstractRoom {
                     System.out.println("wrong input, retry");
                 }
                 generateNPC();
-                Optional<AbstractNPC> npc = allNPC.stream().filter(n -> n.getName().equals(input)).findFirst();
+                Optional<AbstractCharacter> npc = allCharacters.stream().filter(n -> n.getName().equals(input)).findFirst();
                 if (npc.isEmpty()) {
                     System.out.println("error");
                     continue;
                 }
-                AbstractNPC speaker = npc.get();
+                AbstractCharacter speaker = npc.get();
                 switch (input) {
 //peasant
                     case "peasant":
@@ -176,13 +176,13 @@ public class SafeRoom extends AbstractRoom {
     }
 
     public void generateNPC() {
-        List<AbstractNPC> npcTypes = List.of(
-                CreateNPC.makeGuard(),
-                CreateNPC.makePeasant(),
-                CreateNPC.makeThief(),
-                CreateNPC.makeMerchant()
+        List<AbstractCharacter> npcTypes = List.of(
+                NPCFactory.makeGuard(),
+                NPCFactory.makePeasant(),
+                NPCFactory.makeThief(),
+                NPCFactory.makeMerchant()
         );
-        setAllNPC(npcTypes);
+        setAllCharacters(npcTypes);
     }
 
     public void userInput() {

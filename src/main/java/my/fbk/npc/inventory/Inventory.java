@@ -13,9 +13,9 @@ public interface Inventory {
 
     void removeItemFromInventory(ItemList item);
 
-    void buyItem(ItemList item, AbstractNPC abstractNpc, Player player);
+    void buyItem(ItemList item, AbstractCharacter npc, Player player);
 
-    void sellItem(ItemList item, AbstractNPC abstractNpc, Player player);
+    void sellItem(ItemList item, AbstractCharacter npc, Player player);
 
     void showInventory();
 
@@ -25,6 +25,6 @@ public interface Inventory {
 
     void addAllItemsToInventory(List<ItemList> list);
 
-    void takeLoot(Player player, AbstractEnemy enemy);
+    void takeLoot(Player player, AbstractCharacter enemy);
 }
 

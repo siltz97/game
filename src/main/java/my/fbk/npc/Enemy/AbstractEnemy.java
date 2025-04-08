@@ -13,14 +13,9 @@ import java.util.List;
 @Getter
 @Setter
 public abstract class AbstractEnemy extends AbstractCharacter {
-    int experience;
-    int gold;
-    List<Effects> effects = new ArrayList<>();
 
-    public AbstractEnemy(int experience, int health, int mana, int damage,int gold) {
-        super(health,mana,damage);
-        this.experience = experience;
-        this.gold = gold;
+    public AbstractEnemy(int experience, int health, int mana, int damage,int money) {
+        super(health,mana,damage,money,experience);
     }
 
     public abstract void attack();

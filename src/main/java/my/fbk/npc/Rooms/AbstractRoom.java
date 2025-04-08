@@ -2,11 +2,10 @@ package my.fbk.npc.Rooms;
 
 import lombok.Getter;
 import lombok.Setter;
-import my.fbk.npc.AllNPC.*;
+import my.fbk.npc.AbstractClass.AbstractCharacter;
 import my.fbk.npc.BasicSpells.Effects;
 import my.fbk.npc.BasicSpells.InvisibilitySpell;
 import my.fbk.npc.BasicSpells.MindControlSpell;
-import my.fbk.npc.Enemy.*;
 import my.fbk.npc.Game;
 import my.fbk.npc.myPlayer.Player;
 
@@ -20,11 +19,10 @@ public abstract class AbstractRoom {
     Random rand = new Random();
     Scanner scan = new Scanner(System.in);
     List<Effects> effects = new ArrayList<>();
-    List<AbstractNPC> allNPC = new ArrayList<>();
+    List<AbstractCharacter> allCharacters = new ArrayList<>();
     private AbstractRoom currentRoom;
     Game game;
     String input;
-    AbstractEnemy enemy;
 
     public AbstractRoom(Game game) {
         this.game = game;
@@ -50,7 +48,7 @@ public abstract class AbstractRoom {
                 if (selectedEffect.getName().equals("mind")) {
                     System.out.println("Who is your target?");
                     userInput();
-                    Optional<AbstractNPC> target = getTarget(input);
+                    Optional<AbstractCharacter> target = getTarget(input);
                     if (target.isPresent()) {
                         System.out.println("Select action: use/remove");
                         userInput();
@@ -74,19 +72,18 @@ public abstract class AbstractRoom {
                 .findFirst();
     }
 
-    public void targetSpell(Effects selectedEffect, AbstractNPC target, String input) {
+    public void targetSpell(Effects selectedEffect, AbstractCharacter target, String input) {
         applySpell(selectedEffect, List.of(target), input);
-        target.setReputation(target.getReputation() - 20);
     }
 
     public void aoeSpell(Effects selectedEffect, String input) {
-        applySpell(selectedEffect, allNPC, input);
+        applySpell(selectedEffect, allCharacters, input);
     }
 
 
     public void applySpell(
             Effects selectedEffect,
-            List<AbstractNPC> targets,
+            List<AbstractCharacter> targets,
             String input
     ) {
 
@@ -101,9 +98,9 @@ public abstract class AbstractRoom {
         }
     }
 
-    public Optional<AbstractNPC> getTarget(String target) {
-        return allNPC.stream()
-                .filter(npc -> npc.getName().equals(target))
+    public Optional<AbstractCharacter> getTarget(String target) {
+        return allCharacters.stream()
+                .filter(character -> character.getName().equals(target))
                 .findFirst();
     }
 

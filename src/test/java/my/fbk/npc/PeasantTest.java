@@ -1,5 +1,6 @@
 package my.fbk.npc;
 
+import my.fbk.npc.AbstractClass.AbstractCharacter;
 import my.fbk.npc.AllNPC.AbstractNPC;
 import my.fbk.npc.AllNPC.Peasant;
 import my.fbk.npc.BasicSpells.Effects;
@@ -20,22 +21,22 @@ public class PeasantTest {
 
     @Test
     public void peasantTestPositive() {
-        Peasant peasant = new Peasant(1,100,100,2,1);
+        Peasant peasant = new Peasant(1,100,100,2,1,0);
         peasant.speak();
     }
     @Test
     public void peasantTestNeutral() {
-        Peasant peasant = new Peasant(1,100,61,2,1);
+        Peasant peasant = new Peasant(1,100,61,2,1,0);
         peasant.speak();
     }
     @Test
     public void peasantTestAggressive() {
-        Peasant peasant = new Peasant(1,100,40,2,1);
+        Peasant peasant = new Peasant(1,100,40,2,1,0);
         peasant.speak();
     }
     @Test
     public void peasantTestSilent() {
-        Peasant peasant = new Peasant(1,100,100,2,1);
+        Peasant peasant = new Peasant(1,100,100,2,1,0);
         peasant.setEffects(new InvisibilitySpell());
         peasant.speak();
         Assertions.assertTrue(peasant.getBehavior() instanceof SilentSpeak);
@@ -47,9 +48,9 @@ public class PeasantTest {
         SafeRoom safeRoom = new SafeRoom(new Game());
         safeRoom.setPlayer(player);
         safeRoom.generateNPC();
-        Optional<AbstractNPC> peasantOpt = safeRoom.getAllNPC().stream().filter(e -> e instanceof Peasant).findFirst();
+        Optional<AbstractCharacter> peasantOpt = safeRoom.getAllCharacters().stream().filter(e -> e instanceof Peasant).findFirst();
         Assertions.assertTrue(peasantOpt.isPresent(), "peasant not found");
-        AbstractNPC peasant = peasantOpt.get();
+        AbstractCharacter peasant = peasantOpt.get();
 
         String effect = "mind";
 //effects
@@ -57,7 +58,7 @@ public class PeasantTest {
         Assertions.assertTrue(effects.isPresent(), "Effect not found!");
 //target
         Effects selectedEffect = effects.get();
-        Optional<AbstractNPC> target = safeRoom.getTarget(peasant.getName());
+        Optional<AbstractCharacter> target = safeRoom.getTarget(peasant.getName());
         Assertions.assertTrue(target.isPresent(), "Target not found!");
 //target spell
         String input = "use";

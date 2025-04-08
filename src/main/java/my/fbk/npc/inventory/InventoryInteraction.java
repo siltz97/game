@@ -5,7 +5,6 @@ import lombok.Setter;
 import my.fbk.npc.AbstractClass.AbstractCharacter;
 import my.fbk.npc.AllNPC.AbstractNPC;
 import my.fbk.npc.AllNPC.Merchant;
-import my.fbk.npc.Enemy.AbstractEnemy;
 import my.fbk.npc.myPlayer.Player;
 
 import java.util.ArrayList;
@@ -27,11 +26,11 @@ public class InventoryInteraction implements Inventory {
     }
 
     @Override
-    public void buyItem(ItemList item, AbstractNPC abstractNpc, Player player) {
-        if (!(abstractNpc instanceof Merchant)) {
+    public void buyItem(ItemList item, AbstractCharacter npc, Player player) {
+        if (!(npc instanceof Merchant)) {
             return;
         }
-        Merchant merchant = (Merchant) abstractNpc;
+        Merchant merchant = (Merchant) npc;
         InventoryInteraction merchantInventory = (InventoryInteraction) merchant.getInventory();
         if (merchantInventory.contains(item)) {
             inventory.add(item);
@@ -43,11 +42,11 @@ public class InventoryInteraction implements Inventory {
     }
 
     @Override
-    public void sellItem(ItemList item, AbstractNPC abstractNpc, Player player) {
-        if (!(abstractNpc instanceof Merchant)) {
+    public void sellItem(ItemList item, AbstractCharacter npc, Player player) {
+        if (!(npc instanceof Merchant)) {
             return;
         }
-        Merchant merchant = (Merchant) abstractNpc;
+        Merchant merchant = (Merchant) npc;
         InventoryInteraction merchantInventory = (InventoryInteraction) merchant.getInventory();
         if (inventory.contains(item)) {
             inventory.remove(item);
@@ -73,7 +72,7 @@ public class InventoryInteraction implements Inventory {
     }
 
     @Override
-    public void useItem(ItemList item,AbstractCharacter character) {
+    public void useItem(ItemList item, AbstractCharacter character) {
         if (inventory.contains(item)) {
             item.use(List.of(character));
             item.setDurability((item.getDurability() - 1));
@@ -87,15 +86,18 @@ public class InventoryInteraction implements Inventory {
         inventory.addAll(list);
     }
 
+
     public boolean contains(ItemList item) {
         return inventory.contains(item);
     }
+
     @Override
-    public int getInventorySize(){
+    public int getInventorySize() {
         return inventory.size();
     }
 
-    public void takeLoot(Player player, AbstractEnemy enemy) {
+    @Override
+    public void takeLoot(Player player, AbstractCharacter enemy) {
         InventoryInteraction enemyInventory = (InventoryInteraction) enemy.getInventory();
         enemyInventory.getInventory().stream().forEach(item -> player.getInventory().addItemToInventory(item));
         enemyInventory.inventory.clear();

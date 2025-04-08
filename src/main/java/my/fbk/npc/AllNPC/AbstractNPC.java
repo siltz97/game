@@ -16,13 +16,10 @@ import java.util.List;
 @Setter
 public abstract class AbstractNPC extends AbstractCharacter {
     protected SpeakBehavior behavior;
-    List<Effects> effects = new ArrayList<>();
     private int reputation;
-    private int money;
 
-    public AbstractNPC(int money, int health, int reputation, int mana,int damage) {
-        super(health, mana,damage);
-        this.money = money;
+    public AbstractNPC(int money, int health, int reputation, int mana,int damage,int experience) {
+        super(health, mana,damage,money,experience);
         this.reputation = reputation;
         behavior = new NeutralSpeak();
     }
@@ -51,15 +48,12 @@ public abstract class AbstractNPC extends AbstractCharacter {
         return effect != null && effects.contains(effect);
     }
 
-    public void setEffects(Effects effect) {
-        effects.add(effect);
-    }
-
     public void setRemoveEffect(Effects effect) {
         effects.remove(effect);
     }
 
-
-    abstract public String getName();
+    public String getName(){
+        return "";
+    }
 
 }

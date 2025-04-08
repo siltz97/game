@@ -1,5 +1,6 @@
 package my.fbk.npc.Rooms;
 
+import my.fbk.npc.AbstractClass.AbstractCharacter;
 import my.fbk.npc.BattleSpells.FireBall;
 import my.fbk.npc.BattleSpells.HolyHealing;
 import my.fbk.npc.Enemy.*;
@@ -19,7 +20,7 @@ public class BossRoom extends AbstractRoom {
     Scanner scan = new Scanner(System.in);
     Random rand = new Random();
     String input;
-    AbstractEnemy enemy;
+    AbstractCharacter enemy;
 
     public BossRoom(Game game) {
         super(game);
@@ -36,8 +37,8 @@ public class BossRoom extends AbstractRoom {
                 System.out.println("Player died,game over");
                 return;
             } else if (enemy.getHealth() <= 0) {
-                player.setMoney(player.getMoney() + enemy.getGold());
-                System.out.println("Player earned: " + enemy.getGold() + "$  and now has: " + player.getMoney() + "$");
+                player.setMoney(player.getMoney() + enemy.getMoney());
+                System.out.println("Player earned: " + enemy.getMoney() + "$  and now has: " + player.getMoney() + "$");
                 System.out.print("enemy loot is: ");
                 enemy.getInventory().showInventory();
                 player.getInventory().takeLoot(player, enemy);

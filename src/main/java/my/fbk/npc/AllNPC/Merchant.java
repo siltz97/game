@@ -11,8 +11,8 @@ import java.util.Arrays;
 @Setter
 public class Merchant extends AbstractNPC {
 
-    public Merchant(int money, int health, int reputation, int mana,int damage) {
-        super(money, health, reputation, mana, damage);
+    public Merchant(int money, int health, int reputation, int mana,int damage,int experience) {
+        super(money, health, reputation, mana, damage,experience);
     }
 
     @Override
@@ -25,6 +25,7 @@ public class Merchant extends AbstractNPC {
         inventory.showInventory();
     }
 
+    @Override
     public String getName() {
         return "merchant";
     }

@@ -68,6 +68,4 @@ public class Player extends AbstractPlayer {
         setDamage((int) (getBasicDamage() * (1 + 0.1 * (getLevel() - 1))));
 
     }
-
-
 }

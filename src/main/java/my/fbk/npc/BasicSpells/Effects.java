@@ -1,34 +1,23 @@
 package my.fbk.npc.BasicSpells;
 
-import my.fbk.npc.AllNPC.AbstractNPC;
-import my.fbk.npc.Enemy.AbstractEnemy;
-
-import java.util.ArrayList;
-import java.util.List;
+import my.fbk.npc.AbstractClass.AbstractCharacter;
 
 
 public interface Effects {
 
     //npc
-    default void applyEffect(AbstractNPC npc) {
-    }
-    default void removeEffect(AbstractNPC npc) {
-    }
-    default boolean hasEffect(AbstractNPC npc) {
-        return npc.getEffects() != null;
+    default void applyEffect(AbstractCharacter character) {
     }
 
-    //enemy
-    default void applyEffect(AbstractEnemy enemy) {
-    }
-    default void removeEffect(AbstractEnemy enemy) {
-    }
-    default boolean hasEffect(AbstractEnemy enemy) {
-        return enemy.getEffects() != null;
+    default void removeEffect(AbstractCharacter character) {
     }
 
+    default boolean hasEffect(AbstractCharacter character) {
+        return character.getEffects() != null;
+    }
 
     String getName();
+
     int spellCost();
 
 }

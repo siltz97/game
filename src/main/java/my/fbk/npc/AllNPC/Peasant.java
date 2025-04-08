@@ -7,8 +7,8 @@ import lombok.Setter;
 @Setter
 public class Peasant extends AbstractNPC {
 
-    public Peasant(int money,int health,int reputation,int mana, int damage) {
-        super(money,health,reputation,mana, damage);
+    public Peasant(int money,int health,int reputation,int mana, int damage, int experience) {
+        super(money,health,reputation,mana, damage,experience);
     }
 
 
@@ -17,8 +17,9 @@ public class Peasant extends AbstractNPC {
         think();
        behavior.speak(this);
     }
+
+    @Override
     public String getName(){
         return "peasant";
-
     }
 }

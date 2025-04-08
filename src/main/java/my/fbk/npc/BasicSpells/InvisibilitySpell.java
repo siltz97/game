@@ -2,6 +2,7 @@ package my.fbk.npc.BasicSpells;
 
 import lombok.Getter;
 import lombok.Setter;
+import my.fbk.npc.AbstractClass.AbstractCharacter;
 import my.fbk.npc.AllNPC.AbstractNPC;
 
 
@@ -17,17 +18,17 @@ public class InvisibilitySpell implements Effects {
     }
 
     @Override
-    public void applyEffect(AbstractNPC npc) {
-            npc.setEffects(this);
+    public void applyEffect(AbstractCharacter character) {
+            character.setEffects(this);
     }
 
     @Override
-    public void removeEffect(AbstractNPC npc) {
-        npc.setRemoveEffect(this);
+    public void removeEffect(AbstractCharacter character) {
+        character.setRemoveEffect(this);
     }
     @Override
-    public boolean hasEffect(AbstractNPC npc) {
-        return npc.getEffects() != null;
+    public boolean hasEffect(AbstractCharacter character) {
+        return character.getEffects() != null;
     }
 
     @Override

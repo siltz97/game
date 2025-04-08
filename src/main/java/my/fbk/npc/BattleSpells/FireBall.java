@@ -1,14 +1,15 @@
 package my.fbk.npc.BattleSpells;
 
+import my.fbk.npc.AbstractClass.AbstractCharacter;
 import my.fbk.npc.Enemy.AbstractEnemy;
 import my.fbk.npc.myPlayer.Player;
 
 public class FireBall implements PlayerSpellsInterface {
 
     Player player;
-    AbstractEnemy enemy;
+    AbstractCharacter enemy;
 
-    public FireBall(Player player, AbstractEnemy enemy) {
+    public FireBall(Player player, AbstractCharacter enemy) {
         this.player = player;
         this.enemy = enemy;
     }

@@ -1,5 +1,6 @@
 package my.fbk.npc.Rooms;
 
+import my.fbk.npc.AbstractClass.AbstractCharacter;
 import my.fbk.npc.BattleSpells.FireBall;
 import my.fbk.npc.BattleSpells.HolyHealing;
 import my.fbk.npc.Enemy.AbstractEnemy;
@@ -22,7 +23,7 @@ public class BattleRoom extends AbstractRoom {
     Scanner scan = new Scanner(System.in);
     Random rand = new Random();
     String input;
-    AbstractEnemy enemy;
+    AbstractCharacter enemy;
 
     public BattleRoom(Game game) {
         super(game);
@@ -40,8 +41,8 @@ public class BattleRoom extends AbstractRoom {
                 System.out.println("Player died,game over");
                 return;
             } else if (enemy.getHealth() <= 0) {
-                player.setMoney(player.getMoney() + enemy.getGold());
-                System.out.println("Player earned: " + enemy.getGold() + "$  and now has: " + player.getMoney() + "$");
+                player.setMoney(player.getMoney() + enemy.getMoney());
+                System.out.println("Player earned: " + enemy.getMoney() + "$  and now has: " + player.getMoney() + "$");
                 System.out.print("enemy loot is: ");
                 enemy.getInventory().showInventory();
                 player.getInventory().takeLoot(player, enemy);
@@ -108,7 +109,7 @@ public class BattleRoom extends AbstractRoom {
 
     public void generateEnemy() {
         //the enemies are uselessly generated even if it is used only one of them
-        List<AbstractEnemy> enemyTypes = List.of(
+        List<AbstractCharacter> enemyTypes = List.of(
                 GoblinFactory.makeRandomEnemy(player.getLevel()),
                 KoboldFactory.makeRandomEnemy(player.getLevel()),
                 SkeletonFactory.makeRandomEnemy(player.getLevel()),
