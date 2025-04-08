@@ -3,10 +3,12 @@ package my.fbk.npc.Rooms;
 import lombok.Getter;
 import lombok.Setter;
 import my.fbk.npc.AbstractClass.AbstractCharacter;
+import my.fbk.npc.AllNPC.AbstractNPC;
 import my.fbk.npc.BasicSpells.Effects;
 import my.fbk.npc.BasicSpells.InvisibilitySpell;
 import my.fbk.npc.BasicSpells.MindControlSpell;
 import my.fbk.npc.Game;
+import my.fbk.npc.inventory.Inventory;
 import my.fbk.npc.myPlayer.Player;
 
 import java.util.*;
@@ -33,12 +35,11 @@ public abstract class AbstractRoom {
     Optional<Effects> selectedEffectOpt2 = Optional.empty();
 
     public void castSpell() {
-
-        System.out.println("Do you want to use or remove effects? (y/n)");
-        userInput();
-        if (input.equals("y")) {
-            System.out.println("Select the effect: 'inv' for invisibility and 'mind' for mind control ");
+            System.out.println("Select the effect: 'inv' for invisibility and 'mind' for mind control or 'back' to go back");
             userInput();
+            if(input.equals("back")) {
+                System.out.print(" ");
+            }
             Optional<Effects> selectedEffectOpt = selectEffect(input);
             selectedEffectOpt2 = selectedEffectOpt;
             if (selectedEffectOpt.isEmpty()) {
@@ -53,6 +54,11 @@ public abstract class AbstractRoom {
                         System.out.println("Select action: use/remove");
                         userInput();
                         targetSpell(selectedEffect, target.get(), input);
+                        if(target.get() instanceof AbstractNPC){
+                            ((AbstractNPC) target.get()).setReputation(((AbstractNPC) target.get()).getReputation() -20);
+                            System.out.println("The reputation of: " + target.get().getName() + " is now: "+((AbstractNPC) target.get()).getReputation());
+                        }
+
                     }
                 } else if (selectedEffect.getName().equals("inv")) {
                     System.out.println("Select action: use/remove");
@@ -62,7 +68,7 @@ public abstract class AbstractRoom {
                     System.out.println("player has not enough MP");
                 System.out.println(player.getMana() + "MP");
             }
-        }
+
 
     }
 
@@ -107,6 +113,7 @@ public abstract class AbstractRoom {
     public void userInput() {
         input = scan.nextLine();
     }
+
 
 
 }

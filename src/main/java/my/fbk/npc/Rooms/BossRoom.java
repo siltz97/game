@@ -50,7 +50,7 @@ public class BossRoom extends AbstractRoom {
                 userInput();
                 game.moveNext();
             }
-            System.out.println("What do you want to do? 'a' to attack/'i' to use item /'s' to use spell or 'next' to go to another room");
+            System.out.println("What do you want to do? 'a' to attack/'i' to use item /'s' to use spell/'e' to see the equipment or 'inv' to use invisibility and skip the room");
 
             userInput();
             try {
@@ -92,8 +92,13 @@ public class BossRoom extends AbstractRoom {
                         }
                     }
 
-                } else if (input.equals("next")) {
+                } else if (input.equals("inv")) {
+                    System.out.println("You casted invisibility and now you can pass through the enemy");
+                    player.setMana(player.getMana() - 50);
+                    System.out.println("Player's MP: " + player.getMana()+"\n");
                     game.moveNext();
+                }else if(input.equals("e")) {
+                    player.showEquipment();
                 }
             }catch (IllegalArgumentException e) {
                 System.out.println("wrong input, retry");

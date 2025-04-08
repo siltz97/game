@@ -19,12 +19,13 @@ public interface Inventory {
 
     void showInventory();
 
-    void useItem(ItemList item,AbstractCharacter character);
+    void useItem(ItemList item, AbstractCharacter character);
 
     int getInventorySize();
 
     void addAllItemsToInventory(List<ItemList> list);
 
     void takeLoot(Player player, AbstractCharacter enemy);
+
 }
 

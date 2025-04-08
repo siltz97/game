@@ -6,12 +6,9 @@ import my.fbk.npc.Rooms.BossRoom;
 import my.fbk.npc.Rooms.SafeRoom;
 import my.fbk.npc.myPlayer.Player;
 
-import java.util.Random;
-
 public class Game {
     int choice = 0;
     Player player;
-    Random rand = new Random();
     AbstractRoom currentRoom;
     BattleRoom battleRoom;
     SafeRoom safeRoom;
@@ -19,7 +16,6 @@ public class Game {
 
     public Game() {
         player = new Player(100, 120, 100, 25, 0, 1);
-        currentRoom = safeRoom;
         safeRoom = new SafeRoom(this);
         battleRoom = new BattleRoom(this);
         bossRoom = new BossRoom(this);
@@ -43,7 +39,7 @@ public class Game {
             safeRoom.setPlayer(player);
             System.out.println("You are in the room number: " + (choice - 1));
             safeRoom.npcInteraction();
-        } else  {
+        } else {
             choice++;
             currentRoom = new BattleRoom(this);
             battleRoom.setPlayer(player);

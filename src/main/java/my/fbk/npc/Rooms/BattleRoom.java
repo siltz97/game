@@ -3,15 +3,14 @@ package my.fbk.npc.Rooms;
 import my.fbk.npc.AbstractClass.AbstractCharacter;
 import my.fbk.npc.BattleSpells.FireBall;
 import my.fbk.npc.BattleSpells.HolyHealing;
-import my.fbk.npc.Enemy.AbstractEnemy;
 import my.fbk.npc.Game;
 import my.fbk.npc.factories.GoblinFactory;
 import my.fbk.npc.factories.KoboldFactory;
 import my.fbk.npc.factories.SkeletonFactory;
 import my.fbk.npc.factories.ZombieFactory;
-import my.fbk.npc.inventory.Inventory;
 import my.fbk.npc.inventory.ItemList;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
@@ -27,6 +26,7 @@ public class BattleRoom extends AbstractRoom {
 
     public BattleRoom(Game game) {
         super(game);
+        allCharacters = new ArrayList<>();
     }
 
     public void battle() {
@@ -55,7 +55,7 @@ public class BattleRoom extends AbstractRoom {
                 userInput();
                 game.moveNext();
             }
-            System.out.println("What do you want to do? 'a' to attack/'i' to use item /'s' to use spell or 'next' to go to another room");
+            System.out.println("What do you want to do? 'a' to attack/'i' to use item /'s' to use spell/'e' to see the equipment or 'inv' to use invisibility and skip the room");
 
             userInput();
             try {
@@ -63,7 +63,7 @@ public class BattleRoom extends AbstractRoom {
                     playerAttack();
                     enemyAttack();
                 } else if (input.equals("i")) {
-                    while(true) {
+                    while (true) {
                         System.out.println("Select an item to use or 'back'");
                         player.showInventory();
                         userInput();
@@ -82,11 +82,18 @@ public class BattleRoom extends AbstractRoom {
                         }
                     }
 
-                } else if (input.equals("next")) {
-                    game.moveNext();
+                } else if (input.equals("inv")) {
+                    if (player.getMana() >= 50) {
+                        System.out.println("You casted invisibility and now you can pass through the enemy");
+                        player.setMana(player.getMana() - 50);
+                        System.out.println("Player's MP: " + player.getMana() + "\n");
+                        game.moveNext();
+                    } else {
+                        System.out.println("Player has not enough mana, you should battle for survive or regenerate mana");
+                    }
 
                 } else if (input.equals("s")) {
-                    while(true) {
+                    while (true) {
                         System.out.println("Player's MP is: " + player.getMana());
                         System.out.println("Select a spell to use: 'fire' for fireball(30MP) or 'heal' for healing(50MP) or 'back'");
                         userInput();
@@ -96,12 +103,14 @@ public class BattleRoom extends AbstractRoom {
                         } else if (input.equals("heal")) {
                             HolyHealing heal = new HolyHealing(player, enemy);
                             heal.cast();
-                        }else if(input.equals("back")) {
+                        } else if (input.equals("back")) {
                             break;
                         }
                     }
+                }else if(input.equals("e")) {
+                    player.showEquipment();
                 }
-            }catch (IllegalArgumentException e) {
+            } catch (IllegalArgumentException e) {
                 System.out.println("wrong input, retry");
             }
         }

@@ -7,7 +7,6 @@ import my.fbk.npc.AbstractClass.AbstractCharacter;
 @Getter
 @Setter
 public abstract class AbstractPlayer extends AbstractCharacter {
-    private int experience;
     int level;
 
     public AbstractPlayer(int money, int health, int mana, int damage, int experience, int level) {

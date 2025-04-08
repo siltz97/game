@@ -23,6 +23,7 @@ public class SafeRoom extends AbstractRoom {
     }
 
     public void npcInteraction() {
+        generateNPC();
         System.out.println("You are now in a SAFE ROOM. Take a rest and interact with some npc if you want.");
         while (true) {
             System.out.println(" Type 'sp' to apply some effects on npc or 's' to interact with npc");
@@ -63,7 +64,7 @@ public class SafeRoom extends AbstractRoom {
                 } catch (IllegalArgumentException e) {
                     System.out.println("wrong input, retry");
                 }
-                generateNPC();
+
                 Optional<AbstractCharacter> npc = allCharacters.stream().filter(n -> n.getName().equals(input)).findFirst();
                 if (npc.isEmpty()) {
                     System.out.println("error");
