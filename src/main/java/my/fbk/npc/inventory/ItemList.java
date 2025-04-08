@@ -22,7 +22,7 @@ public enum ItemList {
             character.stream()
                     .forEach(c -> {
                         c.setHealth(c.getHealth() + 100);
-                        System.out.println("You restored 100 HP! Current HP: " + c.getHealth());
+                        System.out.println("You restored 100 HP!");
                     });
         }
     },
@@ -42,7 +42,7 @@ public enum ItemList {
             character.stream()
                     .forEach(c -> {
                         c.setMana(c.getMana() + 100);
-                        System.out.println("You restored 100 MP! Current MP: " + c.getMana());
+                        System.out.println("You restored 100 MP!");
                     });
         }
     },

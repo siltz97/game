@@ -34,12 +34,12 @@ public class SafeRoom extends AbstractRoom {
                 System.out.println("");
             }
             while (true) {
-                System.out.println("Choose a character to interact with: peasant, guard, merchant,thief ; type 'exit' to quit ; 'back' to change effects ; 'open' to see the inventory or 'next' to move forward");
+                System.out.println("Choose a character to interact with: peasant, guard, merchant,thief ; type 'exit' to quit ; 'b' to change effects ; 'open' to see the inventory or 'n' to move forward");
                 userInput();
                 try {
-                    if (input.toLowerCase().equals("back")) {
+                    if (input.toLowerCase().equals("b")) {
                         break;
-                    } else if (input.toLowerCase().equals("next")) {
+                    } else if (input.toLowerCase().equals("n")) {
                         game.moveNext();
                         break;
                     } else if (input.equals("exit")) {
@@ -49,14 +49,14 @@ public class SafeRoom extends AbstractRoom {
                     } else if (input.equals("open")) {
                         player.showInventory();
                         System.out.println(player.getMoney() + "$");
-                        System.out.println("Do you want to use an item? yes/no");
+                        System.out.println("Do you want to use an item? y/n");
                         userInput();
-                        if (input.toLowerCase().equals("yes")) {
+                        if (input.toLowerCase().equals("y")) {
                             System.out.println("Select an item");
                             userInput();
                             ItemList item = ItemList.valueOf(input.toUpperCase());
                             player.useItem(item, player);
-                        } else if (input.equals("no")) {
+                        } else if (input.equals("n")) {
                             break;
                         }
                         break;
@@ -117,9 +117,9 @@ public class SafeRoom extends AbstractRoom {
                                 while (true) {
                                     merchant.showInventory();
                                     System.out.println("Player's money: " + player.getMoney());
-                                    System.out.println("Enter item name to buy or 'back' to exit");
+                                    System.out.println("Enter item name to buy or 'b' to exit");
                                     userInput();
-                                    if (input.toUpperCase().equals("BACK")) {
+                                    if (input.toUpperCase().equals("B")) {
                                         break;
                                     }
                                     try {
@@ -145,7 +145,7 @@ public class SafeRoom extends AbstractRoom {
                                         player.showInventory();
                                         System.out.println("Enter item name to sell:");
                                         userInput();
-                                        if (input.toUpperCase().equals("BACK")) {
+                                        if (input.toUpperCase().equals("B")) {
                                             continue;
                                         }
                                         ItemList item = ItemList.valueOf(input.toUpperCase());
@@ -161,7 +161,7 @@ public class SafeRoom extends AbstractRoom {
                                         System.out.println("Invalid item. Retry");
                                     }
                                 }
-                            } else if (input.equals("back")) {
+                            } else if (input.equals("b")) {
                                 break; // Go back to character selection
                             }
 

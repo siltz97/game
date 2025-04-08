@@ -19,9 +19,13 @@ public class Player extends AbstractPlayer {
     int basicHealth = 120;
     int basicMana = 100;
     int basicDamage = 25;
+
     int addedDamage = 0;
     int addedMana = 0;
     int addedHealth = 0;
+
+    int maxHealth = basicHealth;
+    int maxMana = basicMana;
 
     public Player(int money, int health, int mana, int damage, int experience, int level) {
         super(money, health, mana, damage, experience, level);
@@ -31,6 +35,7 @@ public class Player extends AbstractPlayer {
         }
 
     }
+
 
     @Override
     public void speak() {
@@ -54,19 +59,31 @@ public class Player extends AbstractPlayer {
         inventory.showInventory();
     }
 
+    public void updateHealthAndMana() {
+        setMaxHealth(getHealth() + addedHealth);
+        setMaxMana(getMana() + addedMana);
+    }
+
     public void useItem(ItemList item, AbstractCharacter character) {
-        if (item.equals(ItemList.IRON_SWORD) && !equipment.contains(item)) {
+        if (item.equals(ItemList.IRON_SWORD)) {
+            if (equipment.contains(ItemList.IRON_SWORD))
+                System.out.println("❌You you can't equip more than one weapon!❌\n");
             this.equipment.add(item);
             this.inventory.removeItemFromInventory(ItemList.IRON_SWORD);
             setAddedDamage(getAddedDamage() + 20);
             setDamage(getDamage() + 20);
             System.out.println("You successfully equipped: " + item + " and now your damage is: " + getDamage());
-        } else if (equipment.contains(ItemList.IRON_SWORD)) {
-            System.out.println("❌You you can't equip more than one weapon!❌\n");
-        } else
+        } else {
             this.inventory.useItem(item, character);
+            if(getHealth()> maxHealth) {
+                setHealth(maxHealth);
+                System.out.println("HP: " + getHealth());
+            }else if(getMana()> maxMana) {
+                setMana(maxMana);
+                System.out.println("MP: " + getMana());
+            }
+        }
     }
-
     public void seeMoney() {
         //noinspection StringTemplateMigration
         System.out.println("Player has: " + getMoney() + "$");
@@ -80,7 +97,7 @@ public class Player extends AbstractPlayer {
         setHealth((int) (getBasicHealth() * (1 + 0.14 * (getLevel() - 1))) + addedHealth);
         setMana((int) (getBasicMana() * (1 + 0.12 * (getLevel() - 1))) + addedMana);
         setDamage((int) (getBasicDamage() * (1 + 0.1 * (getLevel() - 1))) + addedDamage);
-
+        updateHealthAndMana();
     }
 
     public void showEquipment() {
