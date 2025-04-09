@@ -21,7 +21,7 @@ public class MindControl extends Spell {
 
     @Override
     public void apply(AbstractCharacter character) {
-        MindControlEffect effect = new MindControlEffect();
+        MindControlEffect effect = new MindControlEffect(5);
         effect.applyEffect(character);
     }
 }

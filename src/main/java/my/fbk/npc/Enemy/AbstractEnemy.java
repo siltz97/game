@@ -3,6 +3,7 @@ package my.fbk.npc.Enemy;
 import lombok.Getter;
 import lombok.Setter;
 import my.fbk.npc.AbstractClass.AbstractCharacter;
+import my.fbk.npc.effects.FreezingEffect;
 
 @Getter
 @Setter
@@ -14,6 +15,13 @@ public abstract class AbstractEnemy extends AbstractCharacter {
 
     public abstract void attack();
     public abstract String getName();
+
+    public int getDamage(){
+        if(this.effects.contains(new FreezingEffect(5))){
+            return 0;
+        }else
+            return this.damage;
+    }
 
 
 }

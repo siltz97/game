@@ -37,7 +37,7 @@ public class PeasantTest {
     @Test
     public void peasantTestSilent() {
         Peasant peasant = new Peasant(1,100,100,2,1,0);
-        peasant.setEffects(new InvisibilityEffect());
+        peasant.setEffects(new InvisibilityEffect(5));
         peasant.speak();
         Assertions.assertTrue(peasant.getBehavior() instanceof SilentSpeak);
     }

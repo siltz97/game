@@ -18,7 +18,7 @@ public abstract class AbstractCharacter {
     protected List<Effect> effects = new ArrayList<>();
     private int health;
     private int mana;
-    private int damage;
+    protected int damage;
     private int money;
     private int experience;
 
@@ -53,7 +53,7 @@ public abstract class AbstractCharacter {
     public void setEffects(Effect effect){
         this.effects.add(effect);
     }
-    public void setRemoveEffect(Effect effect) {
+    public void removeEffect(Effect effect) {
         this.effects.remove(effect);
     }
 

@@ -8,7 +8,12 @@ import my.fbk.npc.AbstractClass.AbstractCharacter;
 @Setter
 public abstract class Effect {
 
-    protected int effectDuration = 0;
+
+    protected int effectDuration ;
+
+    public Effect(int effectDuration) {
+        this.effectDuration = effectDuration;
+    }
     //npc
     public abstract void applyEffect(AbstractCharacter character);
 
@@ -17,8 +22,10 @@ public abstract class Effect {
     boolean hasEffect(AbstractCharacter character) {
         return character.getEffects() != null;
     }
+    public int decrementEffectDuration() {
+        return --effectDuration;
+    }
 
-    public abstract String getName();
 
 
 }

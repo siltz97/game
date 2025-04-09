@@ -31,9 +31,9 @@ public abstract class AbstractRoom {
 
     public AbstractRoom(Game game) {
         this.game = game;
-        spells.add(new Invisibility(30));
-        spells.add(new FreezingField(30));
-        spells.add(new MindControl(30));
+        spells.add(new Invisibility(50));
+        spells.add(new FreezingField(70));
+        spells.add(new MindControl(50));
     }
 
     Optional<Spell> spellOpt2 = Optional.empty();

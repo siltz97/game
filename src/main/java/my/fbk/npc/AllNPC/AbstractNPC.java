@@ -42,7 +42,7 @@ public abstract class AbstractNPC extends AbstractCharacter {
     }
 
 
-    public void setRemoveEffect(Effect effect) {
+    public void removeEffect(Effect effect) {
         effects.remove(effect);
     }
 

@@ -63,6 +63,7 @@ public class BattleRoom extends AbstractRoom {
                     //attack
                     playerAttack();
                     enemyAttack();
+
                 } else if (input.equals("i")) { //inventory
                     while (true) {
                         System.out.println("Select an item to use or 'back'");
@@ -84,14 +85,15 @@ public class BattleRoom extends AbstractRoom {
                     }
 
                 } else if (input.equals("inv")) { // invisibility
-                    if (player.getMana() >= 50) {
-                        System.out.println("You casted invisibility and now you can pass through the enemy");
-                        player.setMana(player.getMana() - 50);
-                        System.out.println("Player's MP: " + player.getMana() + "\n");
+//                    if (player.getMana() >= 50) {
+//                        System.out.println("You casted invisibility, and now you can pass through the enemy");
+//                        player.setMana(player.getMana() - 50);
+//                        System.out.println("Player's MP: " + player.getMana() + "\n");
                         game.moveNext();
-                    } else {
-                        System.out.println("Player has not enough mana, you should battle for survive or regenerate mana");
-                    }
+//                    }
+//                }else {
+//                        System.out.println("Player has not enough mana, you should battle for survive or regenerate mana");
+//                    }
 
                 } else if (input.equals("s")) {//spells
                     while (true) {

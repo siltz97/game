@@ -34,7 +34,7 @@ public class MerchantTest {
     @Test
     public void merchantTestSilent() {
         Merchant merchant = new Merchant(1, 100, 100, 2,1,0);
-        merchant.setEffects(new InvisibilityEffect());
+        merchant.setEffects(new InvisibilityEffect(5));
         merchant.speak();
         Assertions.assertTrue(merchant.getBehavior() instanceof SilentSpeak);
     }

@@ -8,6 +8,10 @@ import my.fbk.npc.AbstractClass.AbstractCharacter;
 @Setter
 public class MindControlEffect extends Effect {
 
+    public MindControlEffect(int effectDuration) {
+        super(effectDuration);
+    }
+
     @Override
     public void applyEffect(AbstractCharacter character) {
         character.setEffects(this);
@@ -15,16 +19,16 @@ public class MindControlEffect extends Effect {
 
     @Override
     public void removeEffect(AbstractCharacter character) {
-        character.setRemoveEffect(this);
+        if(hasEffect(character)) {
+            if (this.effectDuration == 0) {
+                character.removeEffect(this);
+            }
+        }
     }
 
     @Override
     public boolean hasEffect(AbstractCharacter character) {
         return character.getEffects() != null;
-    }
-    @Override
-    public String getName() {
-        return "mind";
     }
 
     @Override

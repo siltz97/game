@@ -21,7 +21,7 @@ public class Invisibility extends Spell {
 
     @Override
     public void apply(AbstractCharacter character) {
-      InvisibilityEffect inv =  new InvisibilityEffect();
+      InvisibilityEffect inv =  new InvisibilityEffect(5);
       inv.applyEffect(character);
       inv.setEffectDuration(5);
     }
