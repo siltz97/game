@@ -1,14 +1,14 @@
 package my.fbk.npc;
 
 import my.fbk.npc.AbstractClass.AbstractCharacter;
-import my.fbk.npc.AllNPC.AbstractNPC;
 import my.fbk.npc.AllNPC.Peasant;
-import my.fbk.npc.BasicSpells.Effects;
-import my.fbk.npc.BasicSpells.InvisibilitySpell;
+import my.fbk.npc.effects.Effect;
+import my.fbk.npc.effects.InvisibilityEffect;
 import my.fbk.npc.Rooms.SafeRoom;
 import my.fbk.npc.Speak.SilentSpeak;
 
 import my.fbk.npc.myPlayer.Player;
+import my.fbk.npc.spells.Spell;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -37,7 +37,7 @@ public class PeasantTest {
     @Test
     public void peasantTestSilent() {
         Peasant peasant = new Peasant(1,100,100,2,1,0);
-        peasant.setEffects(new InvisibilitySpell());
+        peasant.setEffects(new InvisibilityEffect());
         peasant.speak();
         Assertions.assertTrue(peasant.getBehavior() instanceof SilentSpeak);
     }
@@ -52,17 +52,17 @@ public class PeasantTest {
         Assertions.assertTrue(peasantOpt.isPresent(), "peasant not found");
         AbstractCharacter peasant = peasantOpt.get();
 
-        String effect = "mind";
+        String spell = "mind";
 //effects
-        Optional<Effects> effects = safeRoom.selectEffect(effect);
-        Assertions.assertTrue(effects.isPresent(), "Effect not found!");
+        Optional<Spell> spells = safeRoom.selectSpell(spell);
+        Assertions.assertTrue(spells.isPresent(), "Effect not found!");
 //target
-        Effects selectedEffect = effects.get();
+        Spell selectedSpell = spells.get();
         Optional<AbstractCharacter> target = safeRoom.getTarget(peasant.getName());
         Assertions.assertTrue(target.isPresent(), "Target not found!");
 //target spell
         String input = "use";
-        safeRoom.targetSpell(selectedEffect, target.get(), input);
+        safeRoom.targetSpell(selectedSpell, target.get(), input);
 //output test
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         PrintStream originalOut = System.out;

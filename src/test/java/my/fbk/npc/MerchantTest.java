@@ -1,7 +1,7 @@
 package my.fbk.npc;
 
 import my.fbk.npc.AllNPC.Merchant;
-import my.fbk.npc.BasicSpells.InvisibilitySpell;
+import my.fbk.npc.effects.InvisibilityEffect;
 import my.fbk.npc.Speak.SilentSpeak;
 import my.fbk.npc.factories.NPCFactory;
 import org.junit.jupiter.api.Assertions;
@@ -34,7 +34,7 @@ public class MerchantTest {
     @Test
     public void merchantTestSilent() {
         Merchant merchant = new Merchant(1, 100, 100, 2,1,0);
-        merchant.setEffects(new InvisibilitySpell());
+        merchant.setEffects(new InvisibilityEffect());
         merchant.speak();
         Assertions.assertTrue(merchant.getBehavior() instanceof SilentSpeak);
     }
