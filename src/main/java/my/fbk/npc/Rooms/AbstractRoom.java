@@ -11,6 +11,7 @@ import my.fbk.npc.Game;
 import my.fbk.npc.myPlayer.Player;
 import my.fbk.npc.spells.FreezingField;
 import my.fbk.npc.spells.Invisibility;
+import my.fbk.npc.spells.MindControl;
 import my.fbk.npc.spells.Spell;
 
 import java.util.*;
@@ -32,6 +33,7 @@ public abstract class AbstractRoom {
         this.game = game;
         spells.add(new Invisibility(30));
         spells.add(new FreezingField(30));
+        spells.add(new MindControl(30));
     }
 
     Optional<Spell> spellOpt2 = Optional.empty();

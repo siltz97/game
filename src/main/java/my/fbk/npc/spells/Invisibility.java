@@ -11,7 +11,7 @@ public class Invisibility extends Spell {
 
     @Override
     public String getName() {
-        return "";
+        return "inv";
     }
 
     @Override
