@@ -10,12 +10,22 @@ import java.util.List;
 @SuppressWarnings("NonFinalFieldInEnum")
 @Getter
 public enum ItemList {
-//        DOVAKIN_VOICE("FUS RO DAH!!! 1000 DMG", 9999, 9999, "") {
+    //        DOVAKIN_VOICE("FUS RO DAH!!! 1000 DMG", 9999, 9999, "") {
 //        @Override
 //        public void use(List<AbstractCharacter> character) {
 //            System.out.println("You shout 'FUS RO DAH' and deal 1000 damage to all enemies!");
 //        }
 //    },
+    SILVER_RING("A ring with minor magical properties +30 MAX MANA ", 350, 1, "equipment") {
+            @Override
+        public void use(List<AbstractCharacter> character){
+                character.stream()
+                        .forEach(c -> {
+                            c.setMana(c.getMana() + 20);
+                            System.out.println("Equipped Silver Ring! + 20 MP:  " + c.getMana());
+                        });
+            }
+    },
     HEALTH_POTION("Restores +100 health", 50, 1, "") {
         @Override
         public void use(List<AbstractCharacter> character) {
@@ -46,7 +56,7 @@ public enum ItemList {
                     });
         }
     },
-    IRON_SWORD("A basic but reliable sword. +40 DMG", 200, 1, "") {
+    IRON_SWORD("A basic but reliable sword. +20 DMG", 200, 1, "equipment") {
         @Override
         public void use(List<AbstractCharacter> character) {
             character.stream()
@@ -56,7 +66,7 @@ public enum ItemList {
                     });
         }
     },
-    BUCKET("It's just a bucket. What did you expect?", 1, 1, "") {
+    BUCKET("It's just a bucket. What did you expect?", 1, 1, "equipment") {
         @Override
         public void use(List<AbstractCharacter> character) {
             character.stream()

@@ -4,12 +4,15 @@ import lombok.Getter;
 import lombok.Setter;
 import my.fbk.npc.AbstractClass.AbstractCharacter;
 import my.fbk.npc.AllNPC.AbstractNPC;
+import my.fbk.npc.effects.Effect;
 import my.fbk.npc.inventory.ItemList;
+import my.fbk.npc.spells.Spell;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+@SuppressWarnings("ALL")
 @Getter
 @Setter
 public class Player extends AbstractPlayer {
@@ -31,9 +34,7 @@ public class Player extends AbstractPlayer {
         super(money, health, mana, damage, experience, level);
         for (int i = 0; i < 2; i++) {
             inventory.addItemToInventory(ItemList.HEALTH_POTION);
-
         }
-
     }
 
 
@@ -59,31 +60,42 @@ public class Player extends AbstractPlayer {
         inventory.showInventory();
     }
 
-    public void updateHealthAndMana() {
+    public void updateMaxStats() {
         setMaxHealth(getHealth() + addedHealth);
         setMaxMana(getMana() + addedMana);
     }
 
     public void useItem(ItemList item, AbstractCharacter character) {
+
         if (item.equals(ItemList.IRON_SWORD)) {
-            if (equipment.contains(ItemList.IRON_SWORD))
+            if (equipment.contains(ItemList.IRON_SWORD)) {
                 System.out.println("❌You you can't equip more than one weapon!❌\n");
+                return;
+            }
             this.equipment.add(item);
-            this.inventory.removeItemFromInventory(ItemList.IRON_SWORD);
+            this.inventory.removeItemFromInventory(item);
             setAddedDamage(getAddedDamage() + 20);
-            setDamage(getDamage() + 20);
+            setDamage(getDamage() + getAddedDamage());
             System.out.println("You successfully equipped: " + item + " and now your damage is: " + getDamage());
+        } else if (item.equals(ItemList.SILVER_RING)) {
+            this.equipment.add(item);
+            this.inventory.removeItemFromInventory(item);
+            setAddedMana(getAddedMana() + 20);
+            setMana(getMana() + getAddedMana());
+            System.out.println("You successfully equipped: " + item + "and now your mana is: " + getMana());
         } else {
             this.inventory.useItem(item, character);
-            if(getHealth()> maxHealth) {
+            if (getHealth() > maxHealth) {
                 setHealth(maxHealth);
                 System.out.println("HP: " + getHealth());
-            }else if(getMana()> maxMana) {
+            } else if (getMana() > maxMana) {
                 setMana(maxMana);
                 System.out.println("MP: " + getMana());
             }
         }
     }
+
+
     public void seeMoney() {
         //noinspection StringTemplateMigration
         System.out.println("Player has: " + getMoney() + "$");
@@ -97,7 +109,7 @@ public class Player extends AbstractPlayer {
         setHealth((int) (getBasicHealth() * (1 + 0.14 * (getLevel() - 1))) + addedHealth);
         setMana((int) (getBasicMana() * (1 + 0.12 * (getLevel() - 1))) + addedMana);
         setDamage((int) (getBasicDamage() * (1 + 0.1 * (getLevel() - 1))) + addedDamage);
-        updateHealthAndMana();
+        updateMaxStats();
     }
 
     public void showEquipment() {
@@ -108,6 +120,21 @@ public class Player extends AbstractPlayer {
             for (ItemList item : equipment) {
                 System.out.println(item);
             }
+        }
+    }
+
+    public void cast(Spell spell, List<AbstractCharacter> targets) {
+        if (getMana() >= spell.getCost()) {
+            setMana(getMana() - spell.getCost());
+
+            spell.print();
+
+            for (AbstractCharacter target : targets) {
+                spell.apply(target);
+            }
+            System.out.println("Your MP is now " + getMana());
+        } else {
+            System.out.println("❌ You don't have enough MP! ❌");
         }
     }
 }

@@ -4,12 +4,14 @@ import lombok.Getter;
 import lombok.Setter;
 import my.fbk.npc.AbstractClass.AbstractCharacter;
 import my.fbk.npc.AllNPC.AbstractNPC;
-import my.fbk.npc.BasicSpells.Effects;
-import my.fbk.npc.BasicSpells.InvisibilitySpell;
-import my.fbk.npc.BasicSpells.MindControlSpell;
+import my.fbk.npc.effects.Effect;
+import my.fbk.npc.effects.InvisibilityEffect;
+import my.fbk.npc.effects.MindControlEffect;
 import my.fbk.npc.Game;
-import my.fbk.npc.inventory.Inventory;
 import my.fbk.npc.myPlayer.Player;
+import my.fbk.npc.spells.FreezingField;
+import my.fbk.npc.spells.Invisibility;
+import my.fbk.npc.spells.Spell;
 
 import java.util.*;
 
@@ -20,7 +22,7 @@ public abstract class AbstractRoom {
     Player player = null;
     Random rand = new Random();
     Scanner scan = new Scanner(System.in);
-    List<Effects> effects = new ArrayList<>();
+    List<Spell> spells = new ArrayList<>();
     List<AbstractCharacter> allCharacters = new ArrayList<>();
     private AbstractRoom currentRoom;
     Game game;
@@ -28,80 +30,71 @@ public abstract class AbstractRoom {
 
     public AbstractRoom(Game game) {
         this.game = game;
-        effects.add(new MindControlSpell());
-        effects.add(new InvisibilitySpell());
+        spells.add(new Invisibility(30));
+        spells.add(new FreezingField(30));
     }
 
-    Optional<Effects> selectedEffectOpt2 = Optional.empty();
+    Optional<Spell> spellOpt2 = Optional.empty();
 
     public void castSpell() {
-            System.out.println("Select the effect: 'inv' for invisibility and 'mind' for mind control or 'back' to go back");
-            userInput();
-            if(input.equals("back")) {
-                System.out.print(" ");
-            }
-            Optional<Effects> selectedEffectOpt = selectEffect(input);
-            selectedEffectOpt2 = selectedEffectOpt;
-            if (selectedEffectOpt.isEmpty()) {
-                System.out.println("error");
-            } else {
-                Effects selectedEffect = selectedEffectOpt.get();
-                if (selectedEffect.getName().equals("mind")) {
-                    System.out.println("Who is your target?");
-                    userInput();
-                    Optional<AbstractCharacter> target = getTarget(input);
-                    if (target.isPresent()) {
-                        System.out.println("Select action: use/remove");
-                        userInput();
-                        targetSpell(selectedEffect, target.get(), input);
-                        if(target.get() instanceof AbstractNPC){
-                            ((AbstractNPC) target.get()).setReputation(((AbstractNPC) target.get()).getReputation() -20);
-                            System.out.println("The reputation of: " + target.get().getName() + " is now: "+((AbstractNPC) target.get()).getReputation());
-                        }
-
-                    }
-                } else if (selectedEffect.getName().equals("inv")) {
+        System.out.println("Select the effect: 'inv' for invisibility(50MP) and 'mind' for mind control(50MP) or 'back' to go back");
+        userInput();
+        if (input.equals("back")) {
+            System.out.print(" ");
+        }
+        Optional<Spell> spellOpt = selectSpell(input);
+        spellOpt2 = spellOpt;
+        if (spellOpt.isEmpty()) {
+            System.out.println("error");
+        } else {
+            Spell spell = spellOpt.get();
+            if (spell.getName().equals("mind")) {
+                System.out.println("Who is your target?");
+                userInput();
+                Optional<AbstractCharacter> target = getTarget(input);
+                if (target.isPresent()) {
                     System.out.println("Select action: use/remove");
                     userInput();
-                    aoeSpell(selectedEffect, input);
-                } else
-                    System.out.println("player has not enough MP");
-                System.out.println(player.getMana() + "MP");
-            }
+                    targetSpell(spell, target.get(), input);
+                    if (target.get() instanceof AbstractNPC) {
+                        ((AbstractNPC) target.get()).setReputation(((AbstractNPC) target.get()).getReputation() - 20);
+                        System.out.println("The reputation of: " + target.get().getName() + " is now: " + ((AbstractNPC) target.get()).getReputation());
+                    }
+
+                }
+            } else if (spell.getName().equals("inv")) {
+                System.out.println("Select action: use/remove");
+                userInput();
+                aoeSpell(spell, input);
+            } else
+                System.out.println("player has not enough MP");
+            System.out.println(player.getMana() + "MP");
+        }
 
 
     }
 
-    public Optional<Effects> selectEffect(String input) {
-        return effects.stream()
+    public Optional<Spell> selectSpell(String input) {
+        return spells.stream()
                 .filter(e -> e.getName().equals(input))
                 .findFirst();
     }
 
-    public void targetSpell(Effects selectedEffect, AbstractCharacter target, String input) {
-        applySpell(selectedEffect, List.of(target), input);
+    public void targetSpell(Spell spell, AbstractCharacter target, String input) {
+        applySpell(spell, List.of(target));
     }
 
-    public void aoeSpell(Effects selectedEffect, String input) {
-        applySpell(selectedEffect, allCharacters, input);
+    public void aoeSpell(Spell spell, String input) {
+        applySpell(spell, allCharacters);
     }
 
 
     public void applySpell(
-            Effects selectedEffect,
-            List<AbstractCharacter> targets,
-            String input
+            Spell spell,
+            List<AbstractCharacter> targets
     ) {
+        player.cast(spell, targets);
 
-        if (player.getMana() >= selectedEffect.spellCost()) {
-            if (input.equals("use")) {
-                targets.forEach(selectedEffect::applyEffect);
-            }
-            player.setMana(player.getMana() - selectedEffect.spellCost());
-        }
-        if (input.equals("remove")) {
-            targets.forEach(selectedEffect::removeEffect);
-        }
     }
 
     public Optional<AbstractCharacter> getTarget(String target) {
@@ -113,7 +106,6 @@ public abstract class AbstractRoom {
     public void userInput() {
         input = scan.nextLine();
     }
-
 
 
 }

@@ -1,20 +1,12 @@
-package my.fbk.npc.BasicSpells;
+package my.fbk.npc.effects;
 
 import lombok.Getter;
 import lombok.Setter;
 import my.fbk.npc.AbstractClass.AbstractCharacter;
-import my.fbk.npc.AllNPC.AbstractNPC;
 
 @Getter
 @Setter
-public class MindControlSpell implements Effects {
-    int spellCost = 50;
-
-
-    @Override
-    public int spellCost() {
-        return this.spellCost;
-    }
+public class MindControlEffect extends Effect {
 
     @Override
     public void applyEffect(AbstractCharacter character) {
@@ -34,4 +26,16 @@ public class MindControlSpell implements Effects {
     public String getName() {
         return "mind";
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o==null)
+            return false;
+        if (this == o)
+            return true;
+        if (!(o instanceof MindControlEffect))
+            return false;
+        return true;
+    }
+
 }

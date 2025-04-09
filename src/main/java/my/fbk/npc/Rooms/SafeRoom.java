@@ -101,9 +101,9 @@ public class SafeRoom extends AbstractRoom {
                         System.out.print("Merchant: ");
                         merchant.speak();
 
-                        if (!selectedEffectOpt2.isEmpty() && merchant.hasEffect(selectedEffectOpt2.get()) || merchant.getReputation() < 50) {
-                            break;
-                        }
+//                        if (!spellOpt2.isEmpty() && merchant.hasEffect(spellOpt2.get()) || merchant.getReputation() < 50) {
+//                            break;
+//                        }
                         System.out.println("Type 'open' to open inventory, 'close' to close, 'buy'/'sell' or 'back' to choose another character");
 //inventory
                         while (true) {

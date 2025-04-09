@@ -3,13 +3,10 @@ package my.fbk.npc.AllNPC;
 import lombok.Getter;
 import lombok.Setter;
 import my.fbk.npc.AbstractClass.AbstractCharacter;
-import my.fbk.npc.BasicSpells.Effects;
-import my.fbk.npc.BasicSpells.InvisibilitySpell;
-import my.fbk.npc.BasicSpells.MindControlSpell;
+import my.fbk.npc.effects.Effect;
+import my.fbk.npc.effects.InvisibilityEffect;
+import my.fbk.npc.effects.MindControlEffect;
 import my.fbk.npc.Speak.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 @Getter
@@ -18,8 +15,8 @@ public abstract class AbstractNPC extends AbstractCharacter {
     protected SpeakBehavior behavior;
     private int reputation;
 
-    public AbstractNPC(int money, int health, int reputation, int mana,int damage,int experience) {
-        super(health, mana,damage,money,experience);
+    public AbstractNPC(int money, int health, int reputation, int mana, int damage, int experience) {
+        super(health, mana, damage, money, experience);
         this.reputation = reputation;
         behavior = new NeutralSpeak();
     }
@@ -35,24 +32,21 @@ public abstract class AbstractNPC extends AbstractCharacter {
         } else if (getReputation() < 50) {
             setBehavior(new AggressiveSpeak());
         }
-        for (Effects e : effects) {
-            if (e != null && e instanceof InvisibilitySpell) {
+        for (Effect e : effects) {
+            if (e != null && e instanceof InvisibilityEffect) {
                 setBehavior(new SilentSpeak());
-            }else if(e != null && e instanceof MindControlSpell) {
+            } else if (e != null && e instanceof MindControlEffect) {
                 setBehavior(new MindControllSpeak());
             }
         }
     }
 
-    public boolean hasEffect(Effects effect) {
-        return effect != null && effects.contains(effect);
-    }
 
-    public void setRemoveEffect(Effects effect) {
+    public void setRemoveEffect(Effect effect) {
         effects.remove(effect);
     }
 
-    public String getName(){
+    public String getName() {
         return "";
     }
 

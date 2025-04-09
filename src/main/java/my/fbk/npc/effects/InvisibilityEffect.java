@@ -1,21 +1,13 @@
-package my.fbk.npc.BasicSpells;
+package my.fbk.npc.effects;
 
 import lombok.Getter;
 import lombok.Setter;
 import my.fbk.npc.AbstractClass.AbstractCharacter;
-import my.fbk.npc.AllNPC.AbstractNPC;
 
 
 @Getter
 @Setter
-public class InvisibilitySpell implements Effects {
-    int spellCost = 50;
-
-
-    @Override
-    public int spellCost() {
-        return this.spellCost;
-    }
+public class InvisibilityEffect extends Effect {
 
     @Override
     public void applyEffect(AbstractCharacter character) {
@@ -34,6 +26,16 @@ public class InvisibilitySpell implements Effects {
     @Override
     public String getName() {
         return "inv";
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (o==null)
+            return false;
+        if (this == o)
+            return true;
+        if (!(o instanceof InvisibilityEffect))
+            return false;
+        return true;
     }
 
 }

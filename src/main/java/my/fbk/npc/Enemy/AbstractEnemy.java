@@ -3,12 +3,6 @@ package my.fbk.npc.Enemy;
 import lombok.Getter;
 import lombok.Setter;
 import my.fbk.npc.AbstractClass.AbstractCharacter;
-import my.fbk.npc.BasicSpells.Effects;
-import my.fbk.npc.inventory.Inventory;
-import my.fbk.npc.inventory.ItemList;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Setter

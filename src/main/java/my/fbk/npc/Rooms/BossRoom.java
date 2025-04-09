@@ -1,8 +1,9 @@
 package my.fbk.npc.Rooms;
 
 import my.fbk.npc.AbstractClass.AbstractCharacter;
-import my.fbk.npc.BattleSpells.FireBall;
-import my.fbk.npc.BattleSpells.HolyHealing;
+import my.fbk.npc.spells.FireBall;
+import my.fbk.npc.spells.FreezingField;
+import my.fbk.npc.spells.HolyHealing;
 import my.fbk.npc.Enemy.*;
 import my.fbk.npc.Game;
 import my.fbk.npc.factories.GoblinFactory;
@@ -63,11 +64,14 @@ public class BossRoom extends AbstractRoom {
                         System.out.println("Select a spell to use: 'fire' for fireball(30MP) ore 'heal' for healing(50MP) or 'back' ");
                         userInput();
                         if (input.equals("fire")) {
-                            FireBall fire = new FireBall(player, enemy);
-                            fire.cast();
+                            FireBall fire = new FireBall(30);
+                            player.cast(fire,List.of(enemy));
                         } else if (input.equals("heal")) {
-                            HolyHealing heal = new HolyHealing(player, enemy);
-                            heal.cast();
+                            HolyHealing heal = new HolyHealing(30);
+                            player.cast(heal, List.of(player));
+                        }else if(input.equals("field")) {
+                                FreezingField freezingField = new FreezingField(30);
+                                player.cast(freezingField,List.of(enemy));
                         }else if(input.equals("back")) {
                             break;
                         }
