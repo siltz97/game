@@ -2,14 +2,11 @@ package my.fbk.npc.factories;
 
 import lombok.Getter;
 import lombok.Setter;
-import my.fbk.npc.AllNPC.Peasant;
-import my.fbk.npc.Enemy.Goblin;
+import my.fbk.npc.enemy.Goblin;
 import my.fbk.npc.inventory.Inventory;
 import my.fbk.npc.inventory.InventoryInteraction;
 import my.fbk.npc.inventory.ItemList;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 /* Produces goblins. */
@@ -31,9 +28,9 @@ public class GoblinFactory {
     public static Goblin makeGoblinWarrior(int level) {
         Goblin goblinWarrior = new Goblin(30, 80, 15, 22, 21);
         goblinWarrior.setInventory(createInventory());
-        goblinWarrior.setHealth((int) (baseWarriorHealth *(1 + 0.12 * (level-1))));
-        goblinWarrior.setMana((int) (baseWarriorMana * (1 + 0.03 * (level-1))));
-        goblinWarrior.setDamage((int) (baseWarriorDamage * (1 + 0.09 * (level-1))));
+        goblinWarrior.setHealth((int) (baseWarriorHealth * (1 + 0.12 * (level - 1))));
+        goblinWarrior.setMana((int) (baseWarriorMana * (1 + 0.03 * (level - 1))));
+        goblinWarrior.setDamage((int) (baseWarriorDamage * (1 + 0.09 * (level - 1))));
         return goblinWarrior;
 
     }
@@ -41,18 +38,18 @@ public class GoblinFactory {
     public static Goblin makeGoblinMage(int level) {
         Goblin goblinMage = new Goblin(20, 70, 20, 18, 18);
         goblinMage.setInventory(createInventory());
-        goblinMage.setHealth((int) (baseMageHealth *(1 + 0.07 * (level-1))));
-        goblinMage.setMana((int) (baseMageMana * (1 + 0.1 * (level-1))));
-        goblinMage.setDamage((int) (baseMageDamage * (1 + 0.06 * (level-1))));
+        goblinMage.setHealth((int) (baseMageHealth * (1 + 0.07 * (level - 1))));
+        goblinMage.setMana((int) (baseMageMana * (1 + 0.1 * (level - 1))));
+        goblinMage.setDamage((int) (baseMageDamage * (1 + 0.06 * (level - 1))));
         return goblinMage;
     }
 
     public static Goblin makeGoblinBoss(int level) {
         Goblin goblinBoss = new Goblin(80, 100, 25, 28, 60);
         goblinBoss.setInventory(createInventory());
-        goblinBoss.setHealth((int) (baseBossHealth *(1 + 0.15 * (level-1))));
-        goblinBoss.setMana((int) (baseBossMana * (1 + 0.08 * (level-1))));
-        goblinBoss.setDamage((int) (baseBossDamage * (1 + 0.12 * (level-1))));
+        goblinBoss.setHealth((int) (baseBossHealth * (1 + 0.15 * (level - 1))));
+        goblinBoss.setMana((int) (baseBossMana * (1 + 0.08 * (level - 1))));
+        goblinBoss.setDamage((int) (baseBossDamage * (1 + 0.12 * (level - 1))));
         return goblinBoss;
     }
 
@@ -66,14 +63,12 @@ public class GoblinFactory {
 
     public static Inventory createInventory() {
         InventoryInteraction inventory = new InventoryInteraction();
-        ItemList[] itemArray = ItemList.values();
+        ItemList[] itemArray = ItemList.itemsHolder().toArray(new ItemList[0]);
         for (int i = 0; i < 1; i++) {
             inventory.addItemToInventory(itemArray[rand.nextInt(itemArray.length)]);
         }
         return inventory;
     }
-
-
 
 
 }

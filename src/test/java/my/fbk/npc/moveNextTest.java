@@ -1,9 +1,9 @@
 package my.fbk.npc;
 
-import my.fbk.npc.Rooms.AbstractRoom;
-import my.fbk.npc.Rooms.BattleRoom;
-import my.fbk.npc.Rooms.BossRoom;
-import my.fbk.npc.Rooms.SafeRoom;
+import my.fbk.npc.rooms.AbstractRoom;
+import my.fbk.npc.rooms.BattleRoom;
+import my.fbk.npc.rooms.BossRoom;
+import my.fbk.npc.rooms.SafeRoom;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

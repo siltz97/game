@@ -1,14 +1,13 @@
 package my.fbk.npc;
 
-import my.fbk.npc.AbstractClass.AbstractCharacter;
-import my.fbk.npc.AllNPC.Peasant;
-import my.fbk.npc.effects.Effect;
-import my.fbk.npc.effects.InvisibilityEffect;
-import my.fbk.npc.Rooms.SafeRoom;
-import my.fbk.npc.Speak.SilentSpeak;
+import my.fbk.npc.abstract_class.AbstractCharacter;
+import my.fbk.npc.all_npc.Peasant;
+import my.fbk.npc.effects.InvisibilityAbstractEffect;
+import my.fbk.npc.rooms.SafeRoom;
+import my.fbk.npc.speak.SilentSpeak;
 
-import my.fbk.npc.myPlayer.Player;
-import my.fbk.npc.spells.Spell;
+import my.fbk.npc.my_player.Player;
+import my.fbk.npc.spells.AbstractSpell;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -37,7 +36,7 @@ public class PeasantTest {
     @Test
     public void peasantTestSilent() {
         Peasant peasant = new Peasant(1,100,100,2,1,0);
-        peasant.setEffects(new InvisibilityEffect(5));
+        peasant.setAbstractEffects(new InvisibilityAbstractEffect(5));
         peasant.speak();
         Assertions.assertTrue(peasant.getBehavior() instanceof SilentSpeak);
     }
@@ -54,10 +53,10 @@ public class PeasantTest {
 
         String spell = "mind";
 //effects
-        Optional<Spell> spells = safeRoom.selectSpell(spell);
+        Optional<AbstractSpell> spells = safeRoom.selectSpell(spell);
         Assertions.assertTrue(spells.isPresent(), "Effect not found!");
 //target
-        Spell selectedSpell = spells.get();
+        AbstractSpell selectedSpell = spells.get();
         Optional<AbstractCharacter> target = safeRoom.getTarget(peasant.getName());
         Assertions.assertTrue(target.isPresent(), "Target not found!");
 //target spell

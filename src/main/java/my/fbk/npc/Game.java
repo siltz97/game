@@ -1,10 +1,10 @@
 package my.fbk.npc;
 
-import my.fbk.npc.Rooms.AbstractRoom;
-import my.fbk.npc.Rooms.BattleRoom;
-import my.fbk.npc.Rooms.BossRoom;
-import my.fbk.npc.Rooms.SafeRoom;
-import my.fbk.npc.myPlayer.Player;
+import my.fbk.npc.rooms.AbstractRoom;
+import my.fbk.npc.rooms.BattleRoom;
+import my.fbk.npc.rooms.BossRoom;
+import my.fbk.npc.rooms.SafeRoom;
+import my.fbk.npc.my_player.Player;
 
 public class Game {
     int choice = 0;

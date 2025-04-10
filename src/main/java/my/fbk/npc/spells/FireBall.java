@@ -1,8 +1,8 @@
 package my.fbk.npc.spells;
 
-import my.fbk.npc.AbstractClass.AbstractCharacter;
+import my.fbk.npc.abstract_class.AbstractCharacter;
 
-public class FireBall extends Spell {
+public class FireBall extends AbstractSpell {
     int spellCost = 30;
     int damage = 30;
 

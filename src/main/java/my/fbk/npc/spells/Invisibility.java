@@ -1,12 +1,12 @@
 package my.fbk.npc.spells;
 
-import my.fbk.npc.AbstractClass.AbstractCharacter;
-import my.fbk.npc.effects.Effect;
-import my.fbk.npc.effects.InvisibilityEffect;
+import my.fbk.npc.abstract_class.AbstractCharacter;
+import my.fbk.npc.effects.AbstractEffect;
+import my.fbk.npc.effects.InvisibilityAbstractEffect;
 
 import java.util.Optional;
 
-public class Invisibility extends Spell {
+public class Invisibility extends AbstractSpell {
 
     public Invisibility(int cost) {
         super(cost);
@@ -24,14 +24,14 @@ public class Invisibility extends Spell {
 
     @Override
     public void apply(AbstractCharacter character) {
-        Optional<Effect> existingEffect = character.getEffects().stream()
-                .filter(e -> e instanceof InvisibilityEffect)
+        Optional<AbstractEffect> existingEffect = character.getAbstractEffects().stream()
+                .filter(e -> e instanceof InvisibilityAbstractEffect)
                 .findFirst();
         if (existingEffect.isPresent()) {
-            InvisibilityEffect existing = (InvisibilityEffect) existingEffect.get();
+            InvisibilityAbstractEffect existing = (InvisibilityAbstractEffect) existingEffect.get();
             existing.setEffectDuration(existing.getEffectDuration() + 3);
         } else {
-            InvisibilityEffect inv = new InvisibilityEffect(3);
+            InvisibilityAbstractEffect inv = new InvisibilityAbstractEffect(3);
             inv.applyEffect(character);
         }
     }

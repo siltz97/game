@@ -2,7 +2,7 @@ package my.fbk.npc.factories;
 
 import lombok.Getter;
 import lombok.Setter;
-import my.fbk.npc.AllNPC.*;
+import my.fbk.npc.all_npc.*;
 import my.fbk.npc.inventory.Inventory;
 import my.fbk.npc.inventory.InventoryInteraction;
 import my.fbk.npc.inventory.ItemList;
@@ -36,17 +36,18 @@ public class NPCFactory {
         return merchant;
     }
 
-    public static Inventory createNPCInventory() {
-        InventoryInteraction inventory = new InventoryInteraction();
-        ItemList[] itemArray = ItemList.values();
-        for (int i = 0; i < 1; i++) {
-            inventory.addItemToInventory(itemArray[rand.nextInt(itemArray.length)]);
+        public static Inventory createNPCInventory() {
+            InventoryInteraction inventory = new InventoryInteraction();
+            ItemList[] itemArray = ItemList.itemsHolder().toArray(new ItemList[0]);
+            for (int i = 0; i < 1; i++) {
+                inventory.addItemToInventory(itemArray[rand.nextInt(itemArray.length)]);
+            }
+            return inventory;
         }
-        return inventory;
-    }
+
     public static Inventory createMerchantInventory() {
         InventoryInteraction inventory = new InventoryInteraction();
-        inventory.addAllItemsToInventory(Arrays.asList(ItemList.values()));
+        inventory.addAllItemsToInventory(Arrays.asList(ItemList.itemsHolder().toArray(new ItemList[0])));
         return inventory;
     }
 

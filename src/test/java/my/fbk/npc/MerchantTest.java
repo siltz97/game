@@ -1,8 +1,8 @@
 package my.fbk.npc;
 
-import my.fbk.npc.AllNPC.Merchant;
-import my.fbk.npc.effects.InvisibilityEffect;
-import my.fbk.npc.Speak.SilentSpeak;
+import my.fbk.npc.all_npc.Merchant;
+import my.fbk.npc.effects.InvisibilityAbstractEffect;
+import my.fbk.npc.speak.SilentSpeak;
 import my.fbk.npc.factories.NPCFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -28,13 +28,13 @@ public class MerchantTest {
     public void merchantTestAggressive() {
         Merchant merchant = new Merchant(1, 100, 40, 2,1,0);
         merchant.speak();
-        Assertions.assertFalse(merchant.getReputation() > 50 && merchant.getEffects().isEmpty());
+        Assertions.assertFalse(merchant.getReputation() > 50 && merchant.getAbstractEffects().isEmpty());
     }
 
     @Test
     public void merchantTestSilent() {
         Merchant merchant = new Merchant(1, 100, 100, 2,1,0);
-        merchant.setEffects(new InvisibilityEffect(5));
+        merchant.setAbstractEffects(new InvisibilityAbstractEffect(5));
         merchant.speak();
         Assertions.assertTrue(merchant.getBehavior() instanceof SilentSpeak);
     }
@@ -43,10 +43,10 @@ public class MerchantTest {
     @DisplayName("user can trade")
     public void merchantTestInventoryAccessConditions() {
         Merchant merchant = new Merchant(1, 100, 100, 2,1,0);
-        if (merchant.getReputation() > 50 && merchant.getEffects().isEmpty()) {
+        if (merchant.getReputation() > 50 && merchant.getAbstractEffects().isEmpty()) {
             merchant.showInventory();
         }
-        Assertions.assertTrue(merchant.getReputation() > 50 && merchant.getEffects().isEmpty());
+        Assertions.assertTrue(merchant.getReputation() > 50 && merchant.getAbstractEffects().isEmpty());
     }
     @Test
     public void merchantTestInventoryHasItems() {

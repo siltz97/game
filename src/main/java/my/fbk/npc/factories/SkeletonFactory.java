@@ -1,12 +1,10 @@
 package my.fbk.npc.factories;
 
-import my.fbk.npc.Enemy.Skeleton;
+import my.fbk.npc.enemy.Skeleton;
 import my.fbk.npc.inventory.Inventory;
 import my.fbk.npc.inventory.InventoryInteraction;
 import my.fbk.npc.inventory.ItemList;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public class SkeletonFactory {
@@ -59,7 +57,7 @@ public class SkeletonFactory {
 
     public static Inventory createInventory() {
         InventoryInteraction inventory = new InventoryInteraction();
-        ItemList[] itemArray = ItemList.values();
+        ItemList[] itemArray = ItemList.itemsHolder().toArray(new ItemList[0]);
         for (int i = 0; i < 1; i++) {
             inventory.addItemToInventory(itemArray[rand.nextInt(itemArray.length)]);
         }

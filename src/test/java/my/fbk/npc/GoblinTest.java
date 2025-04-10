@@ -1,9 +1,9 @@
 package my.fbk.npc;
 
-import my.fbk.npc.Enemy.Goblin;
-import my.fbk.npc.Rooms.BattleRoom;
+import my.fbk.npc.enemy.Goblin;
+import my.fbk.npc.rooms.BattleRoom;
 import my.fbk.npc.factories.GoblinFactory;
-import my.fbk.npc.myPlayer.Player;
+import my.fbk.npc.my_player.Player;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

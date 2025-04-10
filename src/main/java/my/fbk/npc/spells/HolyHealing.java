@@ -1,8 +1,8 @@
 package my.fbk.npc.spells;
 
-import my.fbk.npc.AbstractClass.AbstractCharacter;
+import my.fbk.npc.abstract_class.AbstractCharacter;
 
-public class HolyHealing extends Spell {
+public class HolyHealing extends AbstractSpell {
     public HolyHealing(int cost) {
         super(cost);
     }

@@ -1,10 +1,10 @@
 package my.fbk.npc.spells;
 
-import my.fbk.npc.AbstractClass.AbstractCharacter;
-import my.fbk.npc.effects.Effect;
-import my.fbk.npc.effects.FreezingEffect;
+import my.fbk.npc.abstract_class.AbstractCharacter;
+import my.fbk.npc.effects.AbstractEffect;
+import my.fbk.npc.effects.FreezingAbstractEffect;
 
-public class FreezingField extends Spell {
+public class FreezingField extends AbstractSpell {
     public FreezingField(int cost) {
         super(cost);
     }
@@ -20,7 +20,7 @@ public class FreezingField extends Spell {
 
     @Override
     public void apply(AbstractCharacter character) {
-        FreezingEffect effect = new FreezingEffect(5);
+        FreezingAbstractEffect effect = new FreezingAbstractEffect(5);
         effect.applyEffect(character);
         setEnemyDamage(character,effect);
     }
@@ -36,8 +36,8 @@ public class FreezingField extends Spell {
         return true;
     }
 
-    public int setEnemyDamage(AbstractCharacter character, Effect effect) {
-        if(character.hasEffect(effect)) {
+    public int setEnemyDamage(AbstractCharacter character, AbstractEffect abstractEffect) {
+        if(character.hasEffect(abstractEffect)) {
             return 0;
         }else
             return character.getDamage();

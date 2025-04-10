@@ -2,10 +2,9 @@ package my.fbk.npc.inventory;
 
 import lombok.Getter;
 import lombok.Setter;
-import my.fbk.npc.AbstractClass.AbstractCharacter;
-import my.fbk.npc.AllNPC.AbstractNPC;
-import my.fbk.npc.AllNPC.Merchant;
-import my.fbk.npc.myPlayer.Player;
+import my.fbk.npc.abstract_class.AbstractCharacter;
+import my.fbk.npc.all_npc.Merchant;
+import my.fbk.npc.my_player.Player;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,7 +64,7 @@ public class InventoryInteraction implements Inventory {
             System.out.println("No items available.");
         } else {
             for (ItemList item : inventory) {
-                System.out.println(item + " - " + item.getDescription() + " ($" + item.getPrice() + ")");
+                System.out.println(item.getName() + " - " + item.getDescription() + " ($" + item.getPrice() + ")");
             }
         }
 
@@ -86,7 +85,7 @@ public class InventoryInteraction implements Inventory {
         inventory.addAll(list);
     }
 
-
+    @Override
     public boolean contains(ItemList item) {
         return inventory.contains(item);
     }
