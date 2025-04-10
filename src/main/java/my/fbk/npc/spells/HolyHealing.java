@@ -14,12 +14,13 @@ public class HolyHealing extends Spell {
 
     @Override
     public void print() {
-
+        System.out.println("You casted Holy Healing");
     }
 
     @Override
     public void apply(AbstractCharacter character) {
-
+        character.setHealth(character.getHealth() + 50);
+        System.out.println("You restored 50 HP: " + character.getHealth());
     }
 
 

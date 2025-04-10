@@ -4,10 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 import my.fbk.npc.AbstractClass.AbstractCharacter;
 import my.fbk.npc.AllNPC.AbstractNPC;
-import my.fbk.npc.effects.Effect;
-import my.fbk.npc.effects.InvisibilityEffect;
-import my.fbk.npc.effects.MindControlEffect;
 import my.fbk.npc.Game;
+import my.fbk.npc.effects.Effect;
 import my.fbk.npc.myPlayer.Player;
 import my.fbk.npc.spells.FreezingField;
 import my.fbk.npc.spells.Invisibility;
@@ -69,7 +67,7 @@ public abstract class AbstractRoom {
                 userInput();
                 aoeSpell(spell, input);
             } else
-                System.out.println("player has not enough MP");
+                System.out.println("❌ You don't have enough MP ❌");
             System.out.println(player.getMana() + "MP");
         }
 
@@ -107,6 +105,22 @@ public abstract class AbstractRoom {
 
     public void userInput() {
         input = scan.nextLine();
+    }
+
+    public void decrementEffectDuration(List<AbstractCharacter> characters) {
+        for (AbstractCharacter c : characters) {
+            if (!c.getEffects().isEmpty()) {
+                List<Effect> expiredEffects = c.getEffects().stream()
+                        .filter(e -> e.getEffectDuration() <= 0)
+                        .toList();
+                expiredEffects.forEach(e -> e.removeEffect(c));
+            }
+        }
+        for (AbstractCharacter c : characters) {
+            if (!c.getEffects().isEmpty()) {
+                c.getEffects().stream().forEach(e -> e.setEffectDuration(e.getEffectDuration() - 1));
+            }
+        }
     }
 
 

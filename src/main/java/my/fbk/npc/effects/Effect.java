@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 import my.fbk.npc.AbstractClass.AbstractCharacter;
 
+import java.util.List;
+
 @Getter
 @Setter
 public abstract class Effect {
@@ -22,9 +24,7 @@ public abstract class Effect {
     boolean hasEffect(AbstractCharacter character) {
         return character.getEffects() != null;
     }
-    public int decrementEffectDuration() {
-        return --effectDuration;
-    }
+
 
 
 

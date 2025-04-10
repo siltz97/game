@@ -1,6 +1,7 @@
 package my.fbk.npc.spells;
 
 import my.fbk.npc.AbstractClass.AbstractCharacter;
+import my.fbk.npc.effects.Effect;
 import my.fbk.npc.effects.FreezingEffect;
 
 public class FreezingField extends Spell {
@@ -21,6 +22,7 @@ public class FreezingField extends Spell {
     public void apply(AbstractCharacter character) {
         FreezingEffect effect = new FreezingEffect(5);
         effect.applyEffect(character);
+        setEnemyDamage(character,effect);
     }
 
     @Override
@@ -32,5 +34,12 @@ public class FreezingField extends Spell {
         if (!(o instanceof FreezingField))
             return false;
         return true;
+    }
+
+    public int setEnemyDamage(AbstractCharacter character, Effect effect) {
+        if(character.hasEffect(effect)) {
+            return 0;
+        }else
+            return character.getDamage();
     }
 }

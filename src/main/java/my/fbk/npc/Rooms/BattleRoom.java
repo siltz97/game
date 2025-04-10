@@ -60,11 +60,12 @@ public class BattleRoom extends AbstractRoom {
             userInput();
             try {
                 if (input.equals("a")) {
-                    //attack
+//attack
                     playerAttack();
                     enemyAttack();
-
-                } else if (input.equals("i")) { //inventory
+                    decrementEffectDuration(List.of(enemy));
+                } else if (input.equals("i")) {
+//inventory
                     while (true) {
                         System.out.println("Select an item to use or 'back'");
                         player.showInventory();
@@ -95,7 +96,8 @@ public class BattleRoom extends AbstractRoom {
 //                        System.out.println("Player has not enough mana, you should battle for survive or regenerate mana");
 //                    }
 
-                } else if (input.equals("s")) {//spells
+                } else if (input.equals("s")) {
+//spells
                     while (true) {
                         System.out.println("Player's MP is: " + player.getMana());
                         System.out.println("Select a spell to use: 'fire' for fireball(30MP) or 'heal' for healing(50MP) or 'field' for freezing field(70MP) or 'back'");
@@ -113,6 +115,7 @@ public class BattleRoom extends AbstractRoom {
                             break;
                         }
                     }
+//equipment
                 }else if(input.equals("e")) {
                     player.showEquipment();
                 }

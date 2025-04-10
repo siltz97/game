@@ -71,6 +71,7 @@ public class SafeRoom extends AbstractRoom {
                     continue;
                 }
                 AbstractCharacter speaker = npc.get();
+                decrementEffectDuration(allCharacters);
                 switch (input) {
 //peasant
                     case "peasant":
@@ -78,6 +79,7 @@ public class SafeRoom extends AbstractRoom {
                         player.speak();
                         System.out.print("Peasant: ");
                         speaker.speak();
+
                         break;
 //thief
                     case "thief":
@@ -85,6 +87,7 @@ public class SafeRoom extends AbstractRoom {
                         player.speak();
                         System.out.print("Thief: ");
                         speaker.speak();
+
                         break;
 //guard
                     case "guard":
@@ -92,6 +95,7 @@ public class SafeRoom extends AbstractRoom {
                         player.speak();
                         System.out.print("Guard: ");
                         speaker.speak();
+
                         break;
 //merchant
                     case "merchant":
@@ -100,6 +104,7 @@ public class SafeRoom extends AbstractRoom {
                         player.speak();
                         System.out.print("Merchant: ");
                         merchant.speak();
+
 
                         if (!merchant.getEffects().isEmpty() || merchant.getReputation() < 50) {
                             break;

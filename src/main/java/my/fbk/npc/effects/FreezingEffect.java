@@ -12,8 +12,6 @@ public class FreezingEffect extends Effect {
     @Override
     public void applyEffect(AbstractCharacter character) {
         character.setEffects(this);
-
-
     }
 
     @Override

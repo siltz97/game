@@ -14,7 +14,7 @@ public class GoblinTest {
     @Test
     public void goblinInventoryTest() {
         Goblin warrior = GoblinFactory.makeGoblinWarrior(1);
-        Assertions.assertTrue(warrior.getInventory().getInventorySize() == 1);
+        Assertions.assertTrue(warrior.getInventory().getInventorySize() == 1, "1 element expected");
     }
 
     @Test
