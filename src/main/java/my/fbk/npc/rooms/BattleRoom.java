@@ -1,17 +1,16 @@
 package my.fbk.npc.rooms;
 
-import my.fbk.npc.abstract_class.AbstractCharacter;
-import my.fbk.npc.inventory.Inventory;
-import my.fbk.npc.inventory.InventoryInteraction;
-import my.fbk.npc.spells.FireBall;
-import my.fbk.npc.spells.FreezingField;
-import my.fbk.npc.spells.HolyHealing;
 import my.fbk.npc.Game;
+import my.fbk.npc.abstract_class.AbstractCharacter;
 import my.fbk.npc.factories.GoblinFactory;
 import my.fbk.npc.factories.KoboldFactory;
 import my.fbk.npc.factories.SkeletonFactory;
 import my.fbk.npc.factories.ZombieFactory;
+import my.fbk.npc.inventory.InventoryInteraction;
 import my.fbk.npc.inventory.ItemList;
+import my.fbk.npc.spells.FireBall;
+import my.fbk.npc.spells.FreezingField;
+import my.fbk.npc.spells.HolyHealing;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,7 +74,24 @@ public class BattleRoom extends AbstractRoom {
                         if (input.equals("back")) {
                             break;
                         }
-                                            }
+
+                        ItemList itemToUse = null;
+                        for (ItemList item : ((InventoryInteraction) player.getInventory()).getInventory()) {
+                            if (item.getName().equalsIgnoreCase(input)) {
+                                itemToUse = item;
+                                break;
+                            }
+                        }
+                        if (itemToUse != null) {
+                            if(itemToUse.getName().equalsIgnoreCase("firescroll")){
+                                player.useItem(itemToUse,enemy);
+                            }else{
+                                player.useItem(itemToUse,player);
+                            }
+
+                        }else
+                            System.out.println("Not a name, retry");
+                    }
 
                 } else if (input.equals("inv")) {
 // invisibility

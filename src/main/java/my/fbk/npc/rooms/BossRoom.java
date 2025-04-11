@@ -1,6 +1,7 @@
 package my.fbk.npc.rooms;
 
 import my.fbk.npc.abstract_class.AbstractCharacter;
+import my.fbk.npc.inventory.InventoryInteraction;
 import my.fbk.npc.spells.FireBall;
 import my.fbk.npc.spells.FreezingField;
 import my.fbk.npc.spells.HolyHealing;
@@ -78,23 +79,29 @@ public class BossRoom extends AbstractRoom {
                     }
 
                 } else if (input.equals("i")) {
-                    while(true) {
+                    while (true) {
                         System.out.println("Select an item to use or 'back'");
                         player.showInventory();
                         userInput();
                         if (input.equals("back")) {
                             break;
                         }
-                        try {
-                            ItemList item = ItemList.itemsHolder().stream().filter(i -> i.getName().equals(input)).findFirst().get();
-                            player.getInventory().equals(item);
-                            if (item.equals(ItemList.fireScroll())) {
-                                player.useItem(item, enemy);
-                            } else
-                                player.useItem(item, player);
-                        } catch (IllegalArgumentException e) {
-                            System.out.println("wrong input, retry");
+                        ItemList itemToUse = null;
+                        for (ItemList item : ((InventoryInteraction) player.getInventory()).getInventory()) {
+                            if (item.getName().equalsIgnoreCase(input)) {
+                                itemToUse = item;
+                                break;
+                            }
                         }
+                        if (itemToUse != null) {
+                            if(itemToUse.getName().equalsIgnoreCase("firescroll")){
+                                player.useItem(itemToUse,enemy);
+                            }else{
+                                player.useItem(itemToUse,player);
+                            }
+
+                        }else
+                            System.out.println("Not a name, retry");
                     }
 
                 } else if (input.equals("inv")) {

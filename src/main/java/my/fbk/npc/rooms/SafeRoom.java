@@ -4,6 +4,7 @@ import my.fbk.npc.abstract_class.AbstractCharacter;
 import my.fbk.npc.all_npc.Merchant;
 import my.fbk.npc.Game;
 import my.fbk.npc.factories.NPCFactory;
+import my.fbk.npc.inventory.InventoryInteraction;
 import my.fbk.npc.inventory.ItemList;
 
 import java.util.ArrayList;
@@ -126,49 +127,52 @@ public class SafeRoom extends AbstractRoom {
                                     if (input.toUpperCase().equals("B")) {
                                         break;
                                     }
-                                    try {
-                                        //ItemList item = ItemList.valueOf(input.toUpperCase());// Assuming ItemList has a method to get item by name
-//                                        if (player.getMoney() >= item.getPrice()) {
-//                                            player.buyItem(item, merchant);
-//                                            player.setMoney(player.getMoney() - item.getPrice());
-//                                            merchant.setMoney(merchant.getMoney() + item.getPrice());
-//                                            player.seeMoney();
-//                                        } else {
-//                                            System.out.println("Not enough money.");
-//                                        }
+                                    ItemList itemToBuy = null;
+                                    for (ItemList item : ((InventoryInteraction) merchant.getInventory()).getInventory()) {
+                                        if (item.getName().equalsIgnoreCase(input)) {
+                                            itemToBuy = item;
+                                            break;
+                                        }
+                                    }
 
-                                    } catch (IllegalArgumentException e) {
-                                        System.out.println("Invalid item. Retry");
+                                    if (itemToBuy != null) {
+                                        if (player.getMoney() >= itemToBuy.getPrice()) {
+                                            player.getInventory().buyItem(itemToBuy, merchant, player);
+                                        } else {
+                                            System.out.println("Not enough money. You need " + itemToBuy.getPrice() + " gold.");
+                                        }
                                     }
                                 }
                             }
 //sell
                             else if (input.equals("sell")) {
                                 while (true) {
-                                    try {
-                                        player.showInventory();
-                                        System.out.println("Enter item name to sell:");
-                                        userInput();
-                                        if (input.toUpperCase().equals("B")) {
-                                            continue;
+                                    player.showInventory();
+                                    System.out.println("Enter item name to sell:");
+                                    userInput();
+                                    if (input.toUpperCase().equals("B")) {
+                                        break;
+                                    }
+                                    ItemList itemToSell = null;
+                                    for (ItemList item : ((InventoryInteraction) player.getInventory()).getInventory()) {
+                                        if (item.getName().equalsIgnoreCase(input)) {
+                                            itemToSell = item;
+                                            break;
                                         }
-//                                        ItemList item = ItemList.valueOf(input.toUpperCase());
-//                                        if (merchant.getMoney() >= item.getPrice()) {
-//                                            player.sellItem(item, merchant);
-//                                            player.setMoney(player.getMoney() + item.getPrice());
-//                                            merchant.setMoney(merchant.getMoney() - item.getPrice());
-//                                            player.seeMoney();
-//                                        } else {
-//                                            System.out.println("Not enough money.");
-//                                        }
-                                    } catch (IllegalArgumentException e) {
-                                        System.out.println("Invalid item. Retry");
+                                    }
+
+                                    if (itemToSell != null) {
+                                        if (merchant.getMoney() >= itemToSell.getPrice()) {
+                                            player.getInventory().sellItem(itemToSell, merchant, player);
+                                            System.out.println("Your current money: " + player.getMoney());
+                                        } else {
+                                            System.out.println("The merchant doesn't have enough money to buy this item.");
+                                        }
                                     }
                                 }
                             } else if (input.equals("b")) {
                                 break; // Go back to character selection
                             }
-
                         }
                         break;
                     default:

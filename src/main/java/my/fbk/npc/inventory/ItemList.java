@@ -122,7 +122,7 @@ public abstract class ItemList {
     }
 
     public static Bucket bucket() {
-        return new Bucket("bucket","A basic but reliable sword. +20 DMG", 200, 1, "equipment");
+        return new Bucket("bucket","It's, just a bucket", 1, 1, "equipment");
     }
 
     public static class Bucket extends ItemList {
@@ -135,8 +135,7 @@ public abstract class ItemList {
         public void use(List<AbstractCharacter> character) {
             character.stream()
                     .forEach(c -> {
-                        c.setDamage(c.getDamage() + 20);
-                        System.out.println("Equipped Iron Sword! + 20 DMG:  " + c.getDamage());
+                        System.out.println("You put a bucket on your head, cool!  ");
                     });
         }
 

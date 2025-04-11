@@ -34,7 +34,10 @@ public class InventoryInteraction implements Inventory {
         if (merchantInventory.contains(item)) {
             inventory.add(item);
             merchantInventory.removeItemFromInventory(item);
-            System.out.println("Player bought: " + item);
+            player.setMoney(player.getMoney() - item.getPrice());
+            merchant.setMoney(merchant.getMoney() + item.getPrice());
+            System.out.println("You bought " + item.getName() + " for " + item.getPrice() + " gold.");
+            System.out.println("Your current money: " + player.getMoney());
         } else {
             System.out.println("Item not available in Merchant's inventory.");
         }
@@ -50,9 +53,11 @@ public class InventoryInteraction implements Inventory {
         if (inventory.contains(item)) {
             inventory.remove(item);
             merchantInventory.addItemToInventory(item);
-            System.out.println("You sold: " + item);
+            System.out.println("You sold " + item.getName() + " for " + item.getPrice() + " gold.");
+            player.setMoney(player.getMoney() + item.getPrice());
+            merchant.setMoney(merchant.getMoney() - item.getPrice());
         } else {
-            System.out.println("You don't have this item.");
+            System.out.println("Item not found in your inventory. Please check the spelling.");
         }
     }
 

@@ -52,7 +52,7 @@ public class MerchantTest {
     public void merchantTestInventoryHasItems() {
       Merchant merchant =  NPCFactory.makeMerchant();
         merchant.showInventory();
-        Assertions.assertTrue(merchant.getInventory().getInventorySize()>=0,"good");
+        Assertions.assertTrue(merchant.getInventory().getInventorySize()>0,"good");
     }
 
 }
