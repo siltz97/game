@@ -15,7 +15,7 @@ public class Game {
     BossRoom bossRoom;
 
     public Game() {
-        player = new Player(100, 120, 100, 25, 0, 1);
+        player = new Player(10000, 120, 100, 25, 0, 1);
         safeRoom = new SafeRoom(this);
         battleRoom = new BattleRoom(this);
         bossRoom = new BossRoom(this);

@@ -67,8 +67,11 @@ public class Player extends AbstractPlayer {
 
     public void useItem(ItemList item, AbstractCharacter character) {
 
-        if (item.equals(ItemList.ironSword())) {
-            if (equipment.contains(ItemList.ironSword())) {
+        if (item.getName().equals("ironsword")) {
+            boolean hasWeaponEquipped = equipment.stream()
+                    .anyMatch(equip -> equip.getName().equals("ironsword"));
+
+            if (hasWeaponEquipped) {
                 System.out.println("❌You you can't equip more than one weapon!❌\n");
                 return;
             }
@@ -76,15 +79,16 @@ public class Player extends AbstractPlayer {
             this.inventory.removeItemFromInventory(item);
             setAddedDamage(getAddedDamage() + 20);
             setDamage(getDamage() + getAddedDamage());
-            System.out.println("You successfully equipped: " + item + " and now your damage is: " + getDamage());
-        } else if (item.equals(ItemList.silverRing())) {
+            System.out.println("You successfully equipped: " + item.getName() + " and now your damage is: " + getDamage());
+        } else if (item.getName().equals("silverring")) {
             this.equipment.add(item);
             this.inventory.removeItemFromInventory(item);
             setAddedMana(getAddedMana() + 20);
             setMana(getMana() + getAddedMana());
-            System.out.println("You successfully equipped: " + item + "and now your mana is: " + getMana());
+            System.out.println("You successfully equipped: " + item.getName() + "and now your mana is: " + getMana());
         } else {
             this.inventory.useItem(item, character);
+            updateMaxStats();
             if (getHealth() > maxHealth) {
                 setHealth(maxHealth);
                 System.out.println("HP: " + getHealth());

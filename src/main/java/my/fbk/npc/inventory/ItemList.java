@@ -18,7 +18,7 @@ public abstract class ItemList {
 //        }
 //    },
     public static SilverRing silverRing() {
-        return new SilverRing("silverring","A ring with minor magical properties +30 MAX MANA ", 350, 1, "equipment");
+        return new SilverRing("silverring","A ring with minor magical properties +20 MAX MANA ", 350, 1, "equipment");
     }
 
     public static class SilverRing extends ItemList {
