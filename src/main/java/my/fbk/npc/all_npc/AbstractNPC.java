@@ -27,7 +27,7 @@ public abstract class AbstractNPC extends AbstractCharacter {
     public void think() {
         if (getReputation() > 80) {
             setBehavior(new FriendlySpeak());
-        } else if (getReputation() > 50 && getReputation() < 80) {
+        } else if (getReputation() >= 50) {
             setBehavior(new NeutralSpeak());
         } else if (getReputation() < 50) {
             setBehavior(new AggressiveSpeak());

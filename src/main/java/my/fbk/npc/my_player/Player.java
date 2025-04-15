@@ -130,9 +130,7 @@ public class Player extends AbstractPlayer {
     public void cast(AbstractSpell spell, List<AbstractCharacter> targets) {
         if (getMana() >= spell.getCost()) {
             setMana(getMana() - spell.getCost());
-
             spell.print();
-
             for (AbstractCharacter target : targets) {
                 spell.apply(target);
             }

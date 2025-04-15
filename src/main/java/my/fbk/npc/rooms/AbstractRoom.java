@@ -54,8 +54,6 @@ public abstract class AbstractRoom {
                 userInput();
                 Optional<AbstractCharacter> target = getTarget(input);
                 if (target.isPresent()) {
-                    System.out.println("Select action: use/remove");
-                    userInput();
                     targetSpell(spell, target.get(), input);
                     if (target.get() instanceof AbstractNPC) {
                         ((AbstractNPC) target.get()).setReputation(((AbstractNPC) target.get()).getReputation() - 20);

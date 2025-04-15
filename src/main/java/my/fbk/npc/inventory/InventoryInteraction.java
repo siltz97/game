@@ -38,6 +38,9 @@ public class InventoryInteraction implements Inventory {
             merchant.setMoney(merchant.getMoney() + item.getPrice());
             System.out.println("You bought " + item.getName() + " for " + item.getPrice() + " gold.");
             System.out.println("Your current money: " + player.getMoney());
+            if(merchant.getReputation()<100){
+                merchant.setReputation(merchant.getReputation() + 1 );
+            }
         } else {
             System.out.println("Item not available in Merchant's inventory.");
         }
@@ -56,6 +59,9 @@ public class InventoryInteraction implements Inventory {
             System.out.println("You sold " + item.getName() + " for " + item.getPrice() + " gold.");
             player.setMoney(player.getMoney() + item.getPrice());
             merchant.setMoney(merchant.getMoney() - item.getPrice());
+            if(merchant.getReputation()<100){
+                merchant.setReputation(merchant.getReputation() + 1 );
+            }
         } else {
             System.out.println("Item not found in your inventory. Please check the spelling.");
         }
@@ -107,6 +113,19 @@ public class InventoryInteraction implements Inventory {
         enemyInventory.inventory.clear();
     }
 
+    public void tradeBasedOnReputationBuy(AbstractCharacter character) {
+        Merchant merchant = (Merchant) character;
+        InventoryInteraction merchantInventory = (InventoryInteraction) merchant.getInventory();
+        float coefficient = 1 + ((float) (100 - merchant.getReputation()) / 100);
+        merchantInventory.getInventory().stream().forEach(i -> i.setPrice((int) (i.getPrice() * coefficient)));
+    }
+
+    public void tradeBasedOnReputationSell(AbstractCharacter character, Player player) {
+        Merchant merchant = (Merchant) character;
+        InventoryInteraction playerInventory = (InventoryInteraction) player.getInventory();
+        float coefficient = 1 + ((float) (100 - merchant.getReputation()) / 100);
+        playerInventory.getInventory().stream().forEach(k -> k.setPrice((int) (k.getPrice() / coefficient)));
+    }
 
 
 }

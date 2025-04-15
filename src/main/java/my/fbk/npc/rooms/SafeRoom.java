@@ -1,8 +1,8 @@
 package my.fbk.npc.rooms;
 
+import my.fbk.npc.Game;
 import my.fbk.npc.abstract_class.AbstractCharacter;
 import my.fbk.npc.all_npc.Merchant;
-import my.fbk.npc.Game;
 import my.fbk.npc.factories.NPCFactory;
 import my.fbk.npc.inventory.InventoryInteraction;
 import my.fbk.npc.inventory.ItemList;
@@ -106,7 +106,7 @@ public class SafeRoom extends AbstractRoom {
                         merchant.speak();
 
 
-                        if (!merchant.getAbstractEffects().isEmpty() || merchant.getReputation() < 50) {
+                        if (!merchant.getAbstractEffects().isEmpty() || merchant.getReputation() < 30) {
                             break;
                         }
                         System.out.println("Type 'open' to open inventory, 'close' to close, 'buy'/'sell' or 'back' to choose another character");
@@ -120,6 +120,7 @@ public class SafeRoom extends AbstractRoom {
 //buy
                             } else if (input.equals("buy")) {
                                 while (true) {
+                                    merchant.getInventory().tradeBasedOnReputationBuy(merchant);
                                     merchant.showInventory();
                                     System.out.println("Player's money: " + player.getMoney());
                                     System.out.println("Enter item name to buy or 'b' to exit");
@@ -147,6 +148,7 @@ public class SafeRoom extends AbstractRoom {
 //sell
                             else if (input.equals("sell")) {
                                 while (true) {
+                                    player.getInventory().tradeBasedOnReputationSell(merchant, player);
                                     player.showInventory();
                                     System.out.println("Enter item name to sell:");
                                     userInput();

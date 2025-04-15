@@ -3,6 +3,7 @@ package my.fbk.npc.effects;
 import lombok.Getter;
 import lombok.Setter;
 import my.fbk.npc.abstract_class.AbstractCharacter;
+import my.fbk.npc.all_npc.AbstractNPC;
 
 @Getter
 @Setter
@@ -22,6 +23,9 @@ public class MindControlAbstractEffect extends AbstractEffect {
         if(hasEffect(character)) {
             if (this.effectDuration == 0) {
                 character.removeEffect(this);
+                if(character instanceof AbstractNPC) {
+                    ((AbstractNPC) character).think();
+                }
             }
         }
     }

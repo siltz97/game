@@ -27,6 +27,10 @@ public interface Inventory {
 
     boolean contains(ItemList item);
 
+    void tradeBasedOnReputationBuy(AbstractCharacter character);
+
+    void tradeBasedOnReputationSell(AbstractCharacter character, Player player);
+
 
 }
 

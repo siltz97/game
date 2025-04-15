@@ -142,7 +142,7 @@ public abstract class ItemList {
     }
 
     private final String description;
-    private final int price;
+    private  int price;
     private int durability;
     private final String specialEffect;
     private final String name;
