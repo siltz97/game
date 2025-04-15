@@ -1,7 +1,7 @@
 package my.fbk.npc;
 
 import my.fbk.npc.all_npc.Merchant;
-import my.fbk.npc.effects.InvisibilityAbstractEffect;
+import my.fbk.npc.effects.InvisibilityEffect;
 import my.fbk.npc.inventory.ItemList;
 import my.fbk.npc.my_player.Player;
 import my.fbk.npc.speak.SilentSpeak;
@@ -30,13 +30,13 @@ public class MerchantTest {
     public void merchantTestAggressiveBehavior() {
         Merchant merchant = new Merchant(1, 100, 40, 2,1,0);
         merchant.speak();
-        Assertions.assertFalse(merchant.getReputation() > 50 && merchant.getAbstractEffects().isEmpty());
+        Assertions.assertFalse(merchant.getReputation() > 50 && merchant.getEffects().isEmpty());
     }
 
     @Test
     public void merchantTestSilentBehavior() {
         Merchant merchant = new Merchant(1, 100, 100, 2,1,0);
-        merchant.setAbstractEffects(new InvisibilityAbstractEffect(5));
+        merchant.setEffects(new InvisibilityEffect(5));
         merchant.speak();
         Assertions.assertTrue(merchant.getBehavior() instanceof SilentSpeak);
     }
@@ -45,10 +45,10 @@ public class MerchantTest {
     @DisplayName("user can trade")
     public void merchantTestInventoryAccessConditions() {
         Merchant merchant = NPCFactory.makeMerchant();
-        if (merchant.getReputation() > 30 && merchant.getAbstractEffects().isEmpty()) {
+        if (merchant.getReputation() > 30 && merchant.getEffects().isEmpty()) {
             merchant.showInventory();
         }
-        Assertions.assertTrue(merchant.getReputation() > 30 && merchant.getAbstractEffects().isEmpty());
+        Assertions.assertTrue(merchant.getReputation() > 30 && merchant.getEffects().isEmpty());
     }
     @Test
     public void merchantTestInventoryHasItems() {

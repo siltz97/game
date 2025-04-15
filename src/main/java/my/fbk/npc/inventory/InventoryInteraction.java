@@ -107,8 +107,8 @@ public class InventoryInteraction implements Inventory {
     }
 
     @Override
-    public void takeLoot(Player player, AbstractCharacter enemy) {
-        InventoryInteraction enemyInventory = (InventoryInteraction) enemy.getInventory();
+    public void takeLoot(Player player, AbstractCharacter character) {
+        InventoryInteraction enemyInventory = (InventoryInteraction) character.getInventory();
         enemyInventory.getInventory().stream().forEach(item -> player.getInventory().addItemToInventory(item));
         enemyInventory.inventory.clear();
     }

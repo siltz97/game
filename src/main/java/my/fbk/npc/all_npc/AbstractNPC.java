@@ -4,8 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 import my.fbk.npc.abstract_class.AbstractCharacter;
 import my.fbk.npc.effects.AbstractEffect;
-import my.fbk.npc.effects.InvisibilityAbstractEffect;
-import my.fbk.npc.effects.MindControlAbstractEffect;
+import my.fbk.npc.effects.InvisibilityEffect;
+import my.fbk.npc.effects.MindControlEffect;
 import my.fbk.npc.speak.*;
 
 
@@ -32,10 +32,10 @@ public abstract class AbstractNPC extends AbstractCharacter {
         } else if (getReputation() < 50) {
             setBehavior(new AggressiveSpeak());
         }
-        for (AbstractEffect e : abstractEffects) {
-            if (e != null && e instanceof InvisibilityAbstractEffect) {
+        for (AbstractEffect e : effects) {
+            if (e != null && e instanceof InvisibilityEffect) {
                 setBehavior(new SilentSpeak());
-            } else if (e != null && e instanceof MindControlAbstractEffect) {
+            } else if (e != null && e instanceof MindControlEffect) {
                 setBehavior(new MindControllSpeak());
             }
         }
@@ -43,7 +43,7 @@ public abstract class AbstractNPC extends AbstractCharacter {
 
 
     public void removeEffect(AbstractEffect abstractEffect) {
-        abstractEffects.remove(abstractEffect);
+        effects.remove(abstractEffect);
     }
 
     public String getName() {

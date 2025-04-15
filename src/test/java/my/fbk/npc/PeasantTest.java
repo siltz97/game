@@ -2,7 +2,7 @@ package my.fbk.npc;
 
 import my.fbk.npc.abstract_class.AbstractCharacter;
 import my.fbk.npc.all_npc.Peasant;
-import my.fbk.npc.effects.InvisibilityAbstractEffect;
+import my.fbk.npc.effects.InvisibilityEffect;
 import my.fbk.npc.rooms.SafeRoom;
 import my.fbk.npc.speak.SilentSpeak;
 
@@ -36,7 +36,7 @@ public class PeasantTest {
     @Test
     public void peasantTestSilent() {
         Peasant peasant = new Peasant(1,100,100,2,1,0);
-        peasant.setAbstractEffects(new InvisibilityAbstractEffect(5));
+        peasant.setEffects(new InvisibilityEffect(5));
         peasant.speak();
         Assertions.assertTrue(peasant.getBehavior() instanceof SilentSpeak);
     }

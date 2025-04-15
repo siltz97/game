@@ -1,17 +1,21 @@
 package my.fbk.npc.effects;
 
+import lombok.Getter;
+import lombok.Setter;
 import my.fbk.npc.abstract_class.AbstractCharacter;
+import my.fbk.npc.all_npc.AbstractNPC;
 
-public class FreezingAbstractEffect extends AbstractEffect {
+@Getter
+@Setter
+public class MindControlEffect extends AbstractEffect {
 
-
-    public FreezingAbstractEffect(int effectDuration) {
+    public MindControlEffect(int effectDuration) {
         super(effectDuration);
     }
 
     @Override
     public void applyEffect(AbstractCharacter character) {
-        character.setAbstractEffects(this);
+        character.setEffects(this);
     }
 
     @Override
@@ -19,8 +23,16 @@ public class FreezingAbstractEffect extends AbstractEffect {
         if(hasEffect(character)) {
             if (this.effectDuration == 0) {
                 character.removeEffect(this);
+                if(character instanceof AbstractNPC) {
+                    ((AbstractNPC) character).think();
+                }
             }
         }
+    }
+
+    @Override
+    public boolean hasEffect(AbstractCharacter character) {
+        return character.getEffects() != null;
     }
 
     @Override
@@ -29,7 +41,7 @@ public class FreezingAbstractEffect extends AbstractEffect {
             return false;
         if (this == o)
             return true;
-        if (!(o instanceof FreezingAbstractEffect))
+        if (!(o instanceof MindControlEffect))
             return false;
         return true;
     }

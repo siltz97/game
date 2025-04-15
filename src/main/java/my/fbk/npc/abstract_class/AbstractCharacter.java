@@ -15,7 +15,7 @@ import java.util.List;
 @Setter
 public abstract class AbstractCharacter {
     protected Inventory inventory = new InventoryInteraction();
-    protected List<AbstractEffect> abstractEffects = new ArrayList<>();
+    protected List<AbstractEffect> effects = new ArrayList<>();
     private int health;
     private int mana;
     protected int damage;
@@ -34,15 +34,15 @@ public abstract class AbstractCharacter {
     public boolean hasEffect(AbstractEffect abstractEffect) {
         if (abstractEffect == null) {
             return false;
-        }else if(abstractEffects.contains(abstractEffect)){
+        }else if(effects.contains(abstractEffect)){
             AbstractEffect selectedAbstractEffect = null;
-            for(AbstractEffect e : abstractEffects){
+            for(AbstractEffect e : effects){
                 if(e.equals(abstractEffect)){
                     selectedAbstractEffect = abstractEffect;
                 }
             }
             if(selectedAbstractEffect.getEffectDuration()==0){
-                abstractEffects.remove(selectedAbstractEffect);
+                effects.remove(selectedAbstractEffect);
                 return false;
             }
             return true;
@@ -50,11 +50,11 @@ public abstract class AbstractCharacter {
         return false;
     }
 
-    public void setAbstractEffects(AbstractEffect abstractEffect){
-        this.abstractEffects.add(abstractEffect);
+    public void setEffects(AbstractEffect abstractEffect){
+        this.effects.add(abstractEffect);
     }
     public void removeEffect(AbstractEffect abstractEffect) {
-        this.abstractEffects.remove(abstractEffect);
+        this.effects.remove(abstractEffect);
     }
 
     public String getName(){

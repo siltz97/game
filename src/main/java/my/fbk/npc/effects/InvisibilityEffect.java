@@ -7,15 +7,15 @@ import my.fbk.npc.abstract_class.AbstractCharacter;
 
 @Getter
 @Setter
-public class InvisibilityAbstractEffect extends AbstractEffect {
+public class InvisibilityEffect extends AbstractEffect {
 
-    public InvisibilityAbstractEffect(int effectDuration) {
+    public InvisibilityEffect(int effectDuration) {
         super(effectDuration);
     }
 
     @Override
     public void applyEffect(AbstractCharacter character) {
-            character.setAbstractEffects(this);
+            character.setEffects(this);
     }
 
     @Override
@@ -28,7 +28,7 @@ public class InvisibilityAbstractEffect extends AbstractEffect {
     }
     @Override
     public boolean hasEffect(AbstractCharacter character) {
-        return character.getAbstractEffects() != null;
+        return character.getEffects() != null;
     }
 
     @Override
@@ -37,7 +37,7 @@ public class InvisibilityAbstractEffect extends AbstractEffect {
             return false;
         if (this == o)
             return true;
-        if (!(o instanceof InvisibilityAbstractEffect))
+        if (!(o instanceof InvisibilityEffect))
             return false;
         return true;
     }

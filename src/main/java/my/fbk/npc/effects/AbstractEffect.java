@@ -20,7 +20,7 @@ public abstract class AbstractEffect {
      public abstract void removeEffect(AbstractCharacter character);
 
     boolean hasEffect(AbstractCharacter character) {
-        return character.getAbstractEffects() != null;
+        return character.getEffects() != null;
     }
 
 

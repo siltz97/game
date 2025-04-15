@@ -4,19 +4,21 @@ import lombok.Getter;
 import lombok.Setter;
 import my.fbk.npc.abstract_class.AbstractCharacter;
 import my.fbk.npc.all_npc.AbstractNPC;
+import my.fbk.npc.effects.AbstractEffect;
+import my.fbk.npc.effects.InvisibilityEffect;
+import my.fbk.npc.effects.MindControlEffect;
+import my.fbk.npc.inventory.InventoryInteraction;
 import my.fbk.npc.inventory.ItemList;
 import my.fbk.npc.spells.AbstractSpell;
 
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 @SuppressWarnings("ALL")
 @Getter
 @Setter
 public class Player extends AbstractPlayer {
     private final Random rand = new Random();
+    private Scanner scan = new Scanner(System.in);
     AbstractCharacter character;
     List<ItemList> equipment = new ArrayList<>();
     int basicHealth = 120;
@@ -137,6 +139,37 @@ public class Player extends AbstractPlayer {
             System.out.println("Your MP is now " + getMana());
         } else {
             System.out.println("❌ You don't have enough MP! ❌");
+        }
+    }
+
+    public void robNPC(AbstractNPC npc) {
+        Optional<AbstractEffect> existingEffect = npc.getEffects().stream()
+                .filter(e -> e instanceof InvisibilityEffect || e instanceof MindControlEffect)
+                .findFirst();
+        if (existingEffect.isPresent()) {
+            InventoryInteraction npcInventory = (InventoryInteraction) npc.getInventory();
+            npcInventory.showInventory();
+            System.out.println("What item do you want do rob");
+            String s = scan.nextLine();
+            ItemList itemToRob = null;
+            for (ItemList item : ((InventoryInteraction) npc.getInventory()).getInventory()) {
+                if (item.getName().equalsIgnoreCase(s)) {
+                    itemToRob = item;
+                    break;
+                }
+            }
+            this.getInventory().addItemToInventory(itemToRob);
+            npc.getInventory().removeItemFromInventory(itemToRob);
+            System.out.println("You successfully stole " + itemToRob.getName());
+            npc.setReputation(npc.getReputation() -15);
+            System.out.println("And you lost the reputation of the npc: " + npc.getReputation());
+
+        } else {
+            npc.setReputation(npc.getReputation() - 30);
+            System.out.print("You wasn't able to rob this npc. ");
+            System.out.println("And now the reputation of the npc is: " + npc.getReputation());
+
+
         }
     }
 }

@@ -108,16 +108,16 @@ public abstract class AbstractRoom {
 
     public void decrementEffectDuration(List<AbstractCharacter> characters) {
         for (AbstractCharacter c : characters) {
-            if (!c.getAbstractEffects().isEmpty()) {
-                List<AbstractEffect> expiredAbstractEffects = c.getAbstractEffects().stream()
+            if (!c.getEffects().isEmpty()) {
+                List<AbstractEffect> expiredAbstractEffects = c.getEffects().stream()
                         .filter(e -> e.getEffectDuration() <= 0)
                         .toList();
                 expiredAbstractEffects.forEach(e -> e.removeEffect(c));
             }
         }
         for (AbstractCharacter c : characters) {
-            if (!c.getAbstractEffects().isEmpty()) {
-                c.getAbstractEffects().stream().forEach(e -> e.setEffectDuration(e.getEffectDuration() - 1));
+            if (!c.getEffects().isEmpty()) {
+                c.getEffects().stream().forEach(e -> e.setEffectDuration(e.getEffectDuration() - 1));
             }
         }
     }

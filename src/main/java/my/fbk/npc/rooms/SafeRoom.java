@@ -2,6 +2,7 @@ package my.fbk.npc.rooms;
 
 import my.fbk.npc.Game;
 import my.fbk.npc.abstract_class.AbstractCharacter;
+import my.fbk.npc.all_npc.AbstractNPC;
 import my.fbk.npc.all_npc.Merchant;
 import my.fbk.npc.factories.NPCFactory;
 import my.fbk.npc.inventory.InventoryInteraction;
@@ -36,6 +37,7 @@ public class SafeRoom extends AbstractRoom {
             }
             while (true) {
                 System.out.println("Choose a character to interact with: peasant, guard, merchant,thief ; type 'exit' to quit ; 'b' to change effects ; 'open' to see the inventory or 'n' to move forward");
+                System.out.println("by typing 'r' you can try to rob someone");
                 userInput();
                 try {
                     if (input.toLowerCase().equals("b")) {
@@ -58,9 +60,18 @@ public class SafeRoom extends AbstractRoom {
 
                         } else if (input.equals("n")) {
                             break;
+
                         }
                         break;
+                    }else if (input.equals("r")) {
+                        System.out.println("Who you want to rob?");
+                        userInput();
+                        Optional<AbstractCharacter> npc = allCharacters.stream().filter(n -> n.getName().equals(input)).findFirst();
+                        AbstractCharacter npcToRob = npc.get();
+                        player.robNPC((AbstractNPC) npcToRob);
+                        break;
                     }
+
                 } catch (IllegalArgumentException e) {
                     System.out.println("wrong input, retry");
                 }
@@ -106,7 +117,7 @@ public class SafeRoom extends AbstractRoom {
                         merchant.speak();
 
 
-                        if (!merchant.getAbstractEffects().isEmpty() || merchant.getReputation() < 30) {
+                        if (!merchant.getEffects().isEmpty() || merchant.getReputation() < 30) {
                             break;
                         }
                         System.out.println("Type 'open' to open inventory, 'close' to close, 'buy'/'sell' or 'back' to choose another character");

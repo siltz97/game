@@ -2,7 +2,7 @@ package my.fbk.npc.spells;
 
 import my.fbk.npc.abstract_class.AbstractCharacter;
 import my.fbk.npc.effects.AbstractEffect;
-import my.fbk.npc.effects.MindControlAbstractEffect;
+import my.fbk.npc.effects.MindControlEffect;
 
 import java.util.Optional;
 
@@ -24,14 +24,14 @@ public class MindControl extends AbstractSpell {
 
     @Override
     public void apply(AbstractCharacter character) {
-        Optional<AbstractEffect> existingEffect = character.getAbstractEffects().stream()
-                .filter(e -> e instanceof MindControlAbstractEffect)
+        Optional<AbstractEffect> existingEffect = character.getEffects().stream()
+                .filter(e -> e instanceof MindControlEffect)
                 .findFirst();
         if (existingEffect.isPresent()) {
-            MindControlAbstractEffect existing = (MindControlAbstractEffect) existingEffect.get();
+            MindControlEffect existing = (MindControlEffect) existingEffect.get();
             existing.setEffectDuration(existing.getEffectDuration() + 3);
         } else {
-            MindControlAbstractEffect inv = new MindControlAbstractEffect(3);
+            MindControlEffect inv = new MindControlEffect(3);
             inv.applyEffect(character);
         }
     }
