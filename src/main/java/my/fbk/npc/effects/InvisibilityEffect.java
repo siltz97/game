@@ -3,6 +3,7 @@ package my.fbk.npc.effects;
 import lombok.Getter;
 import lombok.Setter;
 import my.fbk.npc.abstract_class.AbstractCharacter;
+import my.fbk.npc.all_npc.AbstractNPC;
 
 
 @Getter
@@ -15,17 +16,21 @@ public class InvisibilityEffect extends AbstractEffect {
 
     @Override
     public void applyEffect(AbstractCharacter character) {
-            character.setEffects(this);
+        character.setEffects(this);
+        if (character instanceof AbstractNPC) {
+            ((AbstractNPC) character).think();
+        }
     }
 
     @Override
     public void removeEffect(AbstractCharacter character) {
-        if(hasEffect(character)) {
+        if (hasEffect(character)) {
             if (this.effectDuration == 0) {
                 character.removeEffect(this);
             }
         }
     }
+
     @Override
     public boolean hasEffect(AbstractCharacter character) {
         return character.getEffects() != null;
@@ -33,7 +38,7 @@ public class InvisibilityEffect extends AbstractEffect {
 
     @Override
     public boolean equals(Object o) {
-        if (o==null)
+        if (o == null)
             return false;
         if (this == o)
             return true;

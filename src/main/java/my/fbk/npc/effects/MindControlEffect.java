@@ -16,14 +16,17 @@ public class MindControlEffect extends AbstractEffect {
     @Override
     public void applyEffect(AbstractCharacter character) {
         character.setEffects(this);
+        if (character instanceof AbstractNPC) {
+            ((AbstractNPC) character).think();
+        }
     }
 
     @Override
     public void removeEffect(AbstractCharacter character) {
-        if(hasEffect(character)) {
+        if (hasEffect(character)) {
             if (this.effectDuration == 0) {
                 character.removeEffect(this);
-                if(character instanceof AbstractNPC) {
+                if (character instanceof AbstractNPC) {
                     ((AbstractNPC) character).think();
                 }
             }
@@ -37,7 +40,7 @@ public class MindControlEffect extends AbstractEffect {
 
     @Override
     public boolean equals(Object o) {
-        if (o==null)
+        if (o == null)
             return false;
         if (this == o)
             return true;

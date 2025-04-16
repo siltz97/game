@@ -2,16 +2,15 @@ package my.fbk.npc.rooms;
 
 import lombok.Getter;
 import lombok.Setter;
+import my.fbk.npc.Game;
 import my.fbk.npc.abstract_class.AbstractCharacter;
 import my.fbk.npc.all_npc.AbstractNPC;
-import my.fbk.npc.Game;
 import my.fbk.npc.effects.AbstractEffect;
 import my.fbk.npc.my_player.Player;
 import my.fbk.npc.spells.AbstractSpell;
 import my.fbk.npc.spells.FreezingField;
 import my.fbk.npc.spells.Invisibility;
 import my.fbk.npc.spells.MindControl;
-
 
 import java.util.*;
 
@@ -62,9 +61,7 @@ public abstract class AbstractRoom {
 
                 }
             } else if (spell.getName().equals("inv")) {
-                System.out.println("Select action: use/remove");
-                userInput();
-                aoeSpell(spell, input);
+                aoeSpell(spell);
             } else
                 System.out.println("❌ You don't have enough MP ❌");
             System.out.println(player.getMana() + "MP");
@@ -83,7 +80,7 @@ public abstract class AbstractRoom {
         applySpell(spell, List.of(target));
     }
 
-    public void aoeSpell(AbstractSpell spell, String input) {
+    public void aoeSpell(AbstractSpell spell) {
         applySpell(spell, allCharacters);
     }
 
