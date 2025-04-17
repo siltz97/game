@@ -26,6 +26,9 @@ public class GoblinFactory {
     private static final int baseBossDamage = 28;
 
     public static Goblin makeGoblinWarrior(int level) {
+
+
+
         Goblin goblinWarrior = new Goblin(30, 80, 15, 22, 21);
         goblinWarrior.setInventory(createInventory());
         goblinWarrior.setHealth((int) (baseWarriorHealth * (1 + 0.12 * (level - 1))));
