@@ -2,6 +2,7 @@ package my.fbk.npc.inventory;
 
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import my.fbk.npc.abstract_class.AbstractCharacter;
 
@@ -10,7 +11,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public abstract class ItemList {
+public class ItemList {
     //        DOVAKIN_VOICE("FUS RO DAH!!! 1000 DMG", 9999, 9999, "") {
 //        @Override
 //        public void use(List<AbstractCharacter> character) {
@@ -126,9 +127,8 @@ public abstract class ItemList {
     }
 
     public static class Bucket extends ItemList {
-        Bucket(String name,String description, int price, int durability, String specialEffect) {
+        public Bucket(String name,String description, int price, int durability, String specialEffect) {
             super(name,description, price, durability, specialEffect);
-
         }
 
         @Override
@@ -144,11 +144,11 @@ public abstract class ItemList {
     private final String description;
     private  int price;
     private int durability;
-    private final String specialEffect;
+    private  String specialEffect;
     private final String name;
 
     // Constructor
-    ItemList(String name,String description, int price, int durability, String specialEffect ) {
+    public ItemList(String name, String description, int price, int durability, String specialEffect) {
         this.name = name;
         this.description = description;
         this.price = price;
@@ -156,7 +156,7 @@ public abstract class ItemList {
         this.specialEffect = specialEffect;
     }
 
-    public abstract void use(List<AbstractCharacter> character);
+    public void use(List<AbstractCharacter> character){}
 
     public static List<ItemList> itemsHolder(){
         List<ItemList> items = new ArrayList<>();
