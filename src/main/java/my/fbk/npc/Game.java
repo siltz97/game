@@ -1,6 +1,5 @@
 package my.fbk.npc;
 
-import my.fbk.npc.inventory.ItemList;
 import my.fbk.npc.rooms.AbstractRoom;
 import my.fbk.npc.rooms.BattleRoom;
 import my.fbk.npc.rooms.BossRoom;
@@ -11,7 +10,6 @@ import org.springframework.jdbc.core.simple.JdbcClient;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.List;
 import java.util.Properties;
 
 public class Game {
@@ -33,12 +31,8 @@ public class Game {
     }
 
     public void main(String[] args) {
-        NpcDao npcDao = new NpcDao(make());
-//        Game game = new Game();
-//        game.moveNext();
-        ItemList bucket = npcDao.getItemList("bucket");
-        System.out.println("Item retrieved: " + bucket.getName());
-        bucket.use(List.of(new Player(1, 1, 1, 1, 1, 1)));
+        Game game = new Game();
+        game.moveNext();
 
     }
 
@@ -70,14 +64,12 @@ public class Game {
 
         Properties properties = new Properties();
         try (FileInputStream input = new FileInputStream("src/main/resources/application.properties")) {
-            // Load the properties file
+
             properties.load(input);
 
-            // Access properties
             String url = properties.getProperty("spring.datasource.url");
             String username = properties.getProperty("spring.datasource.username");
             String password = properties.getProperty("spring.datasource.password");
-
 
             return
                     JdbcClient.create(

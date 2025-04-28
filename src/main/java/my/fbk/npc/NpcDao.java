@@ -18,6 +18,7 @@ public class NpcDao {
 
     private final JdbcClient jdbcClient;
 
+    //table: [Test].[dbo]
     public NpcDao(JdbcClient jdbcClient) {
         this.jdbcClient = jdbcClient;
     }
@@ -36,7 +37,7 @@ public class NpcDao {
 
     public int insertPlayer(int money, int health, int mana, int damage, int experience, int level) {
         String sql = """
-                INSERT INTO [Test].[aa_Player] (money, health, mana, damage, experience, level)
+                INSERT INTO [Test].[dbo][aa_Player] (money, health, mana, damage, experience, level)
                 VALUES (?, ?, ?, ?, ?, ?)
                 """;
         GeneratedKeyHolder generatedKeyHolder = new GeneratedKeyHolder();
@@ -53,7 +54,7 @@ public class NpcDao {
 
     public int insertEnemy(String race, String enemyType, int health, int mana, int damage, int money, int experience) {
         String sql = """
-                INSERT INTO [Test].[aa_Enemy] (race, enemyType, money, health, mana, damage, experience)
+                INSERT INTO [Test].[dbo].[aa_Enemy] (race, enemyType, money, health, mana, damage, experience)
                 VALUES (?, ?, ?, ?, ?, ?, ?)
                 """;
         GeneratedKeyHolder generatedKeyHolder = new GeneratedKeyHolder();
@@ -71,7 +72,7 @@ public class NpcDao {
 
     public int insertNPC(String npcName, int health, int mana, int damage, int money, int experience, int reputation) {
         String sql = """
-                INSERT INTO [Test].[aa_NPC] (npcName, health, mana, damage, money, experience, reputation)
+                INSERT INTO [Test].[dbo].[aa_NPC] (npcName, health, mana, damage, money, experience, reputation)
                 VALUES (?, ?, ?, ?, ?, ?, ?)
                 """;
         GeneratedKeyHolder generatedKeyHolder = new GeneratedKeyHolder();

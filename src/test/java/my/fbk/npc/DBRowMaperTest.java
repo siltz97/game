@@ -28,10 +28,10 @@ public class DBRowMaperTest {
 
         Properties properties = new Properties();
         try (FileInputStream input = new FileInputStream("src/main/resources/application.properties")) {
-            // Load the properties file
+
             properties.load(input);
 
-            // Access properties
+
             String url = properties.getProperty("spring.datasource.url");
             String username = properties.getProperty("spring.datasource.username");
             String password = properties.getProperty("spring.datasource.password");
