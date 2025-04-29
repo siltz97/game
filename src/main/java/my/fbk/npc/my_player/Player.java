@@ -8,7 +8,7 @@ import my.fbk.npc.effects.AbstractEffect;
 import my.fbk.npc.effects.InvisibilityEffect;
 import my.fbk.npc.effects.MindControlEffect;
 import my.fbk.npc.inventory.InventoryInteraction;
-import my.fbk.npc.inventory.ItemList;
+import my.fbk.npc.inventory.Item;
 import my.fbk.npc.spells.AbstractSpell;
 
 import java.util.*;
@@ -20,7 +20,7 @@ public class Player extends AbstractPlayer {
     private final Random rand = new Random();
     private Scanner scan = new Scanner(System.in);
     AbstractCharacter character;
-    List<ItemList> equipment = new ArrayList<>();
+    List<Item> equipment = new ArrayList<>();
     int basicHealth = 120;
     int basicMana = 100;
     int basicDamage = 25;
@@ -35,7 +35,7 @@ public class Player extends AbstractPlayer {
     public Player(int money, int health, int mana, int damage, int experience, int level) {
         super(money, health, mana, damage, experience, level);
         for (int i = 0; i < 2; i++) {
-            inventory.addItemToInventory(ItemList.healthPotion());
+            inventory.addItemToInventory(Item.healthPotion());
         }
     }
 
@@ -50,11 +50,11 @@ public class Player extends AbstractPlayer {
         System.out.println("Player attacks");
     }
 
-    public void buyItem(ItemList item, AbstractNPC abstractNpc) {
+    public void buyItem(Item item, AbstractNPC abstractNpc) {
         inventory.buyItem(item, abstractNpc, this);
     }
 
-    public void sellItem(ItemList item, AbstractNPC abstractNpc) {
+    public void sellItem(Item item, AbstractNPC abstractNpc) {
         inventory.sellItem(item, abstractNpc, this);
     }
 
@@ -67,7 +67,7 @@ public class Player extends AbstractPlayer {
         setMaxMana(getMana() + addedMana);
     }
 
-    public void useItem(ItemList item, AbstractCharacter character) {
+    public void useItem(Item item, AbstractCharacter character) {
 
         if (item.getName().equals("ironsword")) {
             boolean hasWeaponEquipped = equipment.stream()
@@ -123,7 +123,7 @@ public class Player extends AbstractPlayer {
             System.out.println("No equipment!");
         } else {
             System.out.println("Your equipment is:");
-            for (ItemList item : equipment) {
+            for (Item item : equipment) {
                 System.out.println(item);
             }
         }
@@ -151,8 +151,8 @@ public class Player extends AbstractPlayer {
             npcInventory.showInventory();
             System.out.println("What item do you want do rob");
             String s = scan.nextLine();
-            ItemList itemToRob = null;
-            for (ItemList item : ((InventoryInteraction) npc.getInventory()).getInventory()) {
+            Item itemToRob = null;
+            for (Item item : ((InventoryInteraction) npc.getInventory()).getInventory()) {
                 if (item.getName().equalsIgnoreCase(s)) {
                     itemToRob = item;
                     break;

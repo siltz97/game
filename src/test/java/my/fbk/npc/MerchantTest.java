@@ -2,7 +2,7 @@ package my.fbk.npc;
 
 import my.fbk.npc.all_npc.Merchant;
 import my.fbk.npc.effects.InvisibilityEffect;
-import my.fbk.npc.inventory.ItemList;
+import my.fbk.npc.inventory.Item;
 import my.fbk.npc.my_player.Player;
 import my.fbk.npc.speak.SilentSpeak;
 import my.fbk.npc.factories.NPCFactory;
@@ -70,7 +70,7 @@ public class MerchantTest {
         Merchant merchant =  NPCFactory.makeMerchant();
         Player player = new Player(1000, 100, 100, 2,1,1);
         merchant.setReputation(90);
-        player.getInventory().addItemToInventory(ItemList.fireScroll());
+        player.getInventory().addItemToInventory(Item.fireScroll());
         player.getInventory().tradeBasedOnReputationSell(merchant,player);
         player.showInventory();
     }

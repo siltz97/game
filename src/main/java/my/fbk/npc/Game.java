@@ -1,17 +1,15 @@
 package my.fbk.npc;
 
-import my.fbk.npc.inventory.ItemList;
+import my.fbk.npc.my_player.Player;
 import my.fbk.npc.rooms.AbstractRoom;
 import my.fbk.npc.rooms.BattleRoom;
 import my.fbk.npc.rooms.BossRoom;
 import my.fbk.npc.rooms.SafeRoom;
-import my.fbk.npc.my_player.Player;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.jdbc.core.simple.JdbcClient;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.List;
 import java.util.Properties;
 
 public class Game {
@@ -24,7 +22,7 @@ public class Game {
 
 
     public Game() {
-        player = new Player(10000, 120, 100, 25, 0, 1);
+        player = new Player(100, 120, 100, 25, 0, 1);
         safeRoom = new SafeRoom(this);
         battleRoom = new BattleRoom(this);
         bossRoom = new BossRoom(this);
@@ -33,13 +31,8 @@ public class Game {
     }
 
     public void main(String[] args) {
-        NpcDao npcDao = new NpcDao(make());
-//        Game game = new Game();
-//        game.moveNext();
-        ItemList bucket = npcDao.getItemList("bucket");
-        System.out.println("Item retrieved: " + bucket.getName());
-        bucket.use(List.of(new Player(1, 1, 1, 1, 1, 1)));
-
+        Game game = new Game();
+        game.moveNext();
     }
 
     public void moveNext() {
@@ -77,7 +70,6 @@ public class Game {
             String url = properties.getProperty("spring.datasource.url");
             String username = properties.getProperty("spring.datasource.username");
             String password = properties.getProperty("spring.datasource.password");
-
 
             return
                     JdbcClient.create(

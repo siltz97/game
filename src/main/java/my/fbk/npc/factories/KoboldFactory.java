@@ -3,7 +3,7 @@ package my.fbk.npc.factories;
 import my.fbk.npc.enemy.Kobold;
 import my.fbk.npc.inventory.Inventory;
 import my.fbk.npc.inventory.InventoryInteraction;
-import my.fbk.npc.inventory.ItemList;
+import my.fbk.npc.inventory.Item;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +11,7 @@ import java.util.Random;
 
 public class KoboldFactory {
 
-    static List<ItemList> list = new ArrayList<>();
+    static List<Item> list = new ArrayList<>();
     private static final int baseWarriorHealth = 70;
     private static final int baseWarriorMana = 20;
     private static final int baseWarriorDamage = 19;
@@ -61,7 +61,7 @@ public class KoboldFactory {
 
     public static Inventory createInventory() {
         InventoryInteraction inventory = new InventoryInteraction();
-        ItemList[] itemArray = ItemList.itemsHolder().toArray(new ItemList[0]);
+        Item[] itemArray = Item.itemsHolder().toArray(new Item[0]);
         for (int i = 0; i < 1; i++) {
             inventory.addItemToInventory(itemArray[rand.nextInt(itemArray.length)]);
         }

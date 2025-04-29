@@ -1,17 +1,17 @@
 package my.fbk.npc.Mapper;
 
-import my.fbk.npc.inventory.ItemList;
+import my.fbk.npc.inventory.Item;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class ItemRowMapper implements RowMapper<ItemList> {
+public class ItemRowMapper implements RowMapper<Item> {
 
 
     @Override
-    public ItemList mapRow(ResultSet rs, int rowNum) throws SQLException {
-        ItemList item = new ItemList(
+    public Item mapRow(ResultSet rs, int rowNum) throws SQLException {
+        Item item = new Item(
                 rs.getString("name"),
                 rs.getString("description"),
                 rs.getInt("price"),
@@ -20,22 +20,22 @@ public class ItemRowMapper implements RowMapper<ItemList> {
         );
         switch (item.getName()) {
             case "bucket":
-                ItemList.Bucket bucket = ItemList.bucket();
+                Item.Bucket bucket = Item.bucket();
                 return bucket;
             case "silverring":
-                ItemList.SilverRing silverRing = ItemList.silverRing();
+                Item.SilverRing silverRing = Item.silverRing();
                 return silverRing;
             case "ironsword":
-                ItemList.IronSword ironSword = ItemList.ironSword();
+                Item.IronSword ironSword = Item.ironSword();
                 return ironSword;
             case "manaflask":
-                ItemList.ManaFlask manaFlask = ItemList.manaFlask();
+                Item.ManaFlask manaFlask = Item.manaFlask();
                 return manaFlask;
             case "firescroll":
-                ItemList.FireScroll fireScroll = ItemList.fireScroll();
+                Item.FireScroll fireScroll = Item.fireScroll();
                 return fireScroll;
             case "healthpotion":
-                ItemList.HealthPotion healthPotion = ItemList.healthPotion();
+                Item.HealthPotion healthPotion = Item.healthPotion();
                 return healthPotion;
             default:
                 throw new IllegalStateException("Invalid item name");

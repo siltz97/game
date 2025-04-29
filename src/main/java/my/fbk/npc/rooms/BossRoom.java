@@ -11,7 +11,7 @@ import my.fbk.npc.factories.GoblinFactory;
 import my.fbk.npc.factories.KoboldFactory;
 import my.fbk.npc.factories.SkeletonFactory;
 import my.fbk.npc.factories.ZombieFactory;
-import my.fbk.npc.inventory.ItemList;
+import my.fbk.npc.inventory.Item;
 
 import java.util.List;
 import java.util.Random;
@@ -86,8 +86,8 @@ public class BossRoom extends AbstractRoom {
                         if (input.equals("back")) {
                             break;
                         }
-                        ItemList itemToUse = null;
-                        for (ItemList item : ((InventoryInteraction) player.getInventory()).getInventory()) {
+                        Item itemToUse = null;
+                        for (Item item : ((InventoryInteraction) player.getInventory()).getInventory()) {
                             if (item.getName().equalsIgnoreCase(input)) {
                                 itemToUse = item;
                                 break;

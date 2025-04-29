@@ -12,20 +12,20 @@ import java.util.List;
 @Getter
 @Setter
 public class InventoryInteraction implements Inventory {
-    public List<ItemList> inventory = new ArrayList<>();
+    public List<Item> inventory = new ArrayList<>();
 
     @Override
-    public void addItemToInventory(ItemList item) {
+    public void addItemToInventory(Item item) {
         inventory.add(item);
     }
 
     @Override
-    public void removeItemFromInventory(ItemList item) {
+    public void removeItemFromInventory(Item item) {
         inventory.remove(item);
     }
 
     @Override
-    public void buyItem(ItemList item, AbstractCharacter npc, Player player) {
+    public void buyItem(Item item, AbstractCharacter npc, Player player) {
         if (!(npc instanceof Merchant)) {
             return;
         }
@@ -47,7 +47,7 @@ public class InventoryInteraction implements Inventory {
     }
 
     @Override
-    public void sellItem(ItemList item, AbstractCharacter npc, Player player) {
+    public void sellItem(Item item, AbstractCharacter npc, Player player) {
         if (!(npc instanceof Merchant)) {
             return;
         }
@@ -74,7 +74,7 @@ public class InventoryInteraction implements Inventory {
         if (inventory.isEmpty()) {
             System.out.println("No items available.");
         } else {
-            for (ItemList item : inventory) {
+            for (Item item : inventory) {
                 System.out.println(item.getName() + " - " + item.getDescription() + " ($" + item.getPrice() + ")");
             }
         }
@@ -82,7 +82,7 @@ public class InventoryInteraction implements Inventory {
     }
 
     @Override
-    public void useItem(ItemList item, AbstractCharacter character) {
+    public void useItem(Item item, AbstractCharacter character) {
         if (inventory.contains(item)) {
             item.use(List.of(character));
             item.setDurability((item.getDurability() - 1));
@@ -92,12 +92,12 @@ public class InventoryInteraction implements Inventory {
         }
     }
 
-    public void addAllItemsToInventory(List<ItemList> list) {
+    public void addAllItemsToInventory(List<Item> list) {
         inventory.addAll(list);
     }
 
     @Override
-    public boolean contains(ItemList item) {
+    public boolean contains(Item item) {
         return inventory.contains(item);
     }
 

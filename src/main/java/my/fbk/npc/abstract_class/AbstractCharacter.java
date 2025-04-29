@@ -1,6 +1,7 @@
 package my.fbk.npc.abstract_class;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import my.fbk.npc.effects.AbstractEffect;
 import my.fbk.npc.inventory.Inventory;
@@ -13,6 +14,7 @@ import java.util.List;
 @SuppressWarnings("All")
 @Getter
 @Setter
+@NoArgsConstructor
 public abstract class AbstractCharacter {
     protected Inventory inventory = new InventoryInteraction();
     protected List<AbstractEffect> effects = new ArrayList<>();

@@ -7,7 +7,7 @@ import my.fbk.npc.factories.KoboldFactory;
 import my.fbk.npc.factories.SkeletonFactory;
 import my.fbk.npc.factories.ZombieFactory;
 import my.fbk.npc.inventory.InventoryInteraction;
-import my.fbk.npc.inventory.ItemList;
+import my.fbk.npc.inventory.Item;
 import my.fbk.npc.spells.FireBall;
 import my.fbk.npc.spells.FreezingField;
 import my.fbk.npc.spells.HolyHealing;
@@ -75,8 +75,8 @@ public class BattleRoom extends AbstractRoom {
                             break;
                         }
 
-                        ItemList itemToUse = null;
-                        for (ItemList item : ((InventoryInteraction) player.getInventory()).getInventory()) {
+                        Item itemToUse = null;
+                        for (Item item : ((InventoryInteraction) player.getInventory()).getInventory()) {
                             if (item.getName().equalsIgnoreCase(input)) {
                                 itemToUse = item;
                                 break;
@@ -136,7 +136,6 @@ public class BattleRoom extends AbstractRoom {
         );
         enemy = enemyTypes.get(rand.nextInt(enemyTypes.size()));
         System.out.println("you see a " + enemy.getName().toUpperCase() + " Get ready to fight!");
-
     }
 
     public void userInput() {

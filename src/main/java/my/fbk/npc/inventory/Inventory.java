@@ -7,25 +7,25 @@ import java.util.List;
 
 public interface Inventory {
 
-    void addItemToInventory(ItemList item);
+    void addItemToInventory(Item item);
 
-    void removeItemFromInventory(ItemList item);
+    void removeItemFromInventory(Item item);
 
-    void buyItem(ItemList item, AbstractCharacter npc, Player player);
+    void buyItem(Item item, AbstractCharacter npc, Player player);
 
-    void sellItem(ItemList item, AbstractCharacter npc, Player player);
+    void sellItem(Item item, AbstractCharacter npc, Player player);
 
     void showInventory();
 
-    void useItem(ItemList item, AbstractCharacter character);
+    void useItem(Item item, AbstractCharacter character);
 
     int getInventorySize();
 
-    void addAllItemsToInventory(List<ItemList> list);
+    void addAllItemsToInventory(List<Item> list);
 
     void takeLoot(Player player, AbstractCharacter enemy);
 
-    boolean contains(ItemList item);
+    boolean contains(Item item);
 
     void tradeBasedOnReputationBuy(AbstractCharacter character);
 

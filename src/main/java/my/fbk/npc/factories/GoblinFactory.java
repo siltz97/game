@@ -2,17 +2,21 @@ package my.fbk.npc.factories;
 
 import lombok.Getter;
 import lombok.Setter;
+import my.fbk.npc.NpcDao;
 import my.fbk.npc.enemy.Goblin;
 import my.fbk.npc.inventory.Inventory;
 import my.fbk.npc.inventory.InventoryInteraction;
-import my.fbk.npc.inventory.ItemList;
+import my.fbk.npc.inventory.Item;
 
+import java.util.List;
 import java.util.Random;
 
 /* Produces goblins. */
 @Getter
 @Setter
 public class GoblinFactory {
+
+    private static NpcDao npcDao = new NpcDao();
 
     private static final Random rand = new Random();
     private static final int baseWarriorHealth = 80;
@@ -26,9 +30,6 @@ public class GoblinFactory {
     private static final int baseBossDamage = 28;
 
     public static Goblin makeGoblinWarrior(int level) {
-
-
-
         Goblin goblinWarrior = new Goblin(30, 80, 15, 22, 21);
         goblinWarrior.setInventory(createInventory());
         goblinWarrior.setHealth((int) (baseWarriorHealth * (1 + 0.12 * (level - 1))));
@@ -66,9 +67,9 @@ public class GoblinFactory {
 
     public static Inventory createInventory() {
         InventoryInteraction inventory = new InventoryInteraction();
-        ItemList[] itemArray = ItemList.itemsHolder().toArray(new ItemList[0]);
+        List<Item> itemArray = npcDao.getItems();
         for (int i = 0; i < 1; i++) {
-            inventory.addItemToInventory(itemArray[rand.nextInt(itemArray.length)]);
+            inventory.addItemToInventory(itemArray.get(rand.nextInt(itemArray.size())));
         }
         return inventory;
     }

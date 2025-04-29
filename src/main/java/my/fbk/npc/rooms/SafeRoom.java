@@ -6,7 +6,7 @@ import my.fbk.npc.all_npc.AbstractNPC;
 import my.fbk.npc.all_npc.Merchant;
 import my.fbk.npc.factories.NPCFactory;
 import my.fbk.npc.inventory.InventoryInteraction;
-import my.fbk.npc.inventory.ItemList;
+import my.fbk.npc.inventory.Item;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -139,8 +139,8 @@ public class SafeRoom extends AbstractRoom {
                                     if (input.toUpperCase().equals("B")) {
                                         break;
                                     }
-                                    ItemList itemToBuy = null;
-                                    for (ItemList item : ((InventoryInteraction) merchant.getInventory()).getInventory()) {
+                                    Item itemToBuy = null;
+                                    for (Item item : ((InventoryInteraction) merchant.getInventory()).getInventory()) {
                                         if (item.getName().equalsIgnoreCase(input)) {
                                             itemToBuy = item;
                                             break;
@@ -166,8 +166,8 @@ public class SafeRoom extends AbstractRoom {
                                     if (input.toUpperCase().equals("B")) {
                                         break;
                                     }
-                                    ItemList itemToSell = null;
-                                    for (ItemList item : ((InventoryInteraction) player.getInventory()).getInventory()) {
+                                    Item itemToSell = null;
+                                    for (Item item : ((InventoryInteraction) player.getInventory()).getInventory()) {
                                         if (item.getName().equalsIgnoreCase(input)) {
                                             itemToSell = item;
                                             break;
