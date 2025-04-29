@@ -1,17 +1,16 @@
 package my.fbk.npc.rooms;
 
-import my.fbk.npc.abstract_class.AbstractCharacter;
-import my.fbk.npc.inventory.InventoryInteraction;
-import my.fbk.npc.spells.FireBall;
-import my.fbk.npc.spells.FreezingField;
-import my.fbk.npc.spells.HolyHealing;
-import my.fbk.npc.enemy.*;
 import my.fbk.npc.Game;
+import my.fbk.npc.abstract_class.AbstractCharacter;
 import my.fbk.npc.factories.GoblinFactory;
 import my.fbk.npc.factories.KoboldFactory;
 import my.fbk.npc.factories.SkeletonFactory;
 import my.fbk.npc.factories.ZombieFactory;
+import my.fbk.npc.inventory.InventoryInteraction;
 import my.fbk.npc.inventory.Item;
+import my.fbk.npc.spells.FireBall;
+import my.fbk.npc.spells.FreezingField;
+import my.fbk.npc.spells.HolyHealing;
 
 import java.util.List;
 import java.util.Random;
@@ -60,20 +59,20 @@ public class BossRoom extends AbstractRoom {
                     playerAttack();
                     enemyAttack();
                 } else if (input.equals("s")) {
-                    while(true) {
+                    while (true) {
                         System.out.println("Player's MP is: " + player.getMana());
                         System.out.println("Select a spell to use: 'fire' for fireball(30MP) ore 'heal' for healing(50MP) or 'back' ");
                         userInput();
                         if (input.equals("fire")) {
                             FireBall fire = new FireBall(30);
-                            player.cast(fire,List.of(enemy));
+                            player.cast(fire, List.of(enemy));
                         } else if (input.equals("heal")) {
                             HolyHealing heal = new HolyHealing(30);
                             player.cast(heal, List.of(player));
-                        }else if(input.equals("field")) {
-                                FreezingField freezingField = new FreezingField(30);
-                                player.cast(freezingField,List.of(enemy));
-                        }else if(input.equals("back")) {
+                        } else if (input.equals("field")) {
+                            FreezingField freezingField = new FreezingField(30);
+                            player.cast(freezingField, List.of(enemy));
+                        } else if (input.equals("back")) {
                             break;
                         }
                     }
@@ -94,25 +93,25 @@ public class BossRoom extends AbstractRoom {
                             }
                         }
                         if (itemToUse != null) {
-                            if(itemToUse.getName().equalsIgnoreCase("firescroll")){
-                                player.useItem(itemToUse,enemy);
-                            }else{
-                                player.useItem(itemToUse,player);
+                            if (itemToUse.getName().equalsIgnoreCase("firescroll")) {
+                                player.useItem(itemToUse, enemy);
+                            } else {
+                                player.useItem(itemToUse, player);
                             }
 
-                        }else
+                        } else
                             System.out.println("Not a name, retry");
                     }
 
                 } else if (input.equals("inv")) {
                     System.out.println("You casted invisibility and now you can pass through the enemy");
                     player.setMana(player.getMana() - 50);
-                    System.out.println("Player's MP: " + player.getMana()+"\n");
+                    System.out.println("Player's MP: " + player.getMana() + "\n");
                     game.moveNext();
-                }else if(input.equals("e")) {
+                } else if (input.equals("e")) {
                     player.showEquipment();
                 }
-            }catch (IllegalArgumentException e) {
+            } catch (IllegalArgumentException e) {
                 System.out.println("wrong input, retry");
             }
 
@@ -120,13 +119,15 @@ public class BossRoom extends AbstractRoom {
     }
 
     public void generateEnemy() {
-        List<AbstractEnemy> enemyTypes = List.of(
-                GoblinFactory.makeGoblinBoss(player.getLevel()),
-                KoboldFactory.makeKoboldBoss(player.getLevel()),
-                SkeletonFactory.makeSkeletonBoss(player.getLevel()),
-                ZombieFactory.makeZombieBoss(player.getLevel())
-        );
-        enemy = enemyTypes.get(rand.nextInt(enemyTypes.size()));
+        int num = rand.nextInt(4);
+        enemy = switch (num) {
+            case 0 -> GoblinFactory.makeRandomEnemy(player.getLevel());
+            case 1 -> KoboldFactory.makeRandomEnemy(player.getLevel());
+            case 2 -> SkeletonFactory.makeRandomEnemy(player.getLevel());
+            case 3 -> ZombieFactory.MakeRandomEnemy(player.getLevel());
+            default -> null;
+        };
+        System.out.println("you see a " + enemy.getName().toUpperCase() + " Get ready to fight!");
         System.out.println("you see a giant " + enemy.getName().toUpperCase() + " Get ready to fight!");
     }
 

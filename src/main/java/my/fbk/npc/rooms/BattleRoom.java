@@ -83,19 +83,19 @@ public class BattleRoom extends AbstractRoom {
                             }
                         }
                         if (itemToUse != null) {
-                            if(itemToUse.getName().equalsIgnoreCase("firescroll")){
-                                player.useItem(itemToUse,enemy);
-                            }else{
-                                player.useItem(itemToUse,player);
+                            if (itemToUse.getName().equalsIgnoreCase("firescroll")) {
+                                player.useItem(itemToUse, enemy);
+                            } else {
+                                player.useItem(itemToUse, player);
                             }
 
-                        }else
+                        } else
                             System.out.println("Not a name, retry");
                     }
 
                 } else if (input.equals("inv")) {
 // invisibility
-                        game.moveNext();
+                    game.moveNext();
 
                 } else if (input.equals("s")) {
 //spells
@@ -105,19 +105,19 @@ public class BattleRoom extends AbstractRoom {
                         userInput();
                         if (input.equals("fire")) {
                             FireBall fire = new FireBall(30);
-                            player.cast(fire,List.of(enemy));
+                            player.cast(fire, List.of(enemy));
                         } else if (input.equals("heal")) {
                             HolyHealing heal = new HolyHealing(30);
-                            player.cast(heal,List.of(player));
-                        }else if(input.equals("field")) {
+                            player.cast(heal, List.of(player));
+                        } else if (input.equals("field")) {
                             FreezingField freezingField = new FreezingField(30);
-                            player.cast(freezingField,List.of(enemy));
+                            player.cast(freezingField, List.of(enemy));
                         } else if (input.equals("back")) {
                             break;
                         }
                     }
 //equipment
-                }else if(input.equals("e")) {
+                } else if (input.equals("e")) {
                     player.showEquipment();
                 }
             } catch (IllegalArgumentException e) {
@@ -127,14 +127,14 @@ public class BattleRoom extends AbstractRoom {
     }
 
     public void generateEnemy() {
-        //the enemies are uselessly generated even if it is used only one of them
-        List<AbstractCharacter> enemyTypes = List.of(
-                GoblinFactory.makeRandomEnemy(player.getLevel()),
-                KoboldFactory.makeRandomEnemy(player.getLevel()),
-                SkeletonFactory.makeRandomEnemy(player.getLevel()),
-                ZombieFactory.MakeRandomEnemy(player.getLevel())
-        );
-        enemy = enemyTypes.get(rand.nextInt(enemyTypes.size()));
+        int num = rand.nextInt(4);
+        enemy = switch (num) {
+            case 0 -> GoblinFactory.makeRandomEnemy(player.getLevel());
+            case 1 -> KoboldFactory.makeRandomEnemy(player.getLevel());
+            case 2 -> SkeletonFactory.makeRandomEnemy(player.getLevel());
+            case 3 -> ZombieFactory.MakeRandomEnemy(player.getLevel());
+            default -> null;
+        };
         System.out.println("you see a " + enemy.getName().toUpperCase() + " Get ready to fight!");
     }
 
