@@ -7,6 +7,8 @@ import my.fbk.npc.all_npc.AbstractNPC;
 import my.fbk.npc.effects.AbstractEffect;
 import my.fbk.npc.effects.InvisibilityEffect;
 import my.fbk.npc.effects.MindControlEffect;
+import my.fbk.npc.enemy.Goblin;
+import my.fbk.npc.factories.GoblinFactory;
 import my.fbk.npc.inventory.InventoryInteraction;
 import my.fbk.npc.inventory.Item;
 import my.fbk.npc.spells.AbstractSpell;
@@ -161,7 +163,7 @@ public class Player extends AbstractPlayer {
             this.getInventory().addItemToInventory(itemToRob);
             npc.getInventory().removeItemFromInventory(itemToRob);
             System.out.println("You successfully stole " + itemToRob.getName());
-            npc.setReputation(npc.getReputation() -15);
+            npc.setReputation(npc.getReputation() - 15);
             System.out.println("And you lost the reputation of the npc: " + npc.getReputation());
 
         } else {
@@ -171,5 +173,9 @@ public class Player extends AbstractPlayer {
 
 
         }
+    }
+
+    public String getName() {
+        return "player";
     }
 }

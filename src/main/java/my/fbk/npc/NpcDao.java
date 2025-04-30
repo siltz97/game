@@ -2,6 +2,7 @@ package my.fbk.npc;
 
 
 import my.fbk.npc.Mapper.CharacterRowMapper;
+import my.fbk.npc.inventory.InventoryRowEntity;
 import my.fbk.npc.Mapper.ItemRowMapper;
 import my.fbk.npc.abstract_class.AbstractCharacter;
 import my.fbk.npc.inventory.Item;
@@ -35,9 +36,9 @@ public class NpcDao {
             String url = properties.getProperty("spring.datasource.url");
             String username = properties.getProperty("spring.datasource.username");
             String password = properties.getProperty("spring.datasource.password");
-            if(jdbcClient != null)
+            if (jdbcClient != null)
                 return jdbcClient;
-            else{
+            else {
                 return
                         JdbcClient.create(
                                 DataSourceBuilder.create().url(url).username(username).password(password).build()
@@ -48,7 +49,7 @@ public class NpcDao {
         }
     }
 
-    public AbstractCharacter getCharacter(String name) {
+    public AbstractCharacter getCharacterByName(String name) {
         String sql = """
                 SELECT *
                 FROM [Test].[dbo].[aa_Character]
@@ -59,18 +60,16 @@ public class NpcDao {
                 .query(new CharacterRowMapper())
                 .single();
     }
-//    public AbstractCharacter getPlayer(int id){
-//        String sql = """
-//                SELECT *
-//                FROM [Test].[dbo].[aa_Character]
-//                Where id = 10
-//                """;
-//        return jdbcClient.sql(sql)
-//                .param(id)
-//                .query(new CharacterRowMapper())
-//                .single();
-//    }
 
+    public List<AbstractCharacter> getAllCharacters() {
+        String sql = """
+                SELECT *
+                FROM [Test].[dbo].[aa_Character]
+                """;
+        return jdbcClient.sql(sql)
+                .query(new CharacterRowMapper())
+                .list();
+    }
 
     public int removeItemFromInventory(
             String character,
@@ -86,7 +85,7 @@ public class NpcDao {
                 .update();
     }
 
-    public Item getItemList(String name) {
+    public Item getItemByName(String name) {
         String sql = """
                 SELECT *
                 FROM [Test].[dbo].[aa_Items]
@@ -99,7 +98,7 @@ public class NpcDao {
     }
 
     /**
-    *   This method returns all items from the database.
+     * This method returns all items from the database.
      */
     public List<Item> getItems() {
         String sql = """
@@ -130,6 +129,55 @@ public class NpcDao {
 
     }
 
+    /**
+     * This method associates a list of items to a given character.
+     */
+    public void insertItems(List<String> items, String character) {
+        items
+                .stream()
+                .forEach(item -> insertItems(character, item));
+    }
+
+    public void insertItems(String character, String item) {
+
+        String sql = """
+                INSERT INTO [Test].[dbo].[aa_Inventory]
+                VALUES (?, ?)
+                """;
+        jdbcClient.sql(sql)
+                .param(character)
+                .param(item)
+                .update();
+    }
+
+    public boolean BuyItems(String whoBuys, String whoSells, String item) {
+        String sql1 = """
+                SELECT TOP(1) *
+                FROM [Test].[dbo].[aa_Inventory]
+                WHERE [character] = ? AND [item] = ?
+                """;
+        InventoryRowEntity soldItem = jdbcClient.sql(sql1)
+                .param(whoSells)
+                .param(item)
+                .query(InventoryRowEntity.class)
+                .single();
+        if (soldItem == null)
+            return false;
+
+        String sql = """
+                Update [Test].[dbo].[aa_Inventory]
+                SET [character] = ?
+                where [item] = ? AND [character] = ? AND id = ?
+                """;
+        return jdbcClient.sql(sql)
+                       .param(whoBuys)
+                       .param(item)
+                       .param(whoSells)
+                       .param(soldItem.getId())
+                       .update() == 1;
+
+
+    }
 
 
 }

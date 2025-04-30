@@ -8,7 +8,6 @@ import java.sql.SQLException;
 
 public class ItemRowMapper implements RowMapper<Item> {
 
-
     @Override
     public Item mapRow(ResultSet rs, int rowNum) throws SQLException {
         Item item = new Item(
